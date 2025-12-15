@@ -22,3 +22,18 @@ editor:
 echo: false
 ---
 
+```{r}
+#| label: setup
+#| message: false
+library(tidyverse)
+library(readxl)
+library(restatapi)
+library(DescTools)
+library(ggrepel)
+library(flextable)
+library(modelr)
+library(plm)
+library(broom)
+library(sandwich)
+```
+
