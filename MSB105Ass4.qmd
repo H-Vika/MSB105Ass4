@@ -171,9 +171,89 @@ gdp |>
   print(n = 25)
 ```
 
+# Population demo_r_pjanaggr3
+
+## oppgave 1
+Søker i toc_txt for tabeller
+```{r}
+pop_tabs <- toc_txt |>
+  filter(
+    # Matcher både population og Population
+    str_detect(
+      string = title,
+      pattern = "[Pp][Oo][Pp][Uu][Ll][Aa][Tt][Ii][Oo][Nn]"
+    ) &
+    # Matcher både NUTS3 og NUTS 3
+    str_detect(
+      string = title,
+      pattern = "[Nn][Uu][Tt][Ss]\\s*3"
+    )
+  ) |>
+  select(title, code)
+
+
+```
 
 
 
+## oppgave 2
+###(i)
+```{r}
+pop_tabs |>
+  filter(
+    str_detect(title, regex("population", ignore_case = TRUE)) &
+    str_detect(title, regex("NUTS\\s*3", ignore_case = TRUE))
+  )
+
+```
+
+```{r}
+pop_tabs |>
+  filter(
+    str_detect(
+      title,
+      fixed("Average annual population to calculate regional GDP data (thousand persons) by NUTS 3 region")
+    )
+  ) |>
+  select(code)
+```
+Finner at koden er demo_r_pjanaggr3 for tabellen med forklarende tekst «Average annual population to calculate regional GDP data (thousand persons) by NUTS 3 regions»
+
+###(ii)
+
+```{r}
+dsd_pop <- get_eurostat_dsd("demo_r_pjanaggr3")
+```
+
+###(iii)
+
+
+### (v)
+
+```{r}
+#| eval: true
+#| cache: true
+pop <- get_eurostat_data(
+ id = "nama_10r_3popgdp",
+ filters = list(
+ nuts_level = "3",
+ unit = "THS"
+ ),
+ exact_match = FALSE,
+ date_filter = 2000:2023,
+ stringsAsFactors = FALSE
+ ) |>
+ mutate(
+ pop_n3 = values * 1000
+ ) |> 
+  select(-c(unit, values)) |>
+ filter(str_length(geo) == 5) |> 
+ as_tibble()
+```
+
+```{r}
+dim(pop)
+```
 
 
 
