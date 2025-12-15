@@ -1,0 +1,24 @@
+---
+title: "Assignment 4:"
+subtitle:  "Eu statistikk."
+author: "Magnus Eidesmo og Harald Vika"
+date: last-modified
+date-format: "dddd D MMM, YYYY"
+lang: en-GB
+format:
+  html: default
+  typst:
+    papersize: a4
+  pdf: 
+    documentclass: article
+    number-sections: true
+    keep-tex: true
+    papersize: A4
+    fig-pos: "H"
+abstract: ""
+editor: 
+  markdown: 
+    wrap: sentence
+echo: false
+---
+
