@@ -406,17 +406,175 @@ eu_data |>
   print(n = 30)
 ```
 
+# Beregning av Gini på NUTS2, NUTS1 og NUTSc nivå
+Vi skal nå beregne Gini for hvert år på NUTS2, NUTS1, NUTSc og EU nivå. Vi vil beregne Gini utfra gdp_pc_n3 og pop_n3 i NUTS3 for alle aggregeringsnivåene.
+Gini-koeffisient er tradisjonelt et mål på inntektsforskjeller. Her benytter vi målet for å undersøke hvor jevnt verdiskapningen er fordelt mellom regioner. En Gini-koeffisient nær null vil altså her bety at verdiskapingen er jevnt fordelt mellom regionene i et land. En Gini-koeffisient nær 1 vil det derimot bety at det meste av verdiskapingen i et land er sentralisert til en spesifikk NUTS3 region.
+
+## Gini- koeffisient for NUTS2
+## Oppgave 9
+Beregner Gini-koeffisienter på NUTS2 nivå:
+
+```{r}
+gini_n2 <- eu_data |>
+  group_by(n2, time, n1, nc, nc_name) |> 
+  summarise(
+    gini_n2 = DescTools::Gini(gdp_pc_n3, weights = pop_n3, na.rm = TRUE),
+    pop_n2 = sum(pop_n3),
+    gdp_n2 = sum(gdp_n3),
+    gdp_pc_n2 =  gdp_n2 / pop_n2,
+    num_reg_n2 = n(),
+    .groups = "drop"
+  ) 
+```
+Kontrollerer:
+
+```{r}
+summary(
+  gini_n2 |>
+    select(gini_n2, num_reg_n2, pop_n2, gdp_n2, gdp_pc_n2)
+)
+```
+Får de samme tallene som kontrollen i oppgaven. Vi ser at vi har et spenn i Gini-koeffisienten på NUTS2 nivå fra 0.0004 til 0.4779. Vi har også 856 NAs. Vi ser også at antall NUTS3 i NUTS2 regioner spenner fra 1 til 23.
+
+## Oppgave 10
+Finner observasjoner med Gini < 0.001
+```{r}
+gini_n2 |>
+  filter(gini_n2 < 0.001)
+```
+Får opp 4 obervasjoner
+Se så på kjennetegnet ved disse regionene:
+```{r}
+gini_n2 |>
+  filter(gini_n2 < 0.001) |>
+  select(
+    nc_name,
+    n2,
+    time,
+    gini_n2,
+    num_reg_n2,
+    pop_n2,
+    gdp_pc_n2
+  ) |>
+  arrange(num_reg_n2)
+
+```
+
+Det som blir observert her er at de fleste har få NUTS3-regioner i sine NUTS2, noe som gjør at alle NUTS3 regionene er omtrent lik gdp_pc_n3 eller om det bare er en region. Derfor får disse observasjonene en ekstremt lav Gini.
+
+## Oppgave 11
+Beregn Gini-koeffsienter på NUTS1-nivå, der gdp_pc_n2 eller pop_n2 ikke skal brukes som grunnlag:
+```{r}
+gini_n1 <- eu_data |>
+  group_by(n1, time, nc, nc_name) |>
+  summarise(
+    gini_n1 = DescTools::Gini(
+      gdp_pc_n3,
+      weights = pop_n3,
+      na.rm = TRUE
+    ),
+    pop_n1 = sum(pop_n3),
+    gdp_n1 = sum(gdp_n3),
+    gdp_pc_n1 = gdp_n1 / pop_n1,
+    num_reg_n1 = n(),
+    .groups = "drop"
+  )
+
+```
+Kontrollerer:
+```{r}
+gini_n1 |>
+  select(gini_n1, num_reg_n1, gdp_n1, pop_n1, gdp_pc_n1) |>
+  summary() |>
+  print(width = 80)
+
+```
+Får de samme tallene som oppgaven. Vi ser at vi har et spenn i Gini-koeffisienten på NUTS1 nivå fra 0.016 til 0.429. Antall NAs er nå 177. Vi ser at antall NUTS3 i NUTS1 regioner spenner helt fra 1 til 96.
+
+## Oppgave 12
+Beregn Gini-koeffisienter på nasjonsnivå
+Måler hvor jevnt verdiskapningen er fordelt mellom regioner innen samme land:
+```{r}
+gini_nc <- eu_data |>
+  group_by(nc, time, nc_name) |>
+  summarise(
+    gini_nc = DescTools::Gini(
+      gdp_pc_n3,
+      weights = pop_n3,
+      na.rm = TRUE
+    ),
+    pop_nc = sum(pop_n3),
+    gdp_nc = sum(gdp_n3),
+    gdp_pc_nc = gdp_nc / pop_nc,
+    num_reg_nc = n(),
+    .groups = "drop"
+  )
+
+```
+
+Kontrollerer 
+```{r}
+gini_nc |> 
+  select(gini_nc, num_reg_nc, gdp_nc, pop_nc, gdp_pc_nc) |> 
+  summary() |> 
+  print(width = 80)
+```
+Får samme som oppgaven. På landsnivå varierer Gini fra 0,1111 til 0,3991. Antall NUTS3 regioner per land varierer fra 1 til 400.
+
+# "Nestete" datastrukturer
+Vi vil nå «neste» de ulike gini_NUTS* datasettene og sette dem sammen til et nestet datasett eu_data_nestet som innholder alle dataene ovenfor i en fint ordnet struktur.
+
+## Oppgave 13
+"neste" dataene på NUTS3 nivå
+```{r}
+gini_n3_nest <- eu_data |> 
+  group_by(nc_name, nc) |> 
+  nest(.key = "NUTS3_data") |> 
+  ungroup()
+```
+
+```{r}
+gini_n3_nest
+```
 
 
+## Oppgave 14
+«Nest» dataene på NUTS2 nivå. Legg resultatet gini_NUTS2_nest. Bruk .key = "NUTS2_data".
+```{r}
+gini_n2_nest <- gini_n2 |>
+  group_by(nc_name, nc)|>
+ nest(.key = "NUTS2_data")
+```
 
+## Oppgave 15
+«Nest» dataene på NUTS1 nivå. Legg resultatet gini_NUTS1_nest.
+```{r}
+gini_NUTS1_nest <- gini_n1 |>
+  group_by(nc_name, nc) |>
+  nest(.key = "NUTS1_data") |>
+  ungroup()
+```
 
+## Oppgave 16 
+«Nest» dataene på nasjonsnivå. Legg resultatet i gini_NUTSc_nest.
+```{r}
+gini_NUTSc_nest <- gini_nc |>
+  group_by(nc_name, nc) |>
+  nest(.key = "NUTSc_data") |>
+  ungroup()
+```
 
+## Oppgave 17
+«Nest» dataene på EU nivå, dvs. Gini for samtlige NUTS3 regioner hvert år. Legger resultatet i gini_NUTSeu_nest. _nest er her litt misvisende siden vi ikke gjør noen nesting.
 
-
-
-
-
-
-
+```{r}
+gini_NUTSeu_nest <- eu_data |>
+  group_by(time) |> 
+  summarise(
+    gini_eu = DescTools::Gini(gdp_pc_n3, weights = pop_n3, na.rm = TRUE),
+    num_reg_eu = n(),
+    .groups = "drop"
+  ) 
+```
 
 
