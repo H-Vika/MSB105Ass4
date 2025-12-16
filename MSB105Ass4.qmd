@@ -220,16 +220,13 @@ pop_tabs |>
 Finner at koden er demo_r_pjanaggr3 for tabellen med forklarende tekst «Average annual population to calculate regional GDP data (thousand persons) by NUTS 3 regions»
 
 ###(ii)
-
+Last ned Data Structure Definition (DSD) for denne tabellen.
 ```{r}
 dsd_pop <- get_eurostat_dsd("demo_r_pjanaggr3")
 ```
 
-###(iii)
-
-
-### (v)
-
+### (iii) (iv) og (v)
+Tre av oppgavene i en, laster ned dataen og gi den navnet pop, plukker ut årene fra 2000 til 2023 og den totale befolkningen, begrenser datasettet til NUTS3 regioner og konverterer settet til en tibble.
 ```{r}
 #| eval: true
 #| cache: true
@@ -254,6 +251,169 @@ pop <- get_eurostat_data(
 ```{r}
 dim(pop)
 ```
+
+## Oppgave 3
+Slå sammen GDP-data (gdp) og befolkingsdata (pop)
+```{r}
+gdp_pop <- gdp |>
+  left_join(pop, by = c("geo", "time"))
+```
+
+Kontrollerer:
+
+```{r}
+dim(gdp_pop)
+head(gdp_pop)
+```
+
+Gjør følgende tilpasning av gdp_pop:
+```{r}
+eu_data <- gdp_pop %>%
+  # Trenger ikke ZZ sonene som er en slag oppsamlingssone
+  # for ikke fordelte verdier
+  filter(!str_sub(geo, 3, 4) == "ZZ") |> 
+  # Drop the EFTA countries Switzerland and Norway
+  filter(!str_sub(geo, 1, 2) %in% c("CH", "NO")) |> 
+  # Drop the EU countries Netherlands and Portugal
+  filter(!str_sub(geo, 1, 2) %in% c("NL", "PT")) |> 
+  # Drop candidate country Monte Negro because of data
+  filter(!str_sub(geo, 1, 2) %in% c("ME")) |> 
+  # Drop a region of France in the Indian Ocean (Outre Mer); Mayotte
+  # because of missing data
+  filter(!geo == "FRY50") |> 
+  # note that a few countries will have missing data for
+  # some years at the start of the period
+  filter(time > 1999 & time < 2023)
+```
+
+Regner ut gdp per capita og gir den et nytt navn:
+```{r}
+eu_data <- eu_data |>
+  mutate(
+  gdp_pc_n3 = gdp_n3 / pop_n3
+)
+```
+
+Kontrollerer:
+```{r}
+dim(eu_data)
+```
+Sjekker om vi mangler data for enkelte år for noen soner:
+
+```{r}
+dim(
+  eu_data |>
+    filter(is.na(gdp_pc_n3))
+)
+```
+Var ikke noe mer NA-verdier igjen i gdp_pc_n3
+Kvitter oss med andre objekter for å rydde litt ettersom vi bare skal bruke eu_data videre:
+```{r}
+# don't run if you don't mean it.
+rm(list = setdiff(ls(), c("eu_data")))
+```
+
+
+## Oppgave 4
+Endrer ny navn på geo til n3 og legger til variablene n2, n1 og nc fra variabelen n3.
+```{r}
+eu_data <- eu_data |>
+  rename(n3 = geo) |>
+  mutate(
+    n2 = str_sub(n3, 1, 4),
+    n1 = str_sub(n3, 1, 3),
+    nc = str_sub(n3, 1, 2)
+  )
+
+```
+
+## Oppgave 5
+Undersøk om vi har noen NUTS 3 soner med pop_n3 lik 0. Hvis det er noen så endre disse til NA.
+Undersøker: 
+```{r}
+eu_data |>
+  filter(pop_n3 == 0)
+```
+Fant ingen rader med 0 og vi går videre, trenger ikke å endre noe til NA.
+
+## Oppgave 6
+Sjekker hvor mange NUTS3 soner vi har i hvert land, tar en strukturkontroll:
+```{r}
+eu_data |>
+  select(nc, n3) |> # Henter ut de variablene vi trenger
+  distinct() |> # Fjerner duplikater 
+  group_by(nc) |> # Grupperer per land
+  summarise(
+    num_nuts3 = n(),
+    .groups = "drop"
+  ) |>
+  arrange(desc(num_nuts3)) # Gir mest informative oversikt, legger det største landet øverst
+```
+
+## Oppgave 7
+Sjekker summary for gdp_pc_n3 for å se om hva som er har den største og minste verdien og om det er noen NA:
+```{r}
+summary(eu_data$gdp_pc_n3)
+```
+
+Minste verdien er 2 214, mens max er på 180 416. Får ingen NA.
+
+## Oppgave 8 
+Bruk case_when() for å legge til variabelen nc_name før vi går videre. Østerrike for AT, Belgia for BE etc..
+```{r}
+eu_data <- eu_data |>
+  mutate(
+    nc_name = case_when(
+      nc == "AL" ~ "Albania",
+      nc == "AT" ~ "Østerrike",
+      nc == "BE" ~ "Belgia",
+      nc == "BG" ~ "Bulgaria",
+      nc == "CY" ~ "Kypros",
+      nc == "CZ" ~ "Tjekkia",
+      nc == "DE" ~ "Tyskland",
+      nc == "DK" ~ "Danmark",
+      nc == "EE" ~ "Estland",
+      nc == "EL" ~ "Hellas",
+      nc == "ES" ~ "Spania",
+      nc == "FI" ~ "Finland",
+      nc == "FR" ~ "Frankrike",
+      nc == "HR" ~ "Kroatia",
+      nc == "HU" ~ "Ungarn",
+      nc == "IE" ~ "Irland",
+      nc == "IT" ~ "Italia",
+      nc == "LT" ~ "Litauen",
+      nc == "LU" ~ "Luxemburg",
+      nc == "LV" ~ "Latvia",
+      nc == "MK" ~ "Nord-Makedonia",
+      nc == "MT" ~ "Malta",
+      nc == "PL" ~ "Polen",
+      nc == "RO" ~ "Romania",
+      nc == "RS" ~ "Serbia",
+      nc == "SE" ~ "Sverige",
+      nc == "SI" ~ "Slovenia",
+      nc == "SK" ~ "Slovakia",
+      nc == "TR" ~ "Tyrkia",
+      TRUE ~ NA_character_
+    )
+  )
+
+```
+Kontrollerer:
+```{r}
+eu_data |> 
+  select(nc_name, nc) |> 
+  distinct() |> 
+  print(n = 30)
+```
+
+
+
+
+
+
+
+
+
 
 
 
