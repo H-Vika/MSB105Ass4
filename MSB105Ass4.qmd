@@ -448,39 +448,189 @@ gini_n2 |>
 
 ```
 #### Oppgave 10
+Sjekk obs. med Gini mindre enn 0.001. Er det noe som kjennetegner disse regionene?
+
+```{r}
+low_gini_n2 <- gini_n2 |>
+  filter(gini_n2 < 0.001) |>
+  arrange(gini_n2)
+
+low_gini_n2 |>
+  select(nc_name, n2, time, gini_n2, num_reg_n2) |>
+  print(n = 50)
+
+```
+Alle disse regionene har kun to underliggende NUTS3 regioner. Og i disse årene er de underliggende NUTS3 regionene tilnærmet like, derfor får vi en såpass lav gini.
 
 
+#### Oppgave 11
+Beregn Gini-koeffisienter på NUTS1 nivå (ut fra gdp_pc_n3og pop_n3). Legg resultatet i
+gini_n1. Et alternativ her ville vært å beregnet Gini fra gdp_pc_n2 og pop_n2 i NUTS1
+regionene. Vi får imidlertid større spredning og trolig også et bedre mål på likhet/ulikhet
+ved å beregne Gini utfra gdp_pc_n3og pop_n3.
+
+```{r}
+gini_n1 <- eu_data |>
+  group_by(n1, time, nc, nc_name) |>
+  summarise(
+    gini_n1 = DescTools::Gini(
+      gdp_pc_n3,
+      weights = pop_n3,
+      na.rm = TRUE
+    ),
+    pop_n1 = sum(pop_n3, na.rm = TRUE),
+    gdp_n1 = sum(gdp_n3, na.rm = TRUE),
+    gdp_pc_n1 = gdp_n1 / pop_n1,
+    num_reg_n1 = n(),
+    .groups = "drop"
+  )
+
+gini_n1 |>
+  select(gini_n1, num_reg_n1, gdp_n1, pop_n1, gdp_pc_n1) |>
+  summary() |>
+  print(width = 80)
+```
+
+#### Oppgave 12
+Beregn Gini-koeffisienter (ut fra variasjon i verdiskapning på NUTS3 nivå) på nasjonsnivå. Legg resultatet i gini_nc.
+
+```{r}
+gini_nc <- eu_data |>
+  group_by(nc, nc_name, time) |>
+  summarise(
+    gini_nc = DescTools::Gini(
+      gdp_pc_n3,
+      weights = pop_n3,
+      na.rm = TRUE
+    ),
+    pop_nc = sum(pop_n3, na.rm = TRUE),
+    gdp_nc = sum(gdp_n3, na.rm = TRUE),
+    gdp_pc_nc = gdp_nc / pop_nc,
+    num_reg_nc = n(),
+    .groups = "drop"
+  )
+
+gini_nc |>
+  select(gini_nc, num_reg_nc, gdp_nc, pop_nc, gdp_pc_nc) |>
+  summary() |>
+  print(width = 80)
+```
+
+## «Nestete» datastrukturer
+
+#### Oppgave 13
+Bruk koden nedenfor til å «neste» dataene på NUTS3 nivå.
+
+```{r}
+gini_n3_nest <- eu_data |>
+  group_by(nc_name, nc) |>
+  nest(.key = "NUTS3_data") |>
+  ungroup()
+```
+
+```{r}
+gini_n3_nest
+```
 
 
+#### Oppgave 14
+Nest dataene på NUTS2 nivå. Legg resultatet gini_NUTS2_nest. Bruk .key = "NUTS2_data".
 
+```{r}
+gini_NUTS2_nest <- gini_n2 |>
+  group_by(nc_name, nc) |>
+  nest(.key = "NUTS2_data") |>
+  ungroup()
 
+```
 
+```{r}
+gini_NUTS2_nest
+```
 
+#### Oppgave 15
+«Nest» dataene på NUTS1 nivå. Legg resultatet gini_NUTS1_nest.
 
+```{r}
+gini_NUTS1_nest <- gini_n1 |>
+  group_by(nc_name, nc) |>
+  nest(.key = "NUTS1_data") |>
+  ungroup()
+```
 
+```{r}
+gini_NUTS1_nest
+```
 
+#### Oppgave 16
+«Nest» dataene på nasjonsnivå. Legg resultatet i gini_NUTSc_nest.
 
+```{r}
+gini_NUTSc_nest <- gini_nc |>
+  group_by(nc_name, nc) |>
+  nest(.key = "NUTSc_data") |>
+  ungroup()
+```
 
+```{r}
+gini_NUTSc_nest
+```
 
+#### Oppgave 17
+«Nest» dataene på EU nivå, dvs. Gini for samtlige NUTS3 regioner hvert år. Legg resultatet
+i gini_NUTSeu_nest. _nest er her litt misvisende siden vi ikke gjør noen nesting
 
+```{r}
+gini_NUTSeu_nest <- eu_data |>
+ group_by(time) |>
+ summarise(
+ gini_eu = DescTools::Gini(gdp_pc_n3, weights = pop_n3, na.rm = TRUE),
+ num_reg_eu = n(),
+ .groups = "drop"
+ )
+```
 
+#### Oppgave 18
+Vis utviklingen i Gini-koeffisienten for NUTS3 regioner i EU vha. et linjeplot.
 
+```{r}
+gini_NUTSeu_nest |>
+  ggplot(aes(x = as.integer(time), y = gini_eu)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 1) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten for NUTS3-regioner i EU",
+    x = "Year",
+    y = "gini_eu"
+  ) +
+  theme_minimal()
 
+```
 
+#### Oppgave 19
+Basert på plottet fra foregående oppgave diskuter (veldig!) kort om tiltaket ser ut til å virke.
 
+Plottet viser en tydelig fallende trend i Gini-koeffisienten for NUTS3-regioner i EU over perioden, særlig fra midten av 2000-tallet og fremover. Dette indikerer at ulikheten i verdiskaping mellom regioner har blitt redusert over tid. Utviklingen er konsistent med målsettingen bak EUs strukturfond og samholdsfond, som retter investeringer mot mindre utviklede regioner. Selv om andre faktorer også kan ha påvirket utviklingen, gir plottet støtte til at tiltakene samlet sett kan ha hatt en utjevnende effekt på regional ulikhet i EU.
 
+#### Oppgave 20
+Ta gini_n3_nestsom utgangspunkt og bruk left_join() til å legge til datasettene gini_NUTS2_nest, gini_NUTS1_nest og gini_NUTSc_nest
 
+```{r}
+eu_data_nested <- gini_n3_nest |>
+  left_join(gini_NUTS2_nest, by = c("nc_name", "nc")) |>
+  left_join(gini_NUTS1_nest, by = c("nc_name", "nc")) |>
+  left_join(gini_NUTSc_nest, by = c("nc_name", "nc"))
 
+```
 
+```{r}
+# don't run if you don't mean it.
+rm(list = setdiff(ls(), c("eu_data", "eu_data_nested")))
+```
 
+## Plots som viser utviklingen
 
-
-
-
-
-
-
-
+#### Oppgave 21
 
 
 
