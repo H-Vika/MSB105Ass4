@@ -20,12 +20,12 @@ editor:
   markdown: 
     wrap: sentence
 echo: false
+warning: false
 ---
 
 ```{r}
 #| label: setup
 #| message: false
-#| warning: false
 library(tidyverse)
 library(readxl)
 library(restatapi)
@@ -631,26 +631,161 @@ rm(list = setdiff(ls(), c("eu_data", "eu_data_nested")))
 ## Plots som viser utviklingen
 
 #### Oppgave 21
+Lag et linjeplot i ggplot som viser utviklingen i Gini-koeffisient på nasjonsnivå for de 29
+landene vi har med. Husk argumentet group =. Resulatet skal bli som vist i Figur 5.
+
+```{r}
+gini_nc_long <- eu_data_nested |>
+  unnest(NUTSc_data)
+
+```
+
+```{r}
+#| label: fig-ginialle
+#| fig-cap: "Utviklingen over tid for Gini-koeffisienten for de 29 landene. Husk at Gini-koeffisienten her måler endring i hvordan verdiskapningen i landet er fordelt mellom NUTS3 regioner."
+gini_nc_long |>
+  ggplot(aes(
+    x = as.integer(time),
+    y = gini_nc,
+    group = nc_name,
+    colour = nc_name
+  )) +
+  geom_line(linewidth = 0.7) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten på nasjonsnivå",
+    x = "time",
+    y = "Gini_nc"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "right",
+    legend.title = element_blank()
+  )
+
+```
 
 
+#### Oppgave 22
+Lag en sortert tabell for Gini i år 2022 som gjør det litt lettere å se hvilken linje som hører
+til hvilket land.
 
+```{r}
+#| label: tbl-gini2022
+#| tbl-cap: "Gini-koeffisient for gnp i 2022. Kypros og Luxemburg har bare en sone og følgelig ingen Gini-koeffisient."
 
+gini_2022 <- eu_data_nested |>
+  unnest(NUTSc_data) |>
+  filter(time == "2022") |>
+  select(nc_name, gini_nc) |>
+  arrange(desc(gini_nc))
 
+gini_2022 |>
+  flextable() |>
+  autofit()
+```
 
+#### Oppgave 23
+Del landene i to grupper, dem som har lavere Gini i 2022 enn første året (dvs. utgjevning
+over tid mellom regionene) og dem som har høyere Gini i 2022 enn første året (dvs. større
+forskjeller mellom regionene). Vis utviklingen i de to gruppene vha. linjeplot.
 
+```{r}
+gini_long <- eu_data_nested |>
+  unnest(NUTSc_data) |>
+  mutate(year = as.integer(time)) |>
+  arrange(nc_name, year) |>
+  # Fjern NA og NaN (NaN oppstår ofte når num_reg_nc == 1)
+  filter(!is.na(gini_nc) & !is.nan(gini_nc))
 
+```
 
+```{r}
+gini_change <- gini_long |>
+  group_by(nc_name) |>
+  summarise(
+    first_year = first(year),
+    gini_first = first(gini_nc),
 
+    has_2022 = any(year == 2022),
+    comp_year = if_else(has_2022, 2022L, last(year)),
+    gini_comp = if_else(has_2022, gini_nc[year == 2022][1], last(gini_nc)),
 
+    .groups = "drop"
+  ) |>
+  mutate(
+    gruppe = if_else(
+      gini_comp < gini_first,
+      "Lavere regional ulikhet (2022 eller siste år)",
+      "Høyere regional ulikhet (2022 eller siste år)"
+    )
+  )
 
+```
 
+```{r}
+gini_long2 <- gini_long |>
+  left_join(gini_change |> select(nc_name, gruppe), by = "nc_name")
 
+```
 
+```{r}
+#| label: fig-Lavgini
+#| fig-cap: "Land med lavere regional ulikhet i 2022 enn første år vi har data for."
+gini_long2 |>
+  filter(gruppe == "Lavere regional ulikhet (2022 eller siste år)") |>
+  ggplot(aes(x = year, y = gini_nc, colour = nc_name, group = nc_name)) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Land med lavere regional ulikhet (2022 hvis mulig, ellers siste år)",
+    x = "År", y = "Gini-koeffisient", colour = "Land"
+  ) +
+  theme_minimal()
 
+```
 
+```{r}
+#| label: fig-Lavgini
+#| fig-cap: "Land med høyere regional ulikhet i 2022 enn første år vi har data for."
+gini_long2 |>
+  filter(gruppe == "Høyere regional ulikhet (2022 eller siste år)") |>
+  ggplot(aes(x = year, y = gini_nc, colour = nc_name, group = nc_name)) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Land med høyere regional ulikhet (2022 hvis mulig, ellers siste år)",
+    x = "År", y = "Gini-koeffisient", colour = "Land"
+  ) +
+  theme_minimal()
+```
 
+#### Oppgave 24
+Vis vha. et linjeplot utviklingen i gini-koeffisient for NUTS2 regionene i Irland.
 
+```{r}
+irl_nuts2 <- eu_data_nested |>
+  unnest(NUTS2_data) |>
+  filter(nc_name == "Irland")
 
+```
+
+```{r}
+irl_nuts2 |>
+  ggplot(aes(
+    x = as.integer(time),
+    y = gini_n2,
+    group = n2,
+    colour = n2
+  )) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten for NUTS2-regionene i Irland",
+    x = "År",
+    y = "Gini-koeffisient",
+    colour = "NUTS2"
+  ) +
+  theme_minimal()
+```
+
+## Hvordan er verdiskapningen fordelt mellom regionene i ulike land?
 
 
 
