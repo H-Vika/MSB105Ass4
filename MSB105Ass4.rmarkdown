@@ -228,77 +228,18 @@ dsd_pop |>
  width(j = 2, width = 2) |>
  width(j = 3, width = 2)
 
-```
-
-iii. Bruk opplysningene i DSD for å formulere en spørring mot Eurostat og last ned dataene. Gi dataene lastet ned navnet pop. Vi er bare interessert i totalbefolkning og ignorerer derfor både kjønn og alder. Vi ønsker data for årene 2000-2023.
-
-```{r}
-#| eval: true
-#| cache: true
-pop_raw <- get_eurostat_data(
-  id = pop_code,
-  filters = list(
-    nuts_level = "3"
-  ),
-  exact_match = FALSE,
-  date_filter = 2000:2023,
-  stringsAsFactors = FALSE
-)
-
-pop <- pop_raw |>
-  mutate(
-    pop_n3 = 1000 * values) |>
-  select(geo, time, pop_n3) |>
-  filter(str_length(geo) == 5) |>
-  as_tibble()
-```
-
-```{r}
-dim(pop)
-pop
-```
-
-#### Oppgave 3
-
-Gjør en left_join() av de to tabellene. La gdp være venstre tabell (Viktig!). Gi resultatet
-navnet gdp_pop.
-
-```{r}
-gdp_pop <- gdp |>
-  left_join(pop, by = join_by(geo, time))
-
-```
-
-```{r}
-eu_data <- gdp_pop %>%
- # Trenger ikke ZZ sonene som er en slag oppsamlingssone
- # for ikke fordelte verdier
- filter(!str_sub(geo, 3, 4) == "ZZ") |>
- # Drop the EFTA countries Switzerland and Norway
- filter(!str_sub(geo, 1, 2) %in% c("CH", "NO")) |>
- # Drop the EU countries Netherlands and Portugal
- filter(!str_sub(geo, 1, 2) %in% c("NL", "PT")) |>
- # Drop candidate country Monte Negro because of data
- filter(!str_sub(geo, 1, 2) %in% c("ME")) |>
- # Drop a region of France in the Indian Ocean (Outre Mer); Mayotte
- # because of missing data
- filter(!geo == "FRY50") |>
- # note that a few countries will have missing data for
- # some years at the start of the period
- filter(time > 1999 & time < 2023)
-
-```
-
-```{r}
-eu_data <- eu_data |>
-  mutate(gdp_pc_n3 = gdp_n3 / pop_n3)
-
+%>% 
 ```
 
 
-```{r}
-dim(eu_data)
-```
+
+
+
+
+
+
+
+
 
 
 
