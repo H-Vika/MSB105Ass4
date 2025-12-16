@@ -761,14 +761,9 @@ gini_long2 |>
 Vis vha. et linjeplot utviklingen i gini-koeffisient for NUTS2 regionene i Irland.
 
 ```{r}
-irl_nuts2 <- eu_data_nested |>
+eu_data_nested |>
   unnest(NUTS2_data) |>
-  filter(nc_name == "Irland")
-
-```
-
-```{r}
-irl_nuts2 |>
+  filter(nc_name == "Irland") |>
   ggplot(aes(
     x = as.integer(time),
     y = gini_n2,
@@ -786,16 +781,117 @@ irl_nuts2 |>
 ```
 
 ## Hvordan er verdiskapningen fordelt mellom regionene i ulike land?
+### Spania
+#### Oppgave 25
+Lag et linje-plot som viser utviklingen i Gini-koeffisientene for NUTS2 regionene i Spania.
+
+```{r}
+eu_data_nested |>
+  unnest(NUTS2_data) |>
+  filter(nc_name == "Spania") |>
+  ggplot(aes(
+    x = as.integer(time),
+    y = gini_n2,
+    group = n2,
+    colour = n2
+  )) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten for NUTS2-regionene i Spania",
+    x = "År",
+    y = "Gini-koeffisient",
+    colour = "NUTS2"
+  ) +
+  theme_minimal()
+
+```
+
+#### Oppgave 26
+Lag et line-plot som viser utviklingen i Gini-koeffisientene for NUTS1 regionene i Spania.
 
 
 
+```{r}
+eu_data_nested |>
+  unnest(NUTS1_data) |>
+  filter(nc_name == "Spania") |>
+  ggplot(aes(
+    x = as.integer(time),
+    y = gini_n1,
+    group = n1,
+    colour = n1
+  )) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten for NUTS1-regionene i Spania",
+    x = "År",
+    y = "Gini-koeffisient",
+    colour = "NUTS1"
+  ) +
+  theme_minimal()
+
+```
+
+### Tyskland
+#### Oppgave 27
+Lag et line-plot som viser utviklingen i Gini-koeffisient for NUTS2 regionene i Tyskland.
+Dropp gjerne farger. Det er så mange regioner at de er vanskelig å skille.
 
 
+```{r}
+eu_data_nested |>
+  unnest(NUTS2_data) |>
+  filter(nc_name == "Tyskland") |>
+  ggplot(aes(
+    x = as.integer(time),
+    y = gini_n2,
+    group = n2
+  )) +
+  geom_line(alpha = 1) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten for NUTS2-regionene i Tyskland",
+    x = "År",
+    y = "Gini-koeffisient"
+  ) +
+  theme_minimal()
+
+```
+
+#### Oppgave 28
+Er det samme er tilfelle når vi ser på de større regionene i Tyskland (NUTS1)?
 
 
+```{r}
+eu_data_nested |>
+  unnest(NUTS1_data) |>
+  filter(nc_name == "Tyskland") |>
+  ggplot(aes(
+    x = as.integer(time),
+    y = gini_n1,
+    group = n1,
+    color = n1
+  )) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten for NUTS1-regionene i Tyskland",
+    x = "År",
+    y = "Gini-koeffisient"
+  ) +
+  theme_minimal()
 
+```
+```{r}
+eu_data_nested |>
+ unnest(NUTS1_data) |>
+ filter(nc_name == "Tyskland") |>
+ filter(time == "2022") |>
+ select(n1, gini_n1, num_reg_n1) |>
+ arrange(desc(gini_n1)) |>
+ flextable() |>
+ line_spacing(space = 0.3) |>
+ colformat_double(j = 2, digits = 4)
 
-
+```
 
 
 
