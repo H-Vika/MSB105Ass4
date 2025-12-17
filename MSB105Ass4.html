@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB" xml:lang="en-GB"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Magnus Eidesmo og Harald Vika">
+
+<title>Assignment 4:</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="MSB105Ass4_files/libs/clipboard/clipboard.min.js"></script>
+<script src="MSB105Ass4_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="MSB105Ass4_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="MSB105Ass4_files/libs/quarto-html/popper.min.js"></script>
+<script src="MSB105Ass4_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="MSB105Ass4_files/libs/quarto-html/anchor.min.js"></script>
+<link href="MSB105Ass4_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="MSB105Ass4_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="MSB105Ass4_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="MSB105Ass4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="MSB105Ass4_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="MSB105Ass4_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+
+<script src="MSB105Ass4_files/libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="MSB105Ass4.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li><li><a href="MSB105Ass4.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Assignment 4:</h1>
+<p class="subtitle lead">Eu statistikk.</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Magnus Eidesmo og Harald Vika </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Wednesday 17 Dec, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-55374a2e{}.cl-552a319a{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-553015b0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-553042d8{width:3.5in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553042ec{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553042ed{width:3.5in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553042f6{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-553042f7{width:3.5in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-55304300{width:1.5in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-55374a2e"><thead><tr style="overflow-wrap:break-word;"><th class="cl-553042d8"><p class="cl-553015b0"><span class="cl-552a319a">title</span></p></th><th class="cl-553042ec"><p class="cl-553015b0"><span class="cl-552a319a">code</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-553042ed"><p class="cl-553015b0"><span class="cl-552a319a">Average annual population to calculate regional GDP data (thousand persons) by NUTS 3 region</span></p></td><td class="cl-553042f6"><p class="cl-553015b0"><span class="cl-552a319a">nama_10r_3popgdp</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-553042f7"><p class="cl-553015b0"><span class="cl-552a319a">Gross domestic product (GDP) at current market prices by NUTS 3 region</span></p></td><td class="cl-55304300"><p class="cl-553015b0"><span class="cl-552a319a">nama_10r_3gdp</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell" data-tbl-cap="Frekvensen er årlig og vi velger å benytte MIO_PPS_EU27_2020 som enhet.">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-5a878728{}.cl-5a7acc90{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5a801696{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5a804710{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5a80471a{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5a804724{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5a80472e{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5a80472f{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5a804738{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-5a878728"><caption><p>Frekvensen er årlig og vi velger å benytte MIO_PPS_EU27_2020 som
+enhet.</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-5a804710"><p class="cl-5a801696"><span class="cl-5a7acc90">concept</span></p></th><th class="cl-5a80471a"><p class="cl-5a801696"><span class="cl-5a7acc90">code</span></p></th><th class="cl-5a80471a"><p class="cl-5a801696"><span class="cl-5a7acc90">name</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-5a804724"><p class="cl-5a801696"><span class="cl-5a7acc90">freq</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">A</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">Annual</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5a804724"><p class="cl-5a801696"><span class="cl-5a7acc90">unit</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">MIO_EUR</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">Million euro</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5a804724"><p class="cl-5a801696"><span class="cl-5a7acc90">unit</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">EUR_HAB</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">Euro per inhabitant</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5a804724"><p class="cl-5a801696"><span class="cl-5a7acc90">unit</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">EUR_HAB_EU27_2020</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">Euro per inhabitant in percentage of the EU27 (from 2020) average</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5a804724"><p class="cl-5a801696"><span class="cl-5a7acc90">unit</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">MIO_NAC</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">Million units of national currency</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5a804724"><p class="cl-5a801696"><span class="cl-5a7acc90">unit</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">MIO_PPS_EU27_2020</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">Million purchasing power standards (PPS, EU27 from 2020)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5a804724"><p class="cl-5a801696"><span class="cl-5a7acc90">unit</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">PPS_EU27_2020_HAB</span></p></td><td class="cl-5a80472e"><p class="cl-5a801696"><span class="cl-5a7acc90">Purchasing power standard (PPS, EU27 from 2020), per inhabitant</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5a80472f"><p class="cl-5a801696"><span class="cl-5a7acc90">unit</span></p></td><td class="cl-5a804738"><p class="cl-5a801696"><span class="cl-5a7acc90">PPS_HAB_EU27_2020</span></p></td><td class="cl-5a804738"><p class="cl-5a801696"><span class="cl-5a7acc90">Purchasing power standard (PPS, EU27 from 2020), per inhabitant in percentage of the EU27 (from 2020) average</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell" data-tbl-cap="Eksempel for geo-variabelen. Vi ser at vi har nivåene fra NUTS3 (BE213; Arr. Turnhout) via nivå NUTS2 (BE21; Prov. Antwerpen) via nivå NUTS1 (BE2; Vlaams Gewest) til landsnivå (BE; Belgium).">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-5ab007c0{}.cl-5aa3a066{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5aa8b43e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5aa8e6a2{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5aa8e6b6{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5aa8e6b7{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5aa8e6c0{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5aa8e6ca{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5aa8e6d4{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-5ab007c0"><caption><p>Eksempel for geo-variabelen. Vi ser at vi har nivåene fra NUTS3
+(BE213; Arr. Turnhout) via nivå NUTS2 (BE21; Prov. Antwerpen) via nivå
+NUTS1 (BE2; Vlaams Gewest) til landsnivå (BE; Belgium).</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-5aa8e6a2"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">concept</span></p></th><th class="cl-5aa8e6b6"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">code</span></p></th><th class="cl-5aa8e6b6"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">name</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-5aa8e6b7"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">geo</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">EU27_2020</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">European Union - 27 countries (from 2020)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5aa8e6b7"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">geo</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">BE</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">Belgium</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5aa8e6b7"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">geo</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">BE1</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">Région de Bruxelles-Capitale/Brussels Hoofdstedelijk Gewest</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5aa8e6b7"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">geo</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">BE10</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">Région de Bruxelles-Capitale/Brussels Hoofdstedelijk Gewest</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5aa8e6b7"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">geo</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">BE100</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">Arr. de Bruxelles-Capitale/Arr. Brussel-Hoofdstad</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5aa8e6b7"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">geo</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">BE2</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">Vlaams Gewest</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5aa8e6b7"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">geo</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">BE21</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">Prov. Antwerpen</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5aa8e6b7"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">geo</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">BE211</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">Arr. Antwerpen</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5aa8e6b7"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">geo</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">BE212</span></p></td><td class="cl-5aa8e6c0"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">Arr. Mechelen</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5aa8e6ca"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">geo</span></p></td><td class="cl-5aa8e6d4"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">BE213</span></p></td><td class="cl-5aa8e6d4"><p class="cl-5aa8b43e"><span class="cl-5aa3a066">Arr. Turnhout</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 30058     3</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 30,058 x 3
+   geo   time     gdp_n3
+   &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;
+ 1 AL011 2008  551130000
+ 2 AL011 2009  582160000
+ 3 AL011 2010  664070000
+ 4 AL011 2011  631170000
+ 5 AL011 2012  717600000
+ 6 AL011 2013  696860000
+ 7 AL011 2014  735600000
+ 8 AL011 2015  788630000
+ 9 AL011 2016  801980000
+10 AL011 2017  800660000
+# i 30,048 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 21 x 3
+   geo   time        gdp_n3
+   &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;
+ 1 IE053 2000   15837300000
+ 2 IE053 2001   17506250000
+ 3 IE053 2002   19395440000
+ 4 IE053 2003   19687190000
+ 5 IE053 2004   21000450000
+ 6 IE053 2005   21776750000
+ 7 IE053 2006   24081640000
+ 8 IE053 2007   26086890000
+ 9 IE053 2008   22705550000
+10 IE053 2009   24012370000
+11 IE053 2010   24085200000
+12 IE053 2011   26235110000
+13 IE053 2012   24346250000
+14 IE053 2013   23345250000
+15 IE053 2014   25127580000
+16 IE053 2018   73687140000
+17 IE053 2019   71965850000
+18 IE053 2020   75581570000
+19 IE053 2021   99064470000
+20 IE053 2022  122163400000
+21 IE053 2023  103989840000</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 24 x 3
+   geo   time        gdp_n3
+   &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;
+ 1 IE053 2000   15837300000
+ 2 IE053 2001   17506250000
+ 3 IE053 2002   19395440000
+ 4 IE053 2003   19687190000
+ 5 IE053 2004   21000450000
+ 6 IE053 2005   21776750000
+ 7 IE053 2006   24081640000
+ 8 IE053 2007   26086890000
+ 9 IE053 2008   22705550000
+10 IE053 2009   24012370000
+11 IE053 2010   24085200000
+12 IE053 2011   26235110000
+13 IE053 2012   24346250000
+14 IE053 2013   23345250000
+15 IE053 2014   25127580000
+16 IE053 2015   37267470000
+17 IE053 2016   49407360000
+18 IE053 2017   61547250000
+19 IE053 2018   73687140000
+20 IE053 2019   71965850000
+21 IE053 2020   75581570000
+22 IE053 2021   99064470000
+23 IE053 2022  122163400000
+24 IE053 2023  103989840000</code></pre>
+</div>
+</div>
+<section id="population-demo_r_pjanaggr3" class="level1">
+<h1>Population demo_r_pjanaggr3</h1>
+<section id="oppgave-1" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-1">Oppgave 1</h4>
+<p>Søk i toc_txt for tabeller med population og NUTS 3. Pass på at dere dekker både population og Population og ulike skrivemåter for NUTS 3.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-5b4cb890{}.cl-5b3eb04c{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5b44fa1a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5b45335e{width:4in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5b453368{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5b453372{width:4in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5b45337c{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5b453386{width:4in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5b453390{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-5b4cb890"><thead><tr style="overflow-wrap:break-word;"><th class="cl-5b45335e"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">title</span></p></th><th class="cl-5b453368"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">code</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population density by NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">demo_r_d3dens</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population on 1 January by age group, sex and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">demo_r_pjangrp3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population on 1 January by broad age group, sex and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">demo_r_pjanaggr3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population structure indicators by NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">demo_r_pjanind3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population change - Demographic balance and crude rates at regional level (NUTS 3)Â&nbsp;</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">demo_r_gind3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by single year of age and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_11ag_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by marital status and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_11ms_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by family status and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_11fs_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by sex, citizenship and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_01rsctz</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by sex, age group, current activity status and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_01rapop</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Total and active population by sex, age, employment status, residence one year prior to the census and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_01ramigr</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by sex, age group, educational attainment level, current activity status and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_01rews</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by sex, age group, household status and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_01rhtype</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by sex, age group, size of household and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_01rhsize</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Average annual population to calculate regional GDP data (thousand persons) by NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">nama_10r_3popgdp</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by country of citizenship, age groups and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21ctz_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by country of citizenship, age groups, family status and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21ctzf_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by country of citizenship, age groups, type of housing arrangements and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21ctzha_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by country of birth, age groups and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21cob_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by country of birth, age groups, household status and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21cobhs_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by country of birth, age groups, type of housing arrangements and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21cobha_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by marital status, broad age groups and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21m_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by family status, broad age groups and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21f_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by size of the locality, age groups and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21l_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by size of the locality, housing arrangements and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21lha_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by year of arrival in the country since 2010, age groups, groups of country of birth and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21argc_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population by year of arrival in the country, age groups, family status and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21arf_r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population with Ukrainian citizenship by 5-year age group and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21ua_a5r3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population with Ukrainian citizenship by age and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21ua_ar3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453372"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population with Ukrainian citizenship by 5-year age group, marital status and NUTS 3 region</span></p></td><td class="cl-5b45337c"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">cens_21ua_msr3</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5b453386"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">Population on 1st January by age, sex, type of projection and NUTS 3 region</span></p></td><td class="cl-5b453390"><p class="cl-5b44fa1a"><span class="cl-5b3eb04c">proj_19rp3</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="oppgave-2" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-2">Oppgave 2</h4>
+<ol type="i">
+<li>Finn koden for tabellen med forklarende tekst «Average annual population to calculate regional GDP data (thousand persons) by NUTS 3 regions».</li>
+</ol>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                          title
+                                                                                         &lt;char&gt;
+1: Average annual population to calculate regional GDP data (thousand persons) by NUTS 3 region
+               code
+             &lt;char&gt;
+1: nama_10r_3popgdp</code></pre>
+</div>
+</div>
+<ol start="2" type="i">
+<li>Last ned Data Structure Definition (DSD) for denne tabellen.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-5c8721f0{}.cl-5c78743e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5c7ed1bc{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5c7f0c86{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5c7f0c90{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5c7f0c9a{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5c7f0ca4{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5c7f0cae{width:1in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5c7f0caf{width:2in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-5c8721f0"><thead><tr style="overflow-wrap:break-word;"><th class="cl-5c7f0c86"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">concept</span></p></th><th class="cl-5c7f0c90"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">code</span></p></th><th class="cl-5c7f0c90"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">name</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-5c7f0c9a"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">freq</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">A</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">Annual</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5c7f0c9a"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">unit</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">THS</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">Thousand</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5c7f0c9a"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">geo</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">EU27_2020</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">European Union - 27 countries (from 2020)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5c7f0c9a"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">geo</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">BE</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">Belgium</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5c7f0c9a"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">geo</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">BE1</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">Région de Bruxelles-Capitale/Brussels Hoofdstedelijk Gewest</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5c7f0c9a"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">geo</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">BE10</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">Région de Bruxelles-Capitale/Brussels Hoofdstedelijk Gewest</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5c7f0c9a"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">geo</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">BE100</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">Arr. de Bruxelles-Capitale/Arr. Brussel-Hoofdstad</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5c7f0c9a"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">geo</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">BE2</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">Vlaams Gewest</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5c7f0c9a"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">geo</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">BE21</span></p></td><td class="cl-5c7f0ca4"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">Prov. Antwerpen</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-5c7f0cae"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">geo</span></p></td><td class="cl-5c7f0caf"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">BE211</span></p></td><td class="cl-5c7f0caf"><p class="cl-5c7ed1bc"><span class="cl-5c78743e">Arr. Antwerpen</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<ol start="3" type="i">
+<li>Bruk opplysningene i DSD for å formulere en spørring mot Eurostat og last ned dataene. Gi dataene lastet ned navnet pop. Vi er bare interessert i totalbefolkning og ignorerer derfor både kjønn og alder. Vi ønsker data for årene 2000-2023.</li>
+</ol>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 30038     3</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 30,038 x 3
+   geo   time  pop_n3
+   &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
+ 1 AL011 2001  186720
+ 2 AL011 2002  182380
+ 3 AL011 2003  178710
+ 4 AL011 2004  174710
+ 5 AL011 2005  170370
+ 6 AL011 2006  165610
+ 7 AL011 2007  160540
+ 8 AL011 2008  155390
+ 9 AL011 2009  150430
+10 AL011 2010  146140
+# i 30,028 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="oppgave-3" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-3">Oppgave 3</h4>
+<p>Gjør en left_join() av de to tabellene. La gdp være venstre tabell (Viktig!). Gi resultatet navnet gdp_pop.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 27584     5</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 5</code></pre>
+</div>
+</div>
+<p>Var ikke noe mer NA-verdier igjen i gdp_pc_n3 Kvitter oss med andre objekter for å rydde litt ettersom vi bare skal bruke eu_data videre:</p>
+</section>
+<section id="oppgave-4" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-4">Oppgave 4</h4>
+<p>Endre navnet på variabelen geo til n3 og lag variablene n2 (NUTS2), n1 (NUTS1) og nc (for «Country») fra variabelen n3. Funksjonen str_sub() fra stringr pakken kan her være hendig å bruke.</p>
+</section>
+<section id="oppgave-5" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-5">Oppgave 5</h4>
+<p>Undersøk om vi har noen NUTS 3 soner med pop_n3 lik 0. Hvis det er noen så endre disse til NA.</p>
+<p>Undersøker:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 x 8
+# i 8 variables: n3 &lt;chr&gt;, time &lt;chr&gt;, gdp_n3 &lt;dbl&gt;, pop_n3 &lt;dbl&gt;,
+#   gdp_pc_n3 &lt;dbl&gt;, n2 &lt;chr&gt;, n1 &lt;chr&gt;, nc &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>Fant ingen rader med 0 og vi går videre, trenger ikke å endre noe til NA.</p>
+</section>
+<section id="oppgave-6" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-6">Oppgave 6</h4>
+<p>Sjekk hvor mange NUTS3 soner vi har i hvert land.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 29 x 2
+   nc    num_nuts3
+   &lt;chr&gt;     &lt;int&gt;
+ 1 DE          400
+ 2 IT          107
+ 3 FR          100
+ 4 TR           81
+ 5 PL           73
+ 6 ES           59
+ 7 EL           52
+ 8 BE           44
+ 9 RO           42
+10 AT           35
+# i 19 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="oppgave-7" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-7">Oppgave 7</h4>
+<p>Sjekk summary gdp_pc_n3. Hva er største og minste verdi? Har vi noen NA?</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   2214   14994   21144   22782   27952  180416 </code></pre>
+</div>
+</div>
+</section>
+<section id="oppgave-8" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-8">Oppgave 8</h4>
+<p>Bruk case_when() for å legge til variabelen nc_name før vi går videre. Østerrike for AT, Belgia for BE etc..</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 29 x 2
+   nc_name        nc   
+   &lt;chr&gt;          &lt;chr&gt;
+ 1 Albania        AL   
+ 2 Østerrike      AT   
+ 3 Belgia         BE   
+ 4 Bulgaria       BG   
+ 5 Kypros         CY   
+ 6 Tjekkia        CZ   
+ 7 Tyskland       DE   
+ 8 Danmark        DK   
+ 9 Estland        EE   
+10 Hellas         EL   
+11 Spania         ES   
+12 Finland        FI   
+13 Frankrike      FR   
+14 Kroatia        HR   
+15 Ungarn         HU   
+16 Irland         IE   
+17 Italia         IT   
+18 Litauen        LT   
+19 Luxemburg      LU   
+20 Latvia         LV   
+21 Nord-Makedonia MK   
+22 Malta          MT   
+23 Polen          PL   
+24 Romania        RO   
+25 Serbia         RS   
+26 Sverige        SE   
+27 Slovenia       SI   
+28 Slovakia       SK   
+29 Tyrkia         TR   </code></pre>
+</div>
+</div>
+</section>
+<section id="beregning-av-gini-på-nuts2-nuts1-og-nutsc-nivå" class="level2">
+<h2 class="anchored" data-anchor-id="beregning-av-gini-på-nuts2-nuts1-og-nutsc-nivå">Beregning av Gini på NUTS2, NUTS1 og NUTSc nivå</h2>
+<section id="oppgave-9" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-9">Oppgave 9</h4>
+<p>Bruk koden nedenfor til å beregne Gini-koeffisienter på NUTS2 nivå. Finn også antall NUTS3 regioner som finnes i hver NUTS2 region. Gi denne variabelen navnet num_reg_n2. Vi beregner også populasjon og gdp på NUTS2 nivå. Resultatet legger dere i en tibble kalt gini_n2.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>    gini_n2          num_reg_n2         pop_n2             gdp_n2         
+ Min.   :0.00038   Min.   : 1.000   Min.   :   25740   Min.   :6.814e+08  
+ 1st Qu.:0.06753   1st Qu.: 2.000   1st Qu.:  992733   1st Qu.:1.595e+10  
+ Median :0.10893   Median : 4.000   Median : 1529210   Median :3.030e+10  
+ Mean   :0.12316   Mean   : 4.819   Mean   : 1947314   Mean   :4.679e+10  
+ 3rd Qu.:0.16290   3rd Qu.: 6.000   3rd Qu.: 2361818   3rd Qu.:5.388e+10  
+ Max.   :0.47793   Max.   :23.000   Max.   :15874440   Max.   :7.083e+11  
+ NA's   :856                                                              
+   gdp_pc_n2    
+ Min.   : 3157  
+ 1st Qu.:15317  
+ Median :21839  
+ Mean   :23011  
+ 3rd Qu.:28793  
+ Max.   :96746  
+                </code></pre>
+</div>
+</div>
+</section>
+<section id="oppgave-10" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-10">Oppgave 10</h4>
+<p>Sjekk obs. med Gini mindre enn 0.001. Er det noe som kjennetegner disse regionene?</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 x 5
+  nc_name  n2    time   gini_n2 num_reg_n2
+  &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;      &lt;int&gt;
+1 Slovakia SK03  2004  0.000379          2
+2 Italia   ITF5  2006  0.000545          2
+3 Polen    PL43  2011  0.000854          2
+4 Danmark  DK02  2019  0.000977          2</code></pre>
+</div>
+</div>
+<p>Alle disse regionene har kun to underliggende NUTS3 regioner. Og i disse årene er de underliggende NUTS3 regionene tilnærmet like, derfor får vi en såpass lav gini.</p>
+</section>
+<section id="oppgave-11" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-11">Oppgave 11</h4>
+<p>Beregn Gini-koeffisienter på NUTS1 nivå (ut fra gdp_pc_n3og pop_n3). Legg resultatet i gini_n1. Et alternativ her ville vært å beregnet Gini fra gdp_pc_n2 og pop_n2 i NUTS1 regionene. Vi får imidlertid større spredning og trolig også et bedre mål på likhet/ulikhet ved å beregne Gini utfra gdp_pc_n3og pop_n3.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>    gini_n1          num_reg_n1        gdp_n1              pop_n1        
+ Min.   :0.01601   Min.   : 1.00   Min.   :6.814e+08   Min.   :   25740  
+ 1st Qu.:0.09123   1st Qu.: 6.00   1st Qu.:4.256e+10   1st Qu.: 2689490  
+ Median :0.13959   Median : 9.00   Median :7.888e+10   Median : 3934280  
+ Mean   :0.15364   Mean   :12.22   Mean   :1.187e+11   Mean   : 4938603  
+ 3rd Qu.:0.18790   3rd Qu.:14.00   3rd Qu.:1.411e+11   3rd Qu.: 5992840  
+ Max.   :0.42934   Max.   :96.00   Max.   :7.287e+11   Max.   :18031860  
+ NA's   :177                                                             
+   gdp_pc_n1    
+ Min.   : 3802  
+ 1st Qu.:15750  
+ Median :22295  
+ Mean   :23523  
+ 3rd Qu.:29340  
+ Max.   :90512  
+                </code></pre>
+</div>
+</div>
+</section>
+<section id="oppgave-12" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-12">Oppgave 12</h4>
+<p>Beregn Gini-koeffisienter (ut fra variasjon i verdiskapning på NUTS3 nivå) på nasjonsnivå. Legg resultatet i gini_nc.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>    gini_nc         num_reg_nc         gdp_nc              pop_nc        
+ Min.   :0.1111   Min.   :  1.00   Min.   :5.892e+09   Min.   :  386200  
+ 1st Qu.:0.1742   1st Qu.:  8.00   1st Qu.:4.350e+10   1st Qu.: 2810745  
+ Median :0.2094   Median : 20.00   Median :1.516e+11   Median : 6984230  
+ Mean   :0.2149   Mean   : 42.37   Mean   :4.114e+11   Mean   :17122006  
+ 3rd Qu.:0.2553   3rd Qu.: 44.00   3rd Qu.:3.447e+11   3rd Qu.:11352985  
+ Max.   :0.3991   Max.   :400.00   Max.   :3.550e+12   Max.   :84979990  
+ NA's   :46                                                              
+   gdp_pc_nc    
+ Min.   : 4854  
+ 1st Qu.:15103  
+ Median :22224  
+ Mean   :23761  
+ 3rd Qu.:29362  
+ Max.   :90512  
+                </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="nestete-datastrukturer" class="level2">
+<h2 class="anchored" data-anchor-id="nestete-datastrukturer">«Nestete» datastrukturer</h2>
+<section id="oppgave-13" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-13">Oppgave 13</h4>
+<p>Bruk koden nedenfor til å «neste» dataene på NUTS3 nivå.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 29 x 3
+   nc    nc_name   NUTS3_data          
+   &lt;chr&gt; &lt;chr&gt;     &lt;list&gt;              
+ 1 AL    Albania   &lt;tibble [168 x 7]&gt;  
+ 2 AT    Østerrike &lt;tibble [805 x 7]&gt;  
+ 3 BE    Belgia    &lt;tibble [880 x 7]&gt;  
+ 4 BG    Bulgaria  &lt;tibble [644 x 7]&gt;  
+ 5 CY    Kypros    &lt;tibble [23 x 7]&gt;   
+ 6 CZ    Tjekkia   &lt;tibble [322 x 7]&gt;  
+ 7 DE    Tyskland  &lt;tibble [9,200 x 7]&gt;
+ 8 DK    Danmark   &lt;tibble [253 x 7]&gt;  
+ 9 EE    Estland   &lt;tibble [115 x 7]&gt;  
+10 EL    Hellas    &lt;tibble [1,196 x 7]&gt;
+# i 19 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="oppgave-14" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-14">Oppgave 14</h4>
+<p>Nest dataene på NUTS2 nivå. Legg resultatet gini_NUTS2_nest. Bruk .key = “NUTS2_data”.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 29 x 3
+   nc    nc_name   NUTS2_data        
+   &lt;chr&gt; &lt;chr&gt;     &lt;list&gt;            
+ 1 AL    Albania   &lt;tibble [42 x 8]&gt; 
+ 2 AT    Østerrike &lt;tibble [207 x 8]&gt;
+ 3 BE    Belgia    &lt;tibble [220 x 8]&gt;
+ 4 BG    Bulgaria  &lt;tibble [138 x 8]&gt;
+ 5 CY    Kypros    &lt;tibble [23 x 8]&gt; 
+ 6 CZ    Tjekkia   &lt;tibble [184 x 8]&gt;
+ 7 DE    Tyskland  &lt;tibble [874 x 8]&gt;
+ 8 DK    Danmark   &lt;tibble [115 x 8]&gt;
+ 9 EE    Estland   &lt;tibble [23 x 8]&gt; 
+10 EL    Hellas    &lt;tibble [299 x 8]&gt;
+# i 19 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="oppgave-15" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-15">Oppgave 15</h4>
+<p>«Nest» dataene på NUTS1 nivå. Legg resultatet gini_NUTS1_nest.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 29 x 3
+   nc    nc_name   NUTS1_data        
+   &lt;chr&gt; &lt;chr&gt;     &lt;list&gt;            
+ 1 AL    Albania   &lt;tibble [14 x 7]&gt; 
+ 2 AT    Østerrike &lt;tibble [69 x 7]&gt; 
+ 3 BE    Belgia    &lt;tibble [60 x 7]&gt; 
+ 4 BG    Bulgaria  &lt;tibble [46 x 7]&gt; 
+ 5 CY    Kypros    &lt;tibble [23 x 7]&gt; 
+ 6 CZ    Tjekkia   &lt;tibble [23 x 7]&gt; 
+ 7 DE    Tyskland  &lt;tibble [368 x 7]&gt;
+ 8 DK    Danmark   &lt;tibble [23 x 7]&gt; 
+ 9 EE    Estland   &lt;tibble [23 x 7]&gt; 
+10 EL    Hellas    &lt;tibble [92 x 7]&gt; 
+# i 19 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="oppgave-16" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-16">Oppgave 16</h4>
+<p>«Nest» dataene på nasjonsnivå. Legg resultatet i gini_NUTSc_nest.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 29 x 3
+   nc    nc_name   NUTSc_data       
+   &lt;chr&gt; &lt;chr&gt;     &lt;list&gt;           
+ 1 AL    Albania   &lt;tibble [14 x 6]&gt;
+ 2 AT    Østerrike &lt;tibble [23 x 6]&gt;
+ 3 BE    Belgia    &lt;tibble [20 x 6]&gt;
+ 4 BG    Bulgaria  &lt;tibble [23 x 6]&gt;
+ 5 CY    Kypros    &lt;tibble [23 x 6]&gt;
+ 6 CZ    Tjekkia   &lt;tibble [23 x 6]&gt;
+ 7 DE    Tyskland  &lt;tibble [23 x 6]&gt;
+ 8 DK    Danmark   &lt;tibble [23 x 6]&gt;
+ 9 EE    Estland   &lt;tibble [23 x 6]&gt;
+10 EL    Hellas    &lt;tibble [23 x 6]&gt;
+# i 19 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="oppgave-17" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-17">Oppgave 17</h4>
+<p>«Nest» dataene på EU nivå, dvs. Gini for samtlige NUTS3 regioner hvert år. Legg resultatet i gini_NUTSeu_nest. _nest er her litt misvisende siden vi ikke gjør noen nesting</p>
+</section>
+<section id="oppgave-18" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-18">Oppgave 18</h4>
+<p>Vis utviklingen i Gini-koeffisienten for NUTS3 regioner i EU vha. et linjeplot.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MSB105Ass4_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="oppgave-19" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-19">Oppgave 19</h4>
+<p>Basert på plottet fra foregående oppgave diskuter (veldig!) kort om tiltaket ser ut til å virke.</p>
+<p>Plottet viser en tydelig fallende trend i Gini-koeffisienten for NUTS3-regioner i EU over perioden, særlig fra midten av 2000-tallet og fremover. Dette indikerer at ulikheten i verdiskaping mellom regioner har blitt redusert over tid. Utviklingen er konsistent med målsettingen bak EUs strukturfond og samholdsfond, som retter investeringer mot mindre utviklede regioner. Selv om andre faktorer også kan ha påvirket utviklingen, gir plottet støtte til at tiltakene samlet sett kan ha hatt en utjevnende effekt på regional ulikhet i EU.</p>
+</section>
+<section id="oppgave-20" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-20">Oppgave 20</h4>
+<p>Ta gini_n3_nestsom utgangspunkt og bruk left_join() til å legge til datasettene gini_NUTS2_nest, gini_NUTS1_nest og gini_NUTSc_nest</p>
+</section>
+</section>
+<section id="plots-som-viser-utviklingen" class="level2">
+<h2 class="anchored" data-anchor-id="plots-som-viser-utviklingen">Plots som viser utviklingen</h2>
+<section id="oppgave-21" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-21">Oppgave 21</h4>
+<p>Lag et linjeplot i ggplot som viser utviklingen i Gini-koeffisient på nasjonsnivå for de 29 landene vi har med. Husk argumentet group =. Resulatet skal bli som vist i Figur 5.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ginialle" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ginialle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MSB105Ass4_files/figure-html/fig-ginialle-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ginialle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Utviklingen over tid for Gini-koeffisienten for de 29 landene. Husk at Gini-koeffisienten her måler endring i hvordan verdiskapningen i landet er fordelt mellom NUTS3 regioner.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="oppgave-22" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-22">Oppgave 22</h4>
+<p>Lag en sortert tabell for Gini i år 2022 som gjør det litt lettere å se hvilken linje som hører til hvilket land.</p>
+<div class="cell">
+<div id="tbl-gini2022" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-gini2022-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Gini-koeffisient for gnp i 2022. Kypros og Luxemburg har bare en sone og følgelig ingen Gini-koeffisient.
+</figcaption>
+<div aria-describedby="tbl-gini2022-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-61a4bd50{}.cl-619aa504{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-619ec314{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-619ec31e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-619eea9c{width:1.415in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeaa6{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeab0{width:1.415in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeab1{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeaba{width:1.415in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeac4{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeace{width:1.415in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eead8{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eead9{width:1.415in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeada{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeae2{width:1.415in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeaf6{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeaf7{width:1.415in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeb00{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeb01{width:1.415in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeb0a{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeb0b{width:1.415in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-619eeb14{width:1.007in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-61a4bd50"><thead><tr style="overflow-wrap:break-word;"><th class="cl-619eea9c"><p class="cl-619ec314"><span class="cl-619aa504">nc_name</span></p></th><th class="cl-619eeaa6"><p class="cl-619ec31e"><span class="cl-619aa504">gini_nc</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-619eeab0"><p class="cl-619ec314"><span class="cl-619aa504">Irland</span></p></td><td class="cl-619eeab1"><p class="cl-619ec31e"><span class="cl-619aa504">0.3990713</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeaba"><p class="cl-619ec314"><span class="cl-619aa504">Bulgaria</span></p></td><td class="cl-619eeac4"><p class="cl-619ec31e"><span class="cl-619aa504">0.3172612</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeace"><p class="cl-619ec314"><span class="cl-619aa504">Romania</span></p></td><td class="cl-619eead8"><p class="cl-619ec31e"><span class="cl-619aa504">0.2998082</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeace"><p class="cl-619ec314"><span class="cl-619aa504">Latvia</span></p></td><td class="cl-619eead8"><p class="cl-619ec31e"><span class="cl-619aa504">0.2981280</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeaba"><p class="cl-619ec314"><span class="cl-619aa504">Ungarn</span></p></td><td class="cl-619eeac4"><p class="cl-619ec31e"><span class="cl-619aa504">0.2692496</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eead9"><p class="cl-619ec314"><span class="cl-619aa504">Serbia</span></p></td><td class="cl-619eeada"><p class="cl-619ec31e"><span class="cl-619aa504">0.2637424</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeaba"><p class="cl-619ec314"><span class="cl-619aa504">Tyrkia</span></p></td><td class="cl-619eeac4"><p class="cl-619ec31e"><span class="cl-619aa504">0.2540632</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeab0"><p class="cl-619ec314"><span class="cl-619aa504">Polen</span></p></td><td class="cl-619eeab1"><p class="cl-619ec31e"><span class="cl-619aa504">0.2302756</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeace"><p class="cl-619ec314"><span class="cl-619aa504">Malta</span></p></td><td class="cl-619eead8"><p class="cl-619ec31e"><span class="cl-619aa504">0.2294089</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeab0"><p class="cl-619ec314"><span class="cl-619aa504">Litauen</span></p></td><td class="cl-619eeab1"><p class="cl-619ec31e"><span class="cl-619aa504">0.2259366</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eead9"><p class="cl-619ec314"><span class="cl-619aa504">Slovakia</span></p></td><td class="cl-619eeada"><p class="cl-619ec31e"><span class="cl-619aa504">0.2222795</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeace"><p class="cl-619ec314"><span class="cl-619aa504">Danmark</span></p></td><td class="cl-619eead8"><p class="cl-619ec31e"><span class="cl-619aa504">0.2222566</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeab0"><p class="cl-619ec314"><span class="cl-619aa504">Estland</span></p></td><td class="cl-619eeab1"><p class="cl-619ec31e"><span class="cl-619aa504">0.2180376</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeab0"><p class="cl-619ec314"><span class="cl-619aa504">Nord-Makedonia</span></p></td><td class="cl-619eeab1"><p class="cl-619ec31e"><span class="cl-619aa504">0.2095793</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeab0"><p class="cl-619ec314"><span class="cl-619aa504">Kroatia</span></p></td><td class="cl-619eeab1"><p class="cl-619ec31e"><span class="cl-619aa504">0.2085360</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeab0"><p class="cl-619ec314"><span class="cl-619aa504">Hellas</span></p></td><td class="cl-619eeab1"><p class="cl-619ec31e"><span class="cl-619aa504">0.2077325</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeace"><p class="cl-619ec314"><span class="cl-619aa504">Frankrike</span></p></td><td class="cl-619eead8"><p class="cl-619ec31e"><span class="cl-619aa504">0.2062529</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeaba"><p class="cl-619ec314"><span class="cl-619aa504">Tjekkia</span></p></td><td class="cl-619eeac4"><p class="cl-619ec31e"><span class="cl-619aa504">0.2050454</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeaba"><p class="cl-619ec314"><span class="cl-619aa504">Tyskland</span></p></td><td class="cl-619eeac4"><p class="cl-619ec31e"><span class="cl-619aa504">0.2024255</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeaba"><p class="cl-619ec314"><span class="cl-619aa504">Belgia</span></p></td><td class="cl-619eeac4"><p class="cl-619ec31e"><span class="cl-619aa504">0.1945446</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeace"><p class="cl-619ec314"><span class="cl-619aa504">Italia</span></p></td><td class="cl-619eead8"><p class="cl-619ec31e"><span class="cl-619aa504">0.1907755</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eead9"><p class="cl-619ec314"><span class="cl-619aa504">Slovenia</span></p></td><td class="cl-619eeada"><p class="cl-619ec31e"><span class="cl-619aa504">0.1690681</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeae2"><p class="cl-619ec314"><span class="cl-619aa504">Spania</span></p></td><td class="cl-619eeaf6"><p class="cl-619ec31e"><span class="cl-619aa504">0.1340889</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeaf7"><p class="cl-619ec314"><span class="cl-619aa504">Sverige</span></p></td><td class="cl-619eeb00"><p class="cl-619ec31e"><span class="cl-619aa504">0.1263810</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeb01"><p class="cl-619ec314"><span class="cl-619aa504">Østerrike</span></p></td><td class="cl-619eeb0a"><p class="cl-619ec31e"><span class="cl-619aa504">0.1244962</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeab0"><p class="cl-619ec314"><span class="cl-619aa504">Finland</span></p></td><td class="cl-619eeab1"><p class="cl-619ec31e"><span class="cl-619aa504">0.1111034</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeaba"><p class="cl-619ec314"><span class="cl-619aa504">Kypros</span></p></td><td class="cl-619eeac4"><p class="cl-619ec31e"><span class="cl-619aa504"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-619eeb0b"><p class="cl-619ec314"><span class="cl-619aa504">Luxemburg</span></p></td><td class="cl-619eeb14"><p class="cl-619ec31e"><span class="cl-619aa504"></span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="oppgave-23" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-23">Oppgave 23</h4>
+<p>Del landene i to grupper, dem som har lavere Gini i 2022 enn første året (dvs. utgjevning over tid mellom regionene) og dem som har høyere Gini i 2022 enn første året (dvs. større forskjeller mellom regionene). Vis utviklingen i de to gruppene vha. linjeplot.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-Lavgini" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Lavgini-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MSB105Ass4_files/figure-html/fig-Lavgini-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Lavgini-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Land med lavere regional ulikhet i 2022 enn første år vi har data for.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-hoygini" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hoygini-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="MSB105Ass4_files/figure-html/fig-hoygini-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hoygini-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Land med høyere regional ulikhet i 2022 enn første år vi har data for.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="oppgave-24" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-24">Oppgave 24</h4>
+<p>Vis vha. et linjeplot utviklingen i gini-koeffisient for NUTS2 regionene i Irland.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MSB105Ass4_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="hvordan-er-verdiskapningen-fordelt-mellom-regionene-i-ulike-land" class="level2">
+<h2 class="anchored" data-anchor-id="hvordan-er-verdiskapningen-fordelt-mellom-regionene-i-ulike-land">Hvordan er verdiskapningen fordelt mellom regionene i ulike land?</h2>
+<section id="spania" class="level3">
+<h3 class="anchored" data-anchor-id="spania">Spania</h3>
+<section id="oppgave-25" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-25">Oppgave 25</h4>
+<p>Lag et linje-plot som viser utviklingen i Gini-koeffisientene for NUTS2 regionene i Spania.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MSB105Ass4_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="oppgave-26" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-26">Oppgave 26</h4>
+<p>Lag et line-plot som viser utviklingen i Gini-koeffisientene for NUTS1 regionene i Spania.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MSB105Ass4_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="tyskland" class="level3">
+<h3 class="anchored" data-anchor-id="tyskland">Tyskland</h3>
+<section id="oppgave-27" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-27">Oppgave 27</h4>
+<p>Lag et line-plot som viser utviklingen i Gini-koeffisient for NUTS2 regionene i Tyskland. Dropp gjerne farger. Det er så mange regioner at de er vanskelig å skille.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MSB105Ass4_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="oppgave-28" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-28">Oppgave 28</h4>
+<p>Er det samme er tilfelle når vi ser på de større regionene i Tyskland (NUTS1)?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MSB105Ass4_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-643d5554{}.cl-642dd426{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-64335aa4{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-64335aae{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-64335ab8{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.3;background-color:transparent;}.cl-64335ac2{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 0.3;background-color:transparent;}.cl-64338434{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-64338448{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-64338449{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-64338452{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-64338453{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-64338466{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-643d5554"><thead><tr style="overflow-wrap:break-word;"><th class="cl-64338434"><p class="cl-64335aa4"><span class="cl-642dd426">n1</span></p></th><th class="cl-64338448"><p class="cl-64335aae"><span class="cl-642dd426">gini_n1</span></p></th><th class="cl-64338448"><p class="cl-64335aae"><span class="cl-642dd426">num_reg_n1</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DEB</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.2529</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">36</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DE2</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.2477</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">96</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DE7</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.2394</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">26</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DE9</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.1978</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">45</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DE5</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.1790</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">2</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DE1</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.1726</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">44</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DEA</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.1616</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">53</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DEC</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.1445</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">6</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DEF</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.1421</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">15</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DE4</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.1291</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">18</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DEG</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.1196</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">22</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DED</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.1111</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">13</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DEE</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.0953</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">14</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DE8</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">0.0947</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">8</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338449"><p class="cl-64335ab8"><span class="cl-642dd426">DE3</span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426"></span></p></td><td class="cl-64338452"><p class="cl-64335ac2"><span class="cl-642dd426">1</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64338453"><p class="cl-64335ab8"><span class="cl-642dd426">DE6</span></p></td><td class="cl-64338466"><p class="cl-64335ac2"><span class="cl-642dd426"></span></p></td><td class="cl-64338466"><p class="cl-64335ac2"><span class="cl-642dd426">1</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+</section>
+<section id="frankrike" class="level3">
+<h3 class="anchored" data-anchor-id="frankrike">Frankrike</h3>
+<section id="oppgave-29" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-29">Oppgave 29</h4>
+<p>Vis utviklingen i Gini-koeffisient for NUTS1 regionene i Frankrike i et line-plot. Plottet vil se slik ut.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MSB105Ass4_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="oppgave-30" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-30">Oppgave 30</h4>
+<p>Lag en tabell som viser de 6 NUTS1 sonene i Frankrike som hadde høyest Gini-koeffisient i 2022. Hvilken sone har suverent høyest Gini-koeffisient og hvor ligger denne i landet?</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-64bbb3a4{}.cl-64ae8378{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-64b4382c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-64b43836{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-64b47fd0{width:0.616in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-64b47fe4{width:0.778in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-64b47fe5{width:0.616in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-64b47fee{width:0.778in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-64b47ff8{width:0.616in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-64b48002{width:0.778in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-64b48003{width:0.616in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-64b4800c{width:0.778in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-64bbb3a4"><thead><tr style="overflow-wrap:break-word;"><th class="cl-64b47fd0"><p class="cl-64b4382c"><span class="cl-64ae8378">n1</span></p></th><th class="cl-64b47fe4"><p class="cl-64b43836"><span class="cl-64ae8378">gini_n1</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-64b47fe5"><p class="cl-64b4382c"><span class="cl-64ae8378">FR1</span></p></td><td class="cl-64b47fee"><p class="cl-64b43836"><span class="cl-64ae8378">0.3354</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64b47ff8"><p class="cl-64b4382c"><span class="cl-64ae8378">FRL</span></p></td><td class="cl-64b48002"><p class="cl-64b43836"><span class="cl-64ae8378">0.2018</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64b47ff8"><p class="cl-64b4382c"><span class="cl-64ae8378">FRK</span></p></td><td class="cl-64b48002"><p class="cl-64b43836"><span class="cl-64ae8378">0.1549</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64b47fe5"><p class="cl-64b4382c"><span class="cl-64ae8378">FRJ</span></p></td><td class="cl-64b47fee"><p class="cl-64b43836"><span class="cl-64ae8378">0.1341</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64b47ff8"><p class="cl-64b4382c"><span class="cl-64ae8378">FRM</span></p></td><td class="cl-64b48002"><p class="cl-64b43836"><span class="cl-64ae8378">0.1091</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-64b48003"><p class="cl-64b4382c"><span class="cl-64ae8378">FRF</span></p></td><td class="cl-64b4800c"><p class="cl-64b43836"><span class="cl-64ae8378">0.1025</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>Tabellen viser at Île-de-France (FR1) har suverent høyest Gini-koeffisient blant franske NUTS1-regioner i 2022. Denne regionen ligger i nordlige deler av Frankrike og omfatter Paris og hovedstadsområdet.</p>
+</section>
+<section id="oppgave-31" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-31">Oppgave 31</h4>
+<p>Vi ser at for Frankrike er det en region som har klart større forskjeller mht. vekst (verdiskapning) enn de andre. Sjekk NUTS3 regionenen i denne regionen nærmere vha. linjeplot og lag en tabell som viser gdp_pc_n3 for de seks sonene.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 x 13
+  nc    nc_name   NUTS3_data n2    time  n1    gini_n2  pop_n2  gdp_n2 gdp_pc_n2
+  &lt;chr&gt; &lt;chr&gt;     &lt;list&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+1 FR    Frankrike &lt;tibble&gt;   FR10  2022  FR1     0.335  1.24e7 7.08e11    57222.
+# i 3 more variables: num_reg_n2 &lt;int&gt;, NUTS1_data &lt;list&gt;, NUTSc_data &lt;list&gt;</code></pre>
+</div>
+</div>
+<p>Ser at det er 8 soner i denne regionen isteden for 6 som det står i løsningsforslaget</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MSB105Ass4_files/figure-html/unnamed-chunk-59-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-654c79a2{}.cl-65425dbe{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6546e71c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6546e730{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-65470f44{width:0.744in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-65470f4e{width:1.041in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-65470f58{width:0.744in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-65470f59{width:1.041in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-65470f62{width:0.744in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-65470f6c{width:1.041in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-654c79a2"><thead><tr style="overflow-wrap:break-word;"><th class="cl-65470f44"><p class="cl-6546e71c"><span class="cl-65425dbe">n3</span></p></th><th class="cl-65470f4e"><p class="cl-6546e730"><span class="cl-65425dbe">gdp_pc_n3</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-65470f58"><p class="cl-6546e71c"><span class="cl-65425dbe">FR101</span></p></td><td class="cl-65470f59"><p class="cl-6546e730"><span class="cl-65425dbe">113,523</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-65470f58"><p class="cl-6546e71c"><span class="cl-65425dbe">FR105</span></p></td><td class="cl-65470f59"><p class="cl-6546e730"><span class="cl-65425dbe">101,546</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-65470f58"><p class="cl-6546e71c"><span class="cl-65425dbe">FR107</span></p></td><td class="cl-65470f59"><p class="cl-6546e730"><span class="cl-65425dbe">38,625</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-65470f58"><p class="cl-6546e71c"><span class="cl-65425dbe">FR106</span></p></td><td class="cl-65470f59"><p class="cl-6546e730"><span class="cl-65425dbe">37,017</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-65470f58"><p class="cl-6546e71c"><span class="cl-65425dbe">FR103</span></p></td><td class="cl-65470f59"><p class="cl-6546e730"><span class="cl-65425dbe">36,897</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-65470f58"><p class="cl-6546e71c"><span class="cl-65425dbe">FR104</span></p></td><td class="cl-65470f59"><p class="cl-6546e730"><span class="cl-65425dbe">36,840</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-65470f58"><p class="cl-6546e71c"><span class="cl-65425dbe">FR102</span></p></td><td class="cl-65470f59"><p class="cl-6546e730"><span class="cl-65425dbe">29,967</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-65470f62"><p class="cl-6546e71c"><span class="cl-65425dbe">FR108</span></p></td><td class="cl-65470f6c"><p class="cl-6546e730"><span class="cl-65425dbe">28,995</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="oppgave-32" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-32">Oppgave 32</h4>
+<p>Kan vi utfra foregående plot og tabell si noe om årsaken til at FR1 har så høy Ginikoeffisient?</p>
+<p>Ja. Plottet og tabellen viser at FR1 (Île-de-France) har svært store forskjeller i BNP per innbygger mellom NUTS3-regionene. Verdiskapingen er sterkt konsentrert i Paris og de sentrale delene av regionen, mens omkringliggende områder ligger betydelig lavere. Dette gir høy intern ulikhet og dermed en høy Gini-koeffisient.</p>
+</section>
+</section>
+</section>
+<section id="enkle-modeller" class="level2">
+<h2 class="anchored" data-anchor-id="enkle-modeller">Enkle modeller</h2>
+<section id="oppgave-33" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-33">Oppgave 33</h4>
+<p>Lag datasett for endringer i gdp_per_capita og gini_nuts2.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 218</code></pre>
+</div>
+</div>
+</section>
+<section id="oppgave-34" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-34">Oppgave 34</h4>
+<p>Bruk modellen diff_gini_nuts2 ~ diff_gdp_per_capita på hver av de 256 (218) NUTS2 regionene vha. en anonym funksjon som «mappes» (vha. map()) på «list-column» NUTS2_diff. Legg resultatet i en variabel modell.</p>
+</section>
+<section id="oppgave-35" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-35">Oppgave 35</h4>
+<p>Hent ut koeffisientene fra de 256 (218) modellene og legg resultatet i variabelen mod_coeff.</p>
+</section>
+<section id="oppgave-36" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-36">Oppgave 36</h4>
+<p>Bruk glance() funksjonen fra broom pakken og «map» denne på modell variabelen for å generere «model summary». Legg resultatet i en variabel mod_sum.</p>
+</section>
+<section id="oppgave-37" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-37">Oppgave 37</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 x 6
+# Groups:   nc_name, n2 [3]
+  nc_name  n2    NUTS2_diff        modell `(Intercept)`    r2
+  &lt;chr&gt;    &lt;chr&gt; &lt;list&gt;            &lt;list&gt;         &lt;dbl&gt; &lt;dbl&gt;
+1 Polen    PL82  &lt;tibble [92 x 6]&gt; &lt;lm&gt;        -0.0364  0.772
+2 Tyskland DED5  &lt;tibble [69 x 6]&gt; &lt;lm&gt;         0.00344 0.701
+3 Belgia   BE22  &lt;tibble [60 x 6]&gt; &lt;lm&gt;         0.129   0.692</code></pre>
+</div>
+</div>
+</section>
+<section id="oppgave-38" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-38">Oppgave 38</h4>
+</section>
+<section id="oppgave-39" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-39">Oppgave 39</h4>
+</section>
+<section id="oppgave-40" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-40">Oppgave 40</h4>
+</section>
+<section id="oppgave-41" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-41">Oppgave 41</h4>
+</section>
+<section id="oppgave-42" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-42">Oppgave 42</h4>
+</section>
+<section id="oppgave-43" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-43">Oppgave 43</h4>
+</section>
+<section id="oppgave-44" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-44">Oppgave 44</h4>
+</section>
+<section id="oppgave-45" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-45">Oppgave 45</h4>
+</section>
+<section id="oppgave-46" class="level4">
+<h4 class="anchored" data-anchor-id="oppgave-46">Oppgave 46</h4>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

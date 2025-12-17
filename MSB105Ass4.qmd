@@ -20,6 +20,7 @@ editor:
   markdown: 
     wrap: sentence
 echo: false
+warning: false
 ---
 
 ```{r}
@@ -921,85 +922,91 @@ eu_data_nested |>
   theme_minimal()
 
 ```
+#### Oppgave 30
+Lag en tabell som viser de 6 NUTS1 sonene i Frankrike som hadde høyest Gini-koeffisient
+i 2022. Hvilken sone har suverent høyest Gini-koeffisient og hvor ligger denne i landet?
 
-## Oppgave 30
-Lag en tabell som viser de 6 NUTS1 sonene i Frankrike som hadde høyest Gini-koeffisient i 2022.
 ```{r}
-fr_nuts1_2022 <- eu_data_nested |>
+eu_data_nested |>
   unnest(NUTS1_data) |>
-  filter(nc_name == "Frankrike") |>
-  filter(time == "2022") |>
-  filter(!is.na(gini_n1))
-```
-
-```{r}
-top6_fr_nuts1 <- fr_nuts1_2022 |>
-  select(n1, gini_n1, num_reg_n1) |>
+  filter(nc_name == "Frankrike", time == "2022") |>
+  select(n1, gini_n1) |>
   arrange(desc(gini_n1)) |>
-  slice_head(n = 6)
-```
+  slice(1:6) |>
+  flextable() |>
+  colformat_double(
+    j = c("gini_n1"),
+    digits = 4
+  ) |>
+  autofit()
 
-```{r}
-top6_fr_nuts1 |>
-  mutate(gini_n1 = round(gini_n1, 4))
 ```
-Ut ifra tabellen ser man at FR1 er den sonen i Frankrike som har høyest Gini-koeffisient i 2022. Dette er en sone som ligger rundt Paris, og dermed skiller seg ut ifra de andre regionene i landet. Ut ifra plottet kan vi se forskjellene mellom FR1 og resten av regionene og den reflekterer store forskjeller i verdiskapninger mellom NUTS3-regionene i og rundt hovedstaden.
+Tabellen viser at Île-de-France (FR1) har suverent høyest Gini-koeffisient blant franske NUTS1-regioner i 2022. Denne regionen ligger i nordlige deler av Frankrike og omfatter Paris og hovedstadsområdet.
 
-## Oppgave 31 
+#### Oppgave 31
 Vi ser at for Frankrike er det en region som har klart større forskjeller mht. vekst (verdiskapning) enn de andre. Sjekk NUTS3 regionenen i denne regionen nærmere vha. linjeplot og lag en tabell som viser gdp_pc_n3 for de seks sonene.
 
-Sjekke inn på NUTS3 regionene innen FR1:
 ```{r}
-fr1_nuts3 <- eu_data |>
-  filter(n1 == "FR1") |>
-  filter(!is.na(gdp_pc_n3))
+eu_data_nested |>
+  unnest(NUTS2_data) |>
+  filter(nc_name == "Frankrike", time == "2022") |>
+  arrange(desc(gini_n2)) |>
+  slice(1)
+
 ```
+Ser at det er 8 soner i denne regionen isteden for 6 som det står i løsningsforslaget
 
 ```{r}
-fr1_nuts3 |>
+eu_data |>
+  filter(
+    nc_name == "Frankrike",
+    n2 == "FR10"
+  ) |>
   ggplot(aes(
-    x = as.numeric(time),
+    x = as.integer(time),
     y = gdp_pc_n3,
-    group = n3
+    group = n3,
+    colour = n3
   )) +
-  geom_line(alpha = 0.7) +
+  geom_line(linewidth = 1) +
   labs(
-    title = "Utviklingen i BNP per capita for NUTS3-regionene i Île-de-France (FR1)",
+    title = "Utviklingen i BNP per innbygger i NUTS3-regionene i Île-de-France",
     x = "År",
-    y = "BNP per capita (PPS)"
+    y = "BNP per innbygger",
+    colour = "NUTS3"
   ) +
   theme_minimal()
+
+
+
 ```
 ```{r}
-fr1_top6_nuts3 <- fr1_nuts3 |>
+eu_data |>
+  filter(
+    nc_name == "Frankrike",
+    n2 == "FR10"
+  ) |>
   filter(time == "2022") |>
+  select(n3, gdp_pc_n3) |>
   arrange(desc(gdp_pc_n3)) |>
-  slice_head(n = 6) |>
-  select(n3, gdp_pc_n3)
+  flextable() |>
+  colformat_double(j = "gdp_pc_n3", digits = 0) |>
+  autofit()
 ```
 
-FÅr tabellen:
-```{r}
-fr1_top6_nuts3 |>
-  mutate(gdp_pc_n3 = round(gdp_pc_n3))
-```
-Linjeplottet for NUTS3-regionene i FR1 viser svært store forskjeller i BNP per capita mellom regionene. Noen få sentrale regioner, særlig rundt Paris, har et betydelig høyere nivå enn resten. Tabellen bekrefter dette ved at de seks regionene med høyest BNP per capita ligger markant over øvrige regioner. Dette indikerer sterk geografisk konsentrasjon av økonomisk aktivitet og forklarer den høye Gini-koeffisienten for FR1.
 
-## Oppgave 32
-Kan vi utfra foregåenede plot og tabell si noe om årsaken til at FR1 har så høy Gini-koeffisient?
-Ja det kan vi. I plotten og tabellen kan vi se at det er store forskjeller i BNP per capita mellom NUTS3-regionene i FR1. Noen få regioner, særlig rundt Paris, har et svært høyt nivå av verdiskaping, mens øvrige regioner ligger betydelig lavere. Dette indikerer en sterk geografisk konsentrasjon av økonomisk aktivitet i hovedstadsområdet, noe som forklarer den høye Gini-koeffisienten for FR1.
+#### Oppgave 32
+Kan vi utfra foregående plot og tabell si noe om årsaken til at FR1 har så høy Ginikoeffisient?
 
-# Enkle modeller
+Ja. Plottet og tabellen viser at FR1 (Île-de-France) har svært store forskjeller i BNP per innbygger mellom NUTS3-regionene. Verdiskapingen er sterkt konsentrert i Paris og de sentrale delene av regionen, mens omkringliggende områder ligger betydelig lavere. Dette gir høy intern ulikhet og dermed en høy Gini-koeffisient.
 
-Vil vi undersøke om det er noen sammenheng mellom GDP og Gini-koeffisienten bør vi se på endringen i de to variablene.
-
-#«Data Science» modeller
-## Oppgave 33 
-Lag datasett for endringer i gdp_per_capita og gini_nuts2. 
+## Enkle modeller
+#### Oppgave 33
+Lag datasett for endringer i gdp_per_capita og gini_nuts2.
 
 ```{r}
-n3_data <- eu_data_nested |> 
-  unnest(NUTS3_data) |> 
+n3_data <- eu_data_nested |>
+  unnest(NUTS3_data) |>
   select(nc_name, n2, n3, time, gdp_pc_n3)
 ```
 
