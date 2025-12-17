@@ -1106,25 +1106,13 @@ NUTS2-regionen med høyest koeffisient: BG34 i Bulgaria
 Hvor mange av de 256 (218) koeffisientene er signifikante på 5% nivå?
 
 ```{r}
-# Hent ut koeffisient-estimat og p-verdi fra alle modellene
-coef_tidy <- NUTS2_diff |>
-  select(nc_name, n2, modell) |>
-  mutate(
-    tidy_coef = map(modell, tidy)
-  ) |>
-  unnest(tidy_coef) |>
-  filter(term == "diff_gdp_per_capita") |>
-  filter(is.finite(p.value))
+NUTS2_diff |>
+  unnest(mod_sum) |>
+  filter(p.value < 0.05) |>
+  dim()
+remove(coef_tidy)
 ```
 
-```{r}
-coef_tidy |>
-  summarise(
-    totalt_antall = n(),
-    signifikante_5pct = sum(p.value < 0.05),
-    andel_signifikante = mean(p.value < 0.05)
-  )
-```
 
 Ut fra tibbelen får vi et antall på 162 av de totale 218 som er statistisk signifikante på 5 % nivå. Dette betyr at disse regionene har en sammenheng mellom endringer i BNP per innbygger og endringer i regional ulikheter som kan måles med data.
 
@@ -1180,8 +1168,17 @@ Utfør en enkel t-test for å teste om diff_gdp_per_capita er signifikant størr
 Er diff_gdp_per_capita signifikant større enn 0?
 
 ```{r}
+coef_tidy <- NUTS2_diff |>
+  select(nc_name, n2, modell) |>
+  mutate(
+    tidy_coef = map(modell, tidy)
+  ) |>
+  unnest(tidy_coef) |>
+  filter(term == "diff_gdp_per_capita") |>
+  filter(is.finite(p.value))
 t.test(
-   NUTS2_diff$mod_coeff$diff_gdp_per_capita,
+  coef_tidy$estimate,
+  mu = 0,
   alternative = "greater"
 )
 ```
