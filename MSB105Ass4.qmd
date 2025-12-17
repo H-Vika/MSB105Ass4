@@ -36,156 +36,155 @@ library(modelr)
 library(plm)
 library(broom)
 library(sandwich)
-library(purrr)
 ```
 
+## Toc. eurostat
 ```{r}
-# Henter innholdsfortegnelse fra Eurostat
-
+# xml skal ha mer detaljert info
+# toc_xml <- get_eurostat_toc()
+# tekstversjonen har trolig nok info for vårt formål
 toc_txt <- get_eurostat_toc(mode = "txt")
 ```
 
+
+## GDP Nuts 3
 ```{r}
-# Vi finner tabellbeskrivelser som både inneholder gdp og nuts 3
-gdp_tabs <- toc_txt |>
- filter(
- str_detect(
- string = title,
- pattern = '[Gg][Dd][Pp]'
- ) &
- str_detect(
- string = title,
- pattern = '[Nn][Uu][Tt][Ss]\\s*3'
- )
- ) |>
- select(title, code)
+gdp_tabs <- toc_txt |> 
+# Regex AND external to regex
+   filter(
+     str_detect(
+       string = title,
+       # For å matche både små og store bokstaver
+       pattern = '[Gg][Dd][Pp]'
+       # AND vha. &
+       ) &
+     str_detect(
+       string = title,
+       # For å matche både små og store bokstaver og
+       # space eller ikke før 3
+       pattern = '[Nn][Uu][Tt][Ss]\\s*3'
+       )
+     ) |> 
+  select(title, code)
+```
 
-gdp_tabs |>
- select(title, code) |>
- flextable() |>
- width(1, width = 3.5) |>
- width(2, width = 1.5)
-
+```{r}
+gdp_tabs |> 
+  select(title, code) |> 
+  flextable()  |> 
+  width(1, width = 3.5) |> 
+  width(2, width = 1.5)
 ```
 
 
 ```{r}
 # description nama_10r_3gdp
 dsd_gdp <- get_eurostat_dsd("nama_10r_3gdp")
+```
 
+
+```{r}
+dsd_gdp |> 
+  filter(concept %in% c('freq', 'unit')) |> 
+  flextable()  |> 
+  width(j = 1, width = 1) |> 
+  width(j = 2, width = 2) |> 
+  width(j = 3, width = 2)
 ```
 
 ```{r}
-#| tbl-cap: "Frekvensen er årlig og vi velger å benytte MIO_PPS_EU27_2020 som enhet."
-dsd_gdp |>
- filter(concept %in% c('freq', 'unit')) |>
- flextable() |>
- width(j = 1, width = 1) |>
- width(j = 2, width = 2) |>
- width(j = 3, width = 2)
-
-```
-```{r}
-#| tbl-cap: "Eksempel for geo-variabelen. Vi ser at vi har nivåene fra NUTS3 (BE213; Arr. Turnhout) via nivå NUTS2 (BE21; Prov. Antwerpen) via nivå NUTS1 (BE2; Vlaams Gewest) til landsnivå (BE; Belgium)."
-
-dsd_gdp |>
- filter(concept %in% c('geo')) |>
- head(n = 10) |>
- flextable() |>
- width(j = 1, width = 1) |>
- width(j = 2, width = 2) |>
- width(j = 3, width = 2)
-
+dsd_gdp |> 
+  filter(concept %in% c('geo')) |> 
+  head(n = 10) |> 
+  flextable()  |> 
+  width(j = 1, width = 1) |> 
+  width(j = 2, width = 2) |> 
+  width(j = 3, width = 2)
 ```
 
 ```{r}
 #| eval: true
 #| cache: true
-# Gross domestic product (GDP) at current market prices by NUTS 3 regions
+# Gross domestic product (GDP) at current market prices by NUTS 3 regions 
 # id: nama_10r_3gdp
 # Vi velger å hente samtlige soner for så å filtrere ut de få vi ikke trenger
-
 gdp <- get_eurostat_data(
- id = "nama_10r_3gdp",
- filters = list(
- # neste linje viser hvordan vi kunne ha hentet ut data for spesifiserte land
- # geo = c("AT", "DE", "DK", "FR"),
- nuts_level = "3",
- unit = "MIO_PPS_EU27_2020"
- ),
- exact_match = FALSE,
- date_filter = 2000:2023,
- stringsAsFactors = FALSE
- ) |>
- mutate(
- gdp_n3 = 1000000 * values
- ) |>
- select(-c(unit, values)) |>
- # Vil bare ha NUTS 3 nivå (5 karakterer). Vil aggregere selv til NUTS2, NUTS1 og NUTSc
- filter(str_length(geo) == 5) |>
- as_tibble()
+  id = "nama_10r_3gdp",
+  filters = list(
+    # neste linje viser hvordan vi kunne ha hentet ut data
+    # for spesifiserte land
+    # geo = c("AT", "DE", "DK", "FR"),
+    nuts_level = "3",
+    unit = "MIO_PPS_EU27_2020"
+  ),
+  exact_match = FALSE,
+  date_filter = 2000:2023,
+  stringsAsFactors = FALSE
+  ) |> 
+  mutate(
+    gdp_n3 = 1000000 * values
+  ) |> 
+  select(-c(unit, values)) |> 
+  # Vil bare ha NUTS 3 nivå (5 karakterer). Vil aggregere selv til NUTS2,
+  # NUTS1 og NUTSc  
+  filter(str_length(geo) == 5) |> 
+  as_tibble()
+```
 
+
+```{r}
+dim(gdp)
 ```
 
 ```{r}
-# Kontroll
-dim(gdp)
 gdp
 ```
 
 ```{r}
-# Mangler data for årene 2015, 2016 og 2017.
-
-gdp |>
- filter(geo == "IE053") |>
- print(n = 25)
+gdp |> 
+  filter(geo == "IE053") |> 
+  print(n = 25)
 ```
 
 ```{r}
-# Vi legger derfor disse til gdp som NA verdier. Disse vil vi så erstatte med interpolerte verdier senere.
-
 ie_data <- tibble(
- geo = c("IE053", "IE053", "IE053"),
- time = c("2015", "2016", "2017"),
- gdp_n3 = c(NA, NA, NA)
+  geo = c("IE053", "IE053", "IE053"),
+  time = c("2015", "2016", "2017"),
+  gdp_n3 = c(NA, NA, NA)
 )
-
 ```
 
 ```{r}
-# Slår sammen dataene
 gdp <- rbind(gdp, ie_data)
 ```
 
 ```{r}
-# Lager interpolerte verdier til NA verdidene
-gdp <- gdp |>
- arrange(geo, time) |>
- mutate(
- gdp_n3 = zoo::na.approx(gdp_n3)
- )
+gdp <- gdp |> 
+  arrange(geo, time) |> 
+  mutate(
+    gdp_n3 = zoo::na.approx(gdp_n3)
+  )
 ```
 
 ```{r}
-gdp |>
- filter(geo == "IE053") |>
- print(n = 25)
-
+gdp |> 
+  filter(geo == "IE053") |> 
+  print(n = 25)
 ```
 
 # Population demo_r_pjanaggr3
 
-#### Oppgave 1
-Søk i toc_txt for tabeller med population og NUTS 3. Pass på at dere dekker både population
-og Population og ulike skrivemåter for NUTS 3.
-
+## oppgave 1
+Søker i toc_txt for tabeller
 ```{r}
 pop_tabs <- toc_txt |>
   filter(
+    # Matcher både population og Population
     str_detect(
       string = title,
-      pattern = "[Pp]opulation"
+      pattern = "[Pp][Oo][Pp][Uu][Ll][Aa][Tt][Ii][Oo][Nn]"
     ) &
+    # Matcher både NUTS3 og NUTS 3
     str_detect(
       string = title,
       pattern = "[Nn][Uu][Tt][Ss]\\s*3"
@@ -193,116 +192,116 @@ pop_tabs <- toc_txt |>
   ) |>
   select(title, code)
 
+
+```
+
+
+
+## oppgave 2
+###(i)
+```{r}
 pop_tabs |>
-  flextable() |>
-  width(1, width = 4) |>
-  width(2, width = 2)
-
-```
-
-#### Oppgave 2
-i. Finn koden for tabellen med forklarende tekst «Average annual population to calculate regional GDP data (thousand persons) by NUTS 3 regions».
-
-```{r}
-pop_tab <- toc_txt |>
   filter(
-    str_detect(title, "Average annual population") &
-      str_detect(title, "[Nn][Uu][Tt][Ss]\\s*3")
-  ) |>
-  select(title, code)
+    str_detect(title, regex("population", ignore_case = TRUE)) &
+    str_detect(title, regex("NUTS\\s*3", ignore_case = TRUE))
+  )
 
-pop_tab
 ```
-
-ii. Last ned Data Structure Definition (DSD) for denne tabellen.
 
 ```{r}
-pop_code <- pop_tab$code[1]
+pop_tabs |>
+  filter(
+    str_detect(
+      title,
+      fixed("Average annual population to calculate regional GDP data (thousand persons) by NUTS 3 region")
+    )
+  ) |>
+  select(code)
+```
+Finner at koden er demo_r_pjanaggr3 for tabellen med forklarende tekst «Average annual population to calculate regional GDP data (thousand persons) by NUTS 3 regions»
 
-dsd_pop <- get_eurostat_dsd(pop_code)
-
-
-dsd_pop |>
- head(n = 10) |>
- flextable() |>
- width(j = 1, width = 1) |>
- width(j = 2, width = 2) |>
- width(j = 3, width = 2)
-
+###(ii)
+Last ned Data Structure Definition (DSD) for denne tabellen.
+```{r}
+dsd_pop <- get_eurostat_dsd("demo_r_pjanaggr3")
 ```
 
-iii. Bruk opplysningene i DSD for å formulere en spørring mot Eurostat og last ned dataene. Gi dataene lastet ned navnet pop. Vi er bare interessert i totalbefolkning og ignorerer derfor både kjønn og alder. Vi ønsker data for årene 2000-2023.
-
+### (iii) (iv) og (v)
+Tre av oppgavene i en, laster ned dataen og gi den navnet pop, plukker ut årene fra 2000 til 2023 og den totale befolkningen, begrenser datasettet til NUTS3 regioner og konverterer settet til en tibble.
 ```{r}
 #| eval: true
 #| cache: true
-pop_raw <- get_eurostat_data(
-  id = pop_code,
-  filters = list(
-    nuts_level = "3"
-  ),
-  exact_match = FALSE,
-  date_filter = 2000:2023,
-  stringsAsFactors = FALSE
-)
-
-pop <- pop_raw |>
-  mutate(
-    pop_n3 = 1000 * values) |>
-  select(geo, time, pop_n3) |>
-  filter(str_length(geo) == 5) |>
-  as_tibble()
+pop <- get_eurostat_data(
+ id = "nama_10r_3popgdp",
+ filters = list(
+ nuts_level = "3",
+ unit = "THS"
+ ),
+ exact_match = FALSE,
+ date_filter = 2000:2023,
+ stringsAsFactors = FALSE
+ ) |>
+ mutate(
+ pop_n3 = values * 1000
+ ) |> 
+  select(-c(unit, values)) |>
+ filter(str_length(geo) == 5) |> 
+ as_tibble()
 ```
 
 ```{r}
 dim(pop)
-pop
 ```
 
-#### Oppgave 3
-
-Gjør en left_join() av de to tabellene. La gdp være venstre tabell (Viktig!). Gi resultatet
-navnet gdp_pop.
-
+## Oppgave 3
+Slå sammen GDP-data (gdp) og befolkingsdata (pop)
 ```{r}
 gdp_pop <- gdp |>
-  left_join(pop, by = join_by(geo, time))
-
+  left_join(pop, by = c("geo", "time"))
 ```
 
+Kontrollerer:
+
+```{r}
+dim(gdp_pop)
+head(gdp_pop)
+```
+
+Gjør følgende tilpasning av gdp_pop:
 ```{r}
 eu_data <- gdp_pop %>%
- # Trenger ikke ZZ sonene som er en slag oppsamlingssone
- # for ikke fordelte verdier
- filter(!str_sub(geo, 3, 4) == "ZZ") |>
- # Drop the EFTA countries Switzerland and Norway
- filter(!str_sub(geo, 1, 2) %in% c("CH", "NO")) |>
- # Drop the EU countries Netherlands and Portugal
- filter(!str_sub(geo, 1, 2) %in% c("NL", "PT")) |>
- # Drop candidate country Monte Negro because of data
- filter(!str_sub(geo, 1, 2) %in% c("ME")) |>
- # Drop a region of France in the Indian Ocean (Outre Mer); Mayotte
- # because of missing data
- filter(!geo == "FRY50") |>
- # note that a few countries will have missing data for
- # some years at the start of the period
- filter(time > 1999 & time < 2023)
-
+  # Trenger ikke ZZ sonene som er en slag oppsamlingssone
+  # for ikke fordelte verdier
+  filter(!str_sub(geo, 3, 4) == "ZZ") |> 
+  # Drop the EFTA countries Switzerland and Norway
+  filter(!str_sub(geo, 1, 2) %in% c("CH", "NO")) |> 
+  # Drop the EU countries Netherlands and Portugal
+  filter(!str_sub(geo, 1, 2) %in% c("NL", "PT")) |> 
+  # Drop candidate country Monte Negro because of data
+  filter(!str_sub(geo, 1, 2) %in% c("ME")) |> 
+  # Drop a region of France in the Indian Ocean (Outre Mer); Mayotte
+  # because of missing data
+  filter(!geo == "FRY50") |> 
+  # note that a few countries will have missing data for
+  # some years at the start of the period
+  filter(time > 1999 & time < 2023)
 ```
 
+Regner ut gdp per capita og gir den et nytt navn:
 ```{r}
 eu_data <- eu_data |>
-  mutate(gdp_pc_n3 = gdp_n3 / pop_n3)
-
+  mutate(
+  gdp_pc_n3 = gdp_n3 / pop_n3
+)
 ```
 
+Kontrollerer:
 ```{r}
-# Kontroll
 dim(eu_data)
 ```
+Sjekker om vi mangler data for enkelte år for noen soner:
 
 ```{r}
-# sjekker om vi mangler noen data
 dim(
   eu_data |>
     filter(is.na(gdp_pc_n3))
@@ -311,16 +310,13 @@ dim(
 Var ikke noe mer NA-verdier igjen i gdp_pc_n3
 Kvitter oss med andre objekter for å rydde litt ettersom vi bare skal bruke eu_data videre:
 ```{r}
-
 # don't run if you don't mean it.
 rm(list = setdiff(ls(), c("eu_data")))
 ```
 
-#### Oppgave 4
-Endre navnet på variabelen geo til n3 og lag variablene n2 (NUTS2), n1 (NUTS1) og nc (for
-«Country») fra variabelen n3. Funksjonen str_sub() fra stringr pakken kan her være
-hendig å bruke.
 
+## Oppgave 4
+Endrer ny navn på geo til n3 og legger til variablene n2, n1 og nc fra variabelen n3.
 ```{r}
 eu_data <- eu_data |>
   rename(n3 = geo) |>
@@ -332,11 +328,8 @@ eu_data <- eu_data |>
 
 ```
 
-
-#### Oppgave 5
-Undersøk om vi har noen NUTS 3 soner med pop_n3 lik 0. Hvis det er noen så endre disse
-til NA.
-
+## Oppgave 5
+Undersøk om vi har noen NUTS 3 soner med pop_n3 lik 0. Hvis det er noen så endre disse til NA.
 Undersøker: 
 ```{r}
 eu_data |>
@@ -344,34 +337,30 @@ eu_data |>
 ```
 Fant ingen rader med 0 og vi går videre, trenger ikke å endre noe til NA.
 
-
-#### Oppgave 6
-Sjekk hvor mange NUTS3 soner vi har i hvert land.
-
+## Oppgave 6
+Sjekker hvor mange NUTS3 soner vi har i hvert land, tar en strukturkontroll:
 ```{r}
 eu_data |>
-  select(nc, n3) |> 
-  distinct() |> 
-  group_by(nc) |> 
+  select(nc, n3) |> # Henter ut de variablene vi trenger
+  distinct() |> # Fjerner duplikater 
+  group_by(nc) |> # Grupperer per land
   summarise(
     num_nuts3 = n(),
     .groups = "drop"
   ) |>
-  arrange(desc(num_nuts3)) 
-
+  arrange(desc(num_nuts3)) # Gir mest informative oversikt, legger det største landet øverst
 ```
 
-#### Oppgave 7
-Sjekk summary gdp_pc_n3. Hva er største og minste verdi? Har vi noen NA?
-
+## Oppgave 7
+Sjekker summary for gdp_pc_n3 for å se om hva som er har den største og minste verdien og om det er noen NA:
 ```{r}
 summary(eu_data$gdp_pc_n3)
 ```
 
-#### Oppgave 8
-Bruk case_when() for å legge til variabelen nc_name før vi går videre. Østerrike for AT,
-Belgia for BE etc..
+Minste verdien er 2 214, mens max er på 180 416. Får ingen NA.
 
+## Oppgave 8 
+Bruk case_when() for å legge til variabelen nc_name før vi går videre. Østerrike for AT, Belgia for BE etc..
 ```{r}
 eu_data <- eu_data |>
   mutate(
@@ -410,66 +399,72 @@ eu_data <- eu_data |>
   )
 
 ```
-
-
+Kontrollerer:
 ```{r}
-# Kontroll
-
-eu_data |>
- select(nc_name, nc) |>
- distinct() |>
- print(n = 30)
-
+eu_data |> 
+  select(nc_name, nc) |> 
+  distinct() |> 
+  print(n = 30)
 ```
 
+# Beregning av Gini på NUTS2, NUTS1 og NUTSc nivå
+Vi skal nå beregne Gini for hvert år på NUTS2, NUTS1, NUTSc og EU nivå. Vi vil beregne Gini utfra gdp_pc_n3 og pop_n3 i NUTS3 for alle aggregeringsnivåene.
+Gini-koeffisient er tradisjonelt et mål på inntektsforskjeller. Her benytter vi målet for å undersøke hvor jevnt verdiskapningen er fordelt mellom regioner. En Gini-koeffisient nær null vil altså her bety at verdiskapingen er jevnt fordelt mellom regionene i et land. En Gini-koeffisient nær 1 vil det derimot bety at det meste av verdiskapingen i et land er sentralisert til en spesifikk NUTS3 region.
 
-## Beregning av Gini på NUTS2, NUTS1 og NUTSc nivå
-
-#### Oppgave 9
-Bruk koden nedenfor til å beregne Gini-koeffisienter på NUTS2 nivå. Finn også antall NUTS3 regioner som finnes i hver NUTS2 region. Gi denne variabelen navnet num_reg_n2.
-Vi beregner også populasjon og gdp på NUTS2 nivå. Resultatet legger dere i en tibble kalt
-gini_n2.
+## Gini- koeffisient for NUTS2
+## Oppgave 9
+Beregner Gini-koeffisienter på NUTS2 nivå:
 
 ```{r}
 gini_n2 <- eu_data |>
- group_by(n2, time, n1, nc, nc_name) |>
- summarise(
- gini_n2 = DescTools::Gini(gdp_pc_n3, weights = pop_n3, na.rm = TRUE),
- pop_n2 = sum(pop_n3),
- gdp_n2 = sum(gdp_n3),
- gdp_pc_n2 = gdp_n2 / pop_n2,
- num_reg_n2 = n(),
- .groups = "drop"
- )
-
-gini_n2 |>
-  select(gini_n2, num_reg_n2, pop_n2, gdp_n2, gdp_pc_n2) |>
-  summary() |>
-  print(width = 80)
-
+  group_by(n2, time, n1, nc, nc_name) |> 
+  summarise(
+    gini_n2 = DescTools::Gini(gdp_pc_n3, weights = pop_n3, na.rm = TRUE),
+    pop_n2 = sum(pop_n3),
+    gdp_n2 = sum(gdp_n3),
+    gdp_pc_n2 =  gdp_n2 / pop_n2,
+    num_reg_n2 = n(),
+    .groups = "drop"
+  ) 
 ```
-#### Oppgave 10
-Sjekk obs. med Gini mindre enn 0.001. Er det noe som kjennetegner disse regionene?
+Kontrollerer:
 
 ```{r}
-low_gini_n2 <- gini_n2 |>
-  filter(gini_n2 < 0.001) |>
-  arrange(gini_n2)
+summary(
+  gini_n2 |>
+    select(gini_n2, num_reg_n2, pop_n2, gdp_n2, gdp_pc_n2)
+)
+```
+Får de samme tallene som kontrollen i oppgaven. Vi ser at vi har et spenn i Gini-koeffisienten på NUTS2 nivå fra 0.0004 til 0.4779. Vi har også 856 NAs. Vi ser også at antall NUTS3 i NUTS2 regioner spenner fra 1 til 23.
 
-low_gini_n2 |>
-  select(nc_name, n2, time, gini_n2, num_reg_n2) |>
-  print(n = 50)
+## Oppgave 10
+Finner observasjoner med Gini < 0.001
+```{r}
+gini_n2 |>
+  filter(gini_n2 < 0.001)
+```
+Får opp 4 obervasjoner
+Se så på kjennetegnet ved disse regionene:
+```{r}
+gini_n2 |>
+  filter(gini_n2 < 0.001) |>
+  select(
+    nc_name,
+    n2,
+    time,
+    gini_n2,
+    num_reg_n2,
+    pop_n2,
+    gdp_pc_n2
+  ) |>
+  arrange(num_reg_n2)
 
 ```
-Alle disse regionene har kun to underliggende NUTS3 regioner. Og i disse årene er de underliggende NUTS3 regionene tilnærmet like, derfor får vi en såpass lav gini.
 
+Det som blir observert her er at de fleste har få NUTS3-regioner i sine NUTS2, noe som gjør at alle NUTS3 regionene er omtrent lik gdp_pc_n3 eller om det bare er en region. Derfor får disse observasjonene en ekstremt lav Gini.
 
-#### Oppgave 11
-Beregn Gini-koeffisienter på NUTS1 nivå (ut fra gdp_pc_n3og pop_n3). Legg resultatet i
-gini_n1. Et alternativ her ville vært å beregnet Gini fra gdp_pc_n2 og pop_n2 i NUTS1
-regionene. Vi får imidlertid større spredning og trolig også et bedre mål på likhet/ulikhet
-ved å beregne Gini utfra gdp_pc_n3og pop_n3.
-
+## Oppgave 11
+Beregn Gini-koeffsienter på NUTS1-nivå, der gdp_pc_n2 eller pop_n2 ikke skal brukes som grunnlag:
 ```{r}
 gini_n1 <- eu_data |>
   group_by(n1, time, nc, nc_name) |>
@@ -479,53 +474,63 @@ gini_n1 <- eu_data |>
       weights = pop_n3,
       na.rm = TRUE
     ),
-    pop_n1 = sum(pop_n3, na.rm = TRUE),
-    gdp_n1 = sum(gdp_n3, na.rm = TRUE),
+    pop_n1 = sum(pop_n3),
+    gdp_n1 = sum(gdp_n3),
     gdp_pc_n1 = gdp_n1 / pop_n1,
     num_reg_n1 = n(),
     .groups = "drop"
   )
 
+```
+Kontrollerer:
+```{r}
 gini_n1 |>
   select(gini_n1, num_reg_n1, gdp_n1, pop_n1, gdp_pc_n1) |>
   summary() |>
   print(width = 80)
+
 ```
+Får de samme tallene som oppgaven. Vi ser at vi har et spenn i Gini-koeffisienten på NUTS1 nivå fra 0.016 til 0.429. Antall NAs er nå 177. Vi ser at antall NUTS3 i NUTS1 regioner spenner helt fra 1 til 96.
 
-#### Oppgave 12
-Beregn Gini-koeffisienter (ut fra variasjon i verdiskapning på NUTS3 nivå) på nasjonsnivå. Legg resultatet i gini_nc.
-
+## Oppgave 12
+Beregn Gini-koeffisienter på nasjonsnivå
+Måler hvor jevnt verdiskapningen er fordelt mellom regioner innen samme land:
 ```{r}
 gini_nc <- eu_data |>
-  group_by(nc, nc_name, time) |>
+  group_by(nc, time, nc_name) |>
   summarise(
     gini_nc = DescTools::Gini(
       gdp_pc_n3,
       weights = pop_n3,
       na.rm = TRUE
     ),
-    pop_nc = sum(pop_n3, na.rm = TRUE),
-    gdp_nc = sum(gdp_n3, na.rm = TRUE),
+    pop_nc = sum(pop_n3),
+    gdp_nc = sum(gdp_n3),
     gdp_pc_nc = gdp_nc / pop_nc,
     num_reg_nc = n(),
     .groups = "drop"
   )
 
-gini_nc |>
-  select(gini_nc, num_reg_nc, gdp_nc, pop_nc, gdp_pc_nc) |>
-  summary() |>
-  print(width = 80)
 ```
 
-## «Nestete» datastrukturer
-
-#### Oppgave 13
-Bruk koden nedenfor til å «neste» dataene på NUTS3 nivå.
-
+Kontrollerer 
 ```{r}
-gini_n3_nest <- eu_data |>
-  group_by(nc_name, nc) |>
-  nest(.key = "NUTS3_data") |>
+gini_nc |> 
+  select(gini_nc, num_reg_nc, gdp_nc, pop_nc, gdp_pc_nc) |> 
+  summary() |> 
+  print(width = 80)
+```
+Får samme som oppgaven. På landsnivå varierer Gini fra 0,1111 til 0,3991. Antall NUTS3 regioner per land varierer fra 1 til 400.
+
+# "Nestete" datastrukturer
+Vi vil nå «neste» de ulike gini_NUTS* datasettene og sette dem sammen til et nestet datasett eu_data_nestet som innholder alle dataene ovenfor i en fint ordnet struktur.
+
+## Oppgave 13
+"neste" dataene på NUTS3 nivå
+```{r}
+gini_n3_nest <- eu_data |> 
+  group_by(nc_name, nc) |> 
+  nest(.key = "NUTS3_data") |> 
   ungroup()
 ```
 
@@ -534,24 +539,16 @@ gini_n3_nest
 ```
 
 
-#### Oppgave 14
-Nest dataene på NUTS2 nivå. Legg resultatet gini_NUTS2_nest. Bruk .key = "NUTS2_data".
-
+## Oppgave 14
+«Nest» dataene på NUTS2 nivå. Legg resultatet gini_NUTS2_nest. Bruk .key = "NUTS2_data".
 ```{r}
 gini_NUTS2_nest <- gini_n2 |>
-  group_by(nc_name, nc) |>
-  nest(.key = "NUTS2_data") |>
-  ungroup()
-
+  group_by(nc_name, nc)|>
+ nest(.key = "NUTS2_data")
 ```
 
-```{r}
-gini_NUTS2_nest
-```
-
-#### Oppgave 15
+## Oppgave 15
 «Nest» dataene på NUTS1 nivå. Legg resultatet gini_NUTS1_nest.
-
 ```{r}
 gini_NUTS1_nest <- gini_n1 |>
   group_by(nc_name, nc) |>
@@ -559,13 +556,8 @@ gini_NUTS1_nest <- gini_n1 |>
   ungroup()
 ```
 
-```{r}
-gini_NUTS1_nest
-```
-
-#### Oppgave 16
+## Oppgave 16 
 «Nest» dataene på nasjonsnivå. Legg resultatet i gini_NUTSc_nest.
-
 ```{r}
 gini_NUTSc_nest <- gini_nc |>
   group_by(nc_name, nc) |>
@@ -573,25 +565,20 @@ gini_NUTSc_nest <- gini_nc |>
   ungroup()
 ```
 
-```{r}
-gini_NUTSc_nest
-```
-
-#### Oppgave 17
-«Nest» dataene på EU nivå, dvs. Gini for samtlige NUTS3 regioner hvert år. Legg resultatet
-i gini_NUTSeu_nest. _nest er her litt misvisende siden vi ikke gjør noen nesting
+## Oppgave 17
+«Nest» dataene på EU nivå, dvs. Gini for samtlige NUTS3 regioner hvert år. Legger resultatet i gini_NUTSeu_nest. _nest er her litt misvisende siden vi ikke gjør noen nesting.
 
 ```{r}
 gini_NUTSeu_nest <- eu_data |>
- group_by(time) |>
- summarise(
- gini_eu = DescTools::Gini(gdp_pc_n3, weights = pop_n3, na.rm = TRUE),
- num_reg_eu = n(),
- .groups = "drop"
- )
+  group_by(time) |> 
+  summarise(
+    gini_eu = DescTools::Gini(gdp_pc_n3, weights = pop_n3, na.rm = TRUE),
+    num_reg_eu = n(),
+    .groups = "drop"
+  ) 
 ```
 
-#### Oppgave 18
+## Oppgave 18
 Vis utviklingen i Gini-koeffisienten for NUTS3 regioner i EU vha. et linjeplot.
 
 ```{r}
@@ -605,16 +592,17 @@ gini_NUTSeu_nest |>
     y = "gini_eu"
   ) +
   theme_minimal()
-
 ```
 
-#### Oppgave 19
-Basert på plottet fra foregående oppgave diskuter (veldig!) kort om tiltaket ser ut til å virke.
+## Oppgave 19
+«The EU’s Structural Funds and Cohesion Fund direct funding to NUTS level 2 regions based on their GDP (PPS) per capita in comparison to the EU average: less developed regions (less than 75%), transition regions (between 75% and 90% and more developed regions (over 90%). For the period 2014–20, EUR 351 billion will be invested in the EU’s regions with most being directed to the less developed regions.»
 
-Plottet viser en tydelig fallende trend i Gini-koeffisienten for NUTS3-regioner i EU over perioden, særlig fra midten av 2000-tallet og fremover. Dette indikerer at ulikheten i verdiskaping mellom regioner har blitt redusert over tid. Utviklingen er konsistent med målsettingen bak EUs strukturfond og samholdsfond, som retter investeringer mot mindre utviklede regioner. Selv om andre faktorer også kan ha påvirket utviklingen, gir plottet støtte til at tiltakene samlet sett kan ha hatt en utjevnende effekt på regional ulikhet i EU.
+Basert på plottet fra foregående oppgave diskuter (veldig!) kort om tiltaket ser ut til å virke:
+Plottet gir støtte til at regional ulikhet har avtatt over tid i EU, noe som er forenlig med at kohesjonspolitikken kan ha hatt effekt, men analysen kan ikke fastslå årsakssammenheng.
 
-#### Oppgave 20
-Ta gini_n3_nestsom utgangspunkt og bruk left_join() til å legge til datasettene gini_NUTS2_nest, gini_NUTS1_nest og gini_NUTSc_nest
+
+## Oppgave 20
+Ta gini_n3_nestsom utgangspunkt og bruk left_join() til å legge til datasettene gini_NUTS2_nest, gini_NUTS1_nest og gini_NUTSc_nest.
 
 ```{r}
 eu_data_nested <- gini_n3_nest |>
@@ -624,27 +612,28 @@ eu_data_nested <- gini_n3_nest |>
 
 ```
 
+slette alle objekter utenom eu_data og eu_data_nested.
 ```{r}
 # don't run if you don't mean it.
 rm(list = setdiff(ls(), c("eu_data", "eu_data_nested")))
 ```
 
-## Plots som viser utviklingen
 
-#### Oppgave 21
-Lag et linjeplot i ggplot som viser utviklingen i Gini-koeffisient på nasjonsnivå for de 29
-landene vi har med. Husk argumentet group =. Resulatet skal bli som vist i Figur 5.
+#Plots som viser utvikling
+## Oppgave 21
+Lag et linjeplot i ggplot som viser utviklingen i Gini-koeffisient på nasjonsnivå for de 29 landene vi har med.
 
 ```{r}
-gini_nc_long <- eu_data_nested |>
+gini_nc <- eu_data_nested |>
   unnest(NUTSc_data)
 
 ```
 
+Får plotten: 
 ```{r}
 #| label: fig-ginialle
-#| fig-cap: "Utviklingen over tid for Gini-koeffisienten for de 29 landene. Husk at Gini-koeffisienten her måler endring i hvordan verdiskapningen i landet er fordelt mellom NUTS3 regioner."
-gini_nc_long |>
+#| fig-cap: "Utviklingen over tid for Gini-koeffisienten for de 29 landene"
+gini_nc |>
   ggplot(aes(
     x = as.integer(time),
     y = gini_nc,
@@ -665,30 +654,27 @@ gini_nc_long |>
 
 ```
 
-
-#### Oppgave 22
-Lag en sortert tabell for Gini i år 2022 som gjør det litt lettere å se hvilken linje som hører
-til hvilket land.
+## Oppgave 22
+Lager en sortert tabell for Gini i år 2022 som gjør det litt lettere å se hvilken linje som hører til hvilket land.
 
 ```{r}
-#| label: tbl-gini2022
-#| tbl-cap: "Gini-koeffisient for gnp i 2022. Kypros og Luxemburg har bare en sone og følgelig ingen Gini-koeffisient."
+gini_2022 <- gini_nc |>
+  filter(time == 2022) |>
+  arrange(desc(gini_nc)) |>
+  select(nc_name, gini_nc)
 
-gini_2022 <- eu_data_nested |>
-  unnest(NUTSc_data) |>
-  filter(time == "2022") |>
-  select(nc_name, gini_nc) |>
-  arrange(desc(gini_nc))
-
+# Skriv ut tabellen
 gini_2022 |>
   flextable() |>
+  set_header_labels(
+    nc_name = "Land",
+    gini_nc = "Gini-koeffisient"
+  ) |>
   autofit()
+
 ```
 
-#### Oppgave 23
-Del landene i to grupper, dem som har lavere Gini i 2022 enn første året (dvs. utgjevning
-over tid mellom regionene) og dem som har høyere Gini i 2022 enn første året (dvs. større
-forskjeller mellom regionene). Vis utviklingen i de to gruppene vha. linjeplot.
+## Oppgave 23
 
 ```{r}
 gini_long <- eu_data_nested |>
@@ -745,7 +731,7 @@ gini_long2 |>
 ```
 
 ```{r}
-#| label: fig-hoygini
+#| label: fig-Lavgini
 #| fig-cap: "Land med høyere regional ulikhet i 2022 enn første år vi har data for."
 gini_long2 |>
   filter(gruppe == "Høyere regional ulikhet (2022 eller siste år)") |>
@@ -758,15 +744,20 @@ gini_long2 |>
   theme_minimal()
 ```
 
-#### Oppgave 24
+## Oppgave 24
 Vis vha. et linjeplot utviklingen i gini-koeffisient for NUTS2 regionene i Irland.
 
 ```{r}
-eu_data_nested |>
+ie_nuts2 <- eu_data_nested |>
   unnest(NUTS2_data) |>
   filter(nc_name == "Irland") |>
+  filter(!is.na(gini_n2))
+```
+
+```{r}
+ie_nuts2 |>
   ggplot(aes(
-    x = as.integer(time),
+    x = as.numeric(time),
     y = gini_n2,
     group = n2,
     colour = n2
@@ -781,22 +772,34 @@ eu_data_nested |>
   theme_minimal()
 ```
 
-## Hvordan er verdiskapningen fordelt mellom regionene i ulike land?
-### Spania
-#### Oppgave 25
-Lag et linje-plot som viser utviklingen i Gini-koeffisientene for NUTS2 regionene i Spania.
+# Hvordan er verdiskapningen fordelt mellom regionene i ulike land?
+Spania hadde i år 2022 en Gini-koeffisient lik 0,134 som skulle tilsi en nokså jevn fordeling av økonomisk aktivitet mellom regionene.
 
+## Oppgave 25
+Lag et line-plot som viser utviklingen i Gini-koeffisientene for NUTS2 regionene i Spania.
 ```{r}
-eu_data_nested |>
+es_nuts2 <- eu_data_nested |>
   unnest(NUTS2_data) |>
   filter(nc_name == "Spania") |>
+  filter(!is.na(gini_n2))
+```
+Kontrollerer regionene:
+```{r}
+es_nuts2 |>
+  select(n2) |>
+  distinct() |>
+  arrange(n2)
+```
+Lager så linjeplottet:
+```{r}
+es_nuts2 |>
   ggplot(aes(
-    x = as.integer(time),
+    x = as.numeric(time),
     y = gini_n2,
     group = n2,
     colour = n2
   )) +
-  geom_line(linewidth = 1) +
+  geom_line(linewidth = 0.9) +
   labs(
     title = "Utviklingen i Gini-koeffisienten for NUTS2-regionene i Spania",
     x = "År",
@@ -804,7 +807,6 @@ eu_data_nested |>
     colour = "NUTS2"
   ) +
   theme_minimal()
-
 ```
 
 #### Oppgave 26
@@ -857,6 +859,9 @@ eu_data_nested |>
   theme_minimal()
 
 ```
+Vi ser at Gini-koeffisientene spenner fra ca. 0.03 til over 0.45. Det ser altså ut til å være store forskjeller mellom NUTS2 regionene i Tyskland. Noen NUTS2 soner ser ut til å være relativt ensartet mhp. verdiskapning, mens andre er preget av store forskjeller mellom NUTS3 regionene. Hvor i landet er de plassert de regionene som har de største regionale forskjellene?
+Figuren viser at Gini-koeffisientene for NUTS2-regionene i Tyskland varierer fra om lag 0,03 til over 0,45. Dette peker på betydelige forskjeller i graden av intern regional ulikhet. Regioner med lave Gini-verdier fremstår som relativt homogene når det gjelder verdiskaping mellom NUTS3-områder, mens regioner med høye Gini-verdier er kjennetegnet av store interne variasjoner. De mest markante regionale ulikhetene finnes i hovedsak i og rundt de største økonomiske sentrene og storbyregionene, særlig i de vestlige og sørlige delene av landet, hvor sterke kjerneområder sameksisterer med mindre utviklede omkringliggende regioner.
+
 
 #### Oppgave 28
 Er det samme er tilfelle når vi ser på de større regionene i Tyskland (NUTS1)?
@@ -894,11 +899,9 @@ eu_data_nested |>
 
 ```
 
+# Frankrike
 
-### Frankrike
-#### Oppgave 29
-Vis utviklingen i Gini-koeffisient for NUTS1 regionene i Frankrike i et line-plot. Plottet
-vil se slik ut.
+## Oppgave 29
 
 ```{r}
 eu_data_nested |>
@@ -908,14 +911,13 @@ eu_data_nested |>
     x = as.integer(time),
     y = gini_n1,
     group = n1,
-    colour = n1
+    color = n1
   )) +
-  geom_line(linewidth = 0.8) +
+  geom_line(linewidth = 1) +
   labs(
     title = "Utviklingen i Gini-koeffisienten for NUTS1-regionene i Frankrike",
     x = "År",
-    y = "Gini-koeffisient",
-    colour = "NUTS1"
+    y = "Gini-koeffisient"
   ) +
   theme_minimal()
 
@@ -1009,153 +1011,256 @@ n3_data <- eu_data_nested |>
 ```
 
 ```{r}
-n2_data <- eu_data_nested |>
-  unnest(NUTS2_data) |>
+n2_data <- eu_data_nested |> 
+  unnest(NUTS2_data) |> 
   select(nc_name, n2, time, gini_n2)
 ```
 
 ```{r}
-NUTS2_diff <- n3_data |>
- left_join(n2_data, by = join_by(nc_name, n2, time)) |>
- mutate(
- diff_gdp_per_capita = c(NA, 100 * diff(gdp_pc_n3)),
- diff_gini_nuts2 = c(NA, 100 * diff(gini_n2))
- ) %>%
- filter(complete.cases(.)) |>
- group_by(nc_name, n2) |>
- nest(.key = "NUTS2_diff")
+NUTS2_diff <- n3_data |> 
+  left_join(n2_data, by = join_by(nc_name, n2, time)) |> 
+  mutate(
+    diff_gdp_per_capita = c(NA, 100 * diff(gdp_pc_n3)),
+    diff_gini_nuts2 = c(NA, 100 * diff(gini_n2))
+  ) %>%
+  filter(complete.cases(.)) |> 
+  group_by(nc_name, n2) |> 
+  nest(.key = "NUTS2_diff")
 ```
 
 ```{r}
-unnest(NUTS2_diff, NUTS2_diff) |>
- ungroup() |>
- filter(!is.nan(gini_n2)) |>
- select(n2) |>
- distinct() |>
- nrow()
-
+unnest(NUTS2_diff, NUTS2_diff) |> 
+  ungroup() |> 
+  filter(!is.nan(gini_n2)) |> 
+  select(n2) |> 
+  distinct() |> 
+  nrow()
 ```
+av disse har vi kunnet beregne Gini-koeffisient for. Vi har altså 38 NUTS2 soner som bare inneholder én NUTS3 sone.
 
-#### Oppgave 34
+## Oppgave 34
 Bruk modellen diff_gini_nuts2 ~ diff_gdp_per_capita på hver av de 256 (218) NUTS2 regionene vha. en anonym funksjon som «mappes» (vha. map()) på «list-column» NUTS2_diff. Legg resultatet i en variabel modell.
-
 ```{r}
-NUTS2_diff <- NUTS2_diff |>
-  group_by(nc_name, n2) |>
+NUTS2_diff <- NUTS2_diff  |> 
+  group_by(nc_name, n2) |> 
   mutate(
     modell = map(
       .x = NUTS2_diff,
       .f = function(a_df) lm('diff_gini_nuts2 ~ diff_gdp_per_capita', data = a_df)
     )
   )
-
 ```
 
-
-#### Oppgave 35
-Hent ut koeffisientene fra de 256 (218) modellene og legg resultatet i variabelen mod_coeff.
+## Oppgave 35
+Hent ut koeffisientene fra de 256 (218) modellene og legg resultatet i variabelen mod_coeff. Gjør dette ved å «mappe» funksjonen coeff() på list_column modell.
 
 ```{r}
-NUTS2_diff <- NUTS2_diff |>
-group_by(nc_name, n2) |>
-mutate(
-mod_coeff = bind_rows(
+mod_coeff <- bind_rows(
   map(
-    .x = modell,
+    .x = NUTS2_diff$modell,
     .f = coef
-    )
-)
-)
-
-```
-
-
-
-#### Oppgave 36
-Bruk glance() funksjonen fra broom pakken og «map» denne på modell variabelen for å generere «model summary». Legg resultatet i en variabel mod_sum.
-
-```{r}
-NUTS2_diff <- NUTS2_diff |>
- group_by(nc_name, n2) |>
- mutate(
- mod_sum = bind_rows(
- map(
- .x = modell,
- .f = glance
- )
- )
- )
-```
-
-#### Oppgave 37
-
-
-```{r}
-
-mod_coeff_tbl <- list_rbind(map(NUTS2_diff$modell, coeff))
-stopifnot(nrow(mod_coeff_tbl) == nrow(NUTS2_diff))
-
-
-glance_safe <- safely(glance, otherwise = tibble(
-  r.squared = NA_real_, adj.r.squared = NA_real_, sigma = NA_real_,
-  statistic = NA_real_, p.value = NA_real_, df = NA_real_, logLik = NA_real_,
-  AIC = NA_real_, BIC = NA_real_, deviance = NA_real_, df.residual = NA_real_, nobs = NA_real_
-))
-
-mod_sum_list <- map(NUTS2_diff$modell, ~ glance_safe(.x)$result)
-mod_sum_tbl  <- list_rbind(mod_sum_list)
-stopifnot(nrow(mod_sum_tbl) == nrow(NUTS2_diff))
-
-
-NUTS2_diff <- bind_cols(NUTS2_diff, mod_coeff_tbl, mod_sum_tbl) |>
-  mutate(
-    r2   = r.squared,
-    r2_a = `adj.r.squared`
   )
-
-NUTS2_diff |>
-  arrange(desc(r2)) |>
-  select(nc_name, n2, NUTS2_diff, modell, `(Intercept)`, r2) |>
-  head(3)
-
+)
 ```
 
+## Oppgave 36
+Bruker glance() funksjonen fra broom pakken og «map» denne på modell variabelen for å generere «model summary». Legg resultatet i en variabel mod_sum.
 
+```{r}
+NUTS2_diff <- NUTS2_diff  |> 
+  group_by(nc_name, n2) |> 
+  mutate(
+    mod_sum = bind_rows(
+      map(
+        .x = modell,
+        .f = glance
+        )
+    )
+    )
+```
 
+## Oppgave 37
+Hvilken NUTS1 sone har høyest for vår modell og hvilken sone har lavest?
 
+```{r}
+NUTS2_diff |>
+  ungroup() |>
+  mutate(
+    intercept = mod_coeff$`(Intercept)`,
+    r_squared = mod_sum$r.squared
+  ) |>
+  filter(!is.nan(r_squared)) |>
+  arrange(desc(r_squared)) |>
+  select(
+    nc_name,
+    n2,
+    NUTS2_diff,
+    modell,
+    `mod_coeff$(Intercept)` = intercept,
+    `mod_sum$r.squared` = r_squared
+  ) |>
+  slice(1:3)
+```
 
-#### Oppgave 38 
+## Oppgave 38
+Hvilken NUTS1 sone har høyest koeffisient for diff_gdp_per_capita?
+```{r}
+mods_flat |>
+  unnest(mod_coeff)|>
+  arrange(desc(mod_coeff)) |>
+  select(nc_name, n2, NUTS2_diff, modell, mod_coeff, r.squared)
+  
+```
+
+NUTS2-regionen med høyest koeffisient: AL02 i Albania.
 
 #### Oppgave 39
 
-#### Oppgave 40 
+Hvor mange av de 256 (218) koeffisientene er signifikante på 5% nivå?
+
+```{r}
+# Hent ut koeffisient-estimat og p-verdi fra alle modellene
+coef_tidy <- NUTS2_diff2 |>
+  select(nc_name, n2, modell) |>
+  mutate(
+    tidy_coef = map(modell, tidy)
+  ) |>
+  unnest(tidy_coef) |>
+  filter(term == "diff_gdp_per_capita") |>
+  filter(is.finite(p.value))
+```
+
+```{r}
+coef_tidy |>
+  summarise(
+    totalt_antall = n(),
+    signifikante_5pct = sum(p.value < 0.05),
+    andel_signifikante = mean(p.value < 0.05)
+  )
+```
+
+Ut fra tibbelen får vi et antall på 162 av de totale 218 som er statistisk signifikante på 5 % nivå. Dette betyr at disse regionene har en sammenheng mellom endringer i BNP per innbygger og endringer i regional ulikheter som kan måles med data.
+
+
+#### Oppgave 40
+
+Bruk ggplot til å lage et «density plot» av variabelen diff_gdp_per_capita.
+Legg inn en vertikal linje for gjennomsnitt diff_gdp_per_capita.
+(Hint! Husk argumentet na.rm = TRUE.).
+Resultatet skal bli som i plottet under.
+
+```{r}
+coef_tidy |>
+  ggplot(aes(x = estimate)) +
+  geom_density(na.rm = TRUE) +
+  geom_vline(
+    xintercept = mean(coef_tidy$estimate, na.rm = TRUE),
+    linetype = "dashed"
+  ) +
+  theme_minimal() +
+  labs(
+    x = "diff_gdp_per_capita",
+    y = "Density",
+    title = "Tetthetsplot av diff_gdp_per_capita"
+  )
+```
 
 #### Oppgave 41
 
+Hvor mange av de 256 (218) regrersjonskoeffisientene for diff_gdp_per_capita er positive?
+
+```{r}
+coef_tidy |>
+  summarise(
+    totalt_antall = n(),
+    antall_positive = sum(estimate > 0),
+    andel_positive = mean(estimate > 0)
+  )
+```
+
+Svaret visar et flertall av NUTS2-regionene på om lag 61 %, som er sammenhengen mellom endringer i BNP per innbygger og endringer i regional ulikhet positiv.
+
 #### Oppgave 42
+
+```{r}
+coef_tidy |>
+  summarise(
+    mean_coef   = mean(estimate),
+    median_coef = median(estimate)
+  )
+```
 
 #### Oppgave 43
 
+Utfør en enkel t-test for å teste om diff_gdp_per_capita er signifikant større enn 0.
+Er diff_gdp_per_capita signifikant større enn 0?
+
+```{r}
+t.test(
+  coef_tidy$estimate,
+  mu = 0,
+  alternative = "greater"
+)
+```
+
+## Panel modell
+
 #### Oppgave 44
+
+Bruk funksjonen plm() fra pakken plm til å utføre en panel-regresjon på dataene.
+For argumentet index kan dere bruke index = c("n3", "time").
+Bruk samme enkle modell som ovenfor dvs.
+diff_gini_nuts2 \~ diff_gdp_per_capita.
+Putt resultatet av regresjonen i et objekt p_mod.
+
+```{r}
+# Her skjærer det seg.Lag-funksjonen fungerer ikke, av en eller annen grunn. Har prøvd å debugge både vha. Claude og ChatGPT i timesvis, til ingen nytte. Dette lager følgefeil for resten av panelestimeringen.
+panel_n3 <- n3_data %>%
+  left_join(n2_data, by = c("nc_name", "n2", "time")) %>%
+  mutate(time = as.integer(time)) %>%
+  arrange(nc_name, n3, time) %>%  # Sort BEFORE grouping
+  group_by(nc_name, n3) %>%
+  mutate(
+    gdp_pc_lag  = lag(gdp_pc_n3, 1),
+    gini_n2_lag = lag(gini_n2, 1)
+  ) %>%
+  mutate(
+    diff_gdp_per_capita = 100 * (gdp_pc_n3 - lag(gdp_pc_n3)),
+    diff_gini_nuts2     = 100 * (gini_n2 - lag(gini_n2))
+  ) %>%
+  ungroup() %>%
+  filter(!is.na(diff_gdp_per_capita), !is.na(diff_gini_nuts2)) %>%
+  mutate(time = as.numeric(time))
+
+p_mod <- plm(
+  diff_gini_nuts2 ~ diff_gdp_per_capita,
+  data  = panel_n3,
+  index = c("n3", "time"),
+  model = "pooling"
+)
+
+summary(p_mod)
+```
 
 #### Oppgave 45
 
+Vis summary() for p_mod og tolk resultatet.
+
+```{r}
+summary(p_mod)
+```
+
 #### Oppgave 46
 
+En alternativ måte å finne summary() for p_mod er gjengitt i chunk-en nedenfor.
+**Forklar hva som blir gjort her og sammenlign med resultatet av en ordinær summary().**
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+```{r}
+summary(
+  p_mod,
+  vcov = function(x) plm::vcovHC(x, method = "white2")
+)
+```
 
 
 
