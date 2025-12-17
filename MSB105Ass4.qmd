@@ -1165,13 +1165,13 @@ NUTS2_diff |>
 Svaret visar et flertall av NUTS2-regionene på om lag 61 %, som er sammenhengen mellom endringer i BNP per innbygger og endringer i regional ulikhet positiv.
 
 #### Oppgave 42
-
+Finn gjennomsnitt («mean») og median av de 256 (218) koeffisientene beregnet for diff_gdp_per_capita.
 ```{r}
-coef_tidy |>
+NUTS2_diff |>
   summarise(
-    mean_coef   = mean(estimate),
-    median_coef = median(estimate)
-  )
+    mean_coef   = mean(diff_gdp_per_capita),
+    median_coef = median(diff_gdp_per_capita)
+  ) 
 ```
 
 #### Oppgave 43
