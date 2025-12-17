@@ -1099,7 +1099,7 @@ NUTS2_diff |>
 ```
   
 
-NUTS2-regionen med høyest koeffisient: AL02 i Albania.
+NUTS2-regionen med høyest koeffisient: BG34 i Bulgaria
 
 #### Oppgave 39
 
@@ -1107,7 +1107,7 @@ Hvor mange av de 256 (218) koeffisientene er signifikante på 5% nivå?
 
 ```{r}
 # Hent ut koeffisient-estimat og p-verdi fra alle modellene
-coef_tidy <- NUTS2_diff2 |>
+coef_tidy <- NUTS2_diff |>
   select(nc_name, n2, modell) |>
   mutate(
     tidy_coef = map(modell, tidy)
