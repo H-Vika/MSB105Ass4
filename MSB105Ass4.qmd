@@ -541,7 +541,7 @@ gini_n3_nest
 ## Oppgave 14
 «Nest» dataene på NUTS2 nivå. Legg resultatet gini_NUTS2_nest. Bruk .key = "NUTS2_data".
 ```{r}
-gini_n2_nest <- gini_n2 |>
+gini_NUTS2_nest <- gini_n2 |>
   group_by(nc_name, nc)|>
  nest(.key = "NUTS2_data")
 ```
@@ -576,5 +576,706 @@ gini_NUTSeu_nest <- eu_data |>
     .groups = "drop"
   ) 
 ```
+
+## Oppgave 18
+Vis utviklingen i Gini-koeffisienten for NUTS3 regioner i EU vha. et linjeplot.
+
+```{r}
+gini_NUTSeu_nest |>
+  ggplot(aes(x = as.integer(time), y = gini_eu)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 1) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten for NUTS3-regioner i EU",
+    x = "Year",
+    y = "gini_eu"
+  ) +
+  theme_minimal()
+```
+
+## Oppgave 19
+«The EU’s Structural Funds and Cohesion Fund direct funding to NUTS level 2 regions based on their GDP (PPS) per capita in comparison to the EU average: less developed regions (less than 75%), transition regions (between 75% and 90% and more developed regions (over 90%). For the period 2014–20, EUR 351 billion will be invested in the EU’s regions with most being directed to the less developed regions.»
+
+Basert på plottet fra foregående oppgave diskuter (veldig!) kort om tiltaket ser ut til å virke:
+Plottet gir støtte til at regional ulikhet har avtatt over tid i EU, noe som er forenlig med at kohesjonspolitikken kan ha hatt effekt, men analysen kan ikke fastslå årsakssammenheng.
+
+
+## Oppgave 20
+Ta gini_n3_nestsom utgangspunkt og bruk left_join() til å legge til datasettene gini_NUTS2_nest, gini_NUTS1_nest og gini_NUTSc_nest.
+
+```{r}
+eu_data_nested <- gini_n3_nest |>
+  left_join(gini_NUTS2_nest, by = c("nc_name", "nc")) |>
+  left_join(gini_NUTS1_nest, by = c("nc_name", "nc")) |>
+  left_join(gini_NUTSc_nest, by = c("nc_name", "nc"))
+
+```
+
+slette alle objekter utenom eu_data og eu_data_nested.
+```{r}
+# don't run if you don't mean it.
+rm(list = setdiff(ls(), c("eu_data", "eu_data_nested")))
+```
+
+
+#Plots som viser utvikling
+## Oppgave 21
+Lag et linjeplot i ggplot som viser utviklingen i Gini-koeffisient på nasjonsnivå for de 29 landene vi har med.
+
+```{r}
+gini_nc <- eu_data_nested |>
+  unnest(NUTSc_data)
+
+```
+
+Får plotten: 
+```{r}
+#| label: fig-ginialle
+#| fig-cap: "Utviklingen over tid for Gini-koeffisienten for de 29 landene"
+gini_nc |>
+  ggplot(aes(
+    x = as.integer(time),
+    y = gini_nc,
+    group = nc_name,
+    colour = nc_name
+  )) +
+  geom_line(linewidth = 0.7) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten på nasjonsnivå",
+    x = "time",
+    y = "Gini_nc"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "right",
+    legend.title = element_blank()
+  )
+
+```
+
+## Oppgave 22
+Lager en sortert tabell for Gini i år 2022 som gjør det litt lettere å se hvilken linje som hører til hvilket land.
+
+```{r}
+gini_2022 <- gini_nc |>
+  filter(time == 2022) |>
+  arrange(desc(gini_nc)) |>
+  select(nc_name, gini_nc)
+
+# Skriv ut tabellen
+gini_2022 |>
+  flextable() |>
+  set_header_labels(
+    nc_name = "Land",
+    gini_nc = "Gini-koeffisient"
+  ) |>
+  autofit()
+
+```
+
+## Oppgave 23
+
+```{r}
+gini_long <- eu_data_nested |>
+  unnest(NUTSc_data) |>
+  mutate(year = as.integer(time)) |>
+  arrange(nc_name, year) |>
+  # Fjern NA og NaN (NaN oppstår ofte når num_reg_nc == 1)
+  filter(!is.na(gini_nc) & !is.nan(gini_nc))
+
+```
+
+```{r}
+gini_change <- gini_long |>
+  group_by(nc_name) |>
+  summarise(
+    first_year = first(year),
+    gini_first = first(gini_nc),
+
+    has_2022 = any(year == 2022),
+    comp_year = if_else(has_2022, 2022L, last(year)),
+    gini_comp = if_else(has_2022, gini_nc[year == 2022][1], last(gini_nc)),
+
+    .groups = "drop"
+  ) |>
+  mutate(
+    gruppe = if_else(
+      gini_comp < gini_first,
+      "Lavere regional ulikhet (2022 eller siste år)",
+      "Høyere regional ulikhet (2022 eller siste år)"
+    )
+  )
+
+```
+
+```{r}
+gini_long2 <- gini_long |>
+  left_join(gini_change |> select(nc_name, gruppe), by = "nc_name")
+
+```
+
+```{r}
+#| label: fig-Lavgini
+#| fig-cap: "Land med lavere regional ulikhet i 2022 enn første år vi har data for."
+gini_long2 |>
+  filter(gruppe == "Lavere regional ulikhet (2022 eller siste år)") |>
+  ggplot(aes(x = year, y = gini_nc, colour = nc_name, group = nc_name)) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Land med lavere regional ulikhet (2022 hvis mulig, ellers siste år)",
+    x = "År", y = "Gini-koeffisient", colour = "Land"
+  ) +
+  theme_minimal()
+
+```
+
+```{r}
+#| label: fig-Lavgini
+#| fig-cap: "Land med høyere regional ulikhet i 2022 enn første år vi har data for."
+gini_long2 |>
+  filter(gruppe == "Høyere regional ulikhet (2022 eller siste år)") |>
+  ggplot(aes(x = year, y = gini_nc, colour = nc_name, group = nc_name)) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Land med høyere regional ulikhet (2022 hvis mulig, ellers siste år)",
+    x = "År", y = "Gini-koeffisient", colour = "Land"
+  ) +
+  theme_minimal()
+```
+
+## Oppgave 24
+Vis vha. et linjeplot utviklingen i gini-koeffisient for NUTS2 regionene i Irland.
+
+```{r}
+ie_nuts2 <- eu_data_nested |>
+  unnest(NUTS2_data) |>
+  filter(nc_name == "Irland") |>
+  filter(!is.na(gini_n2))
+```
+
+```{r}
+ie_nuts2 |>
+  ggplot(aes(
+    x = as.numeric(time),
+    y = gini_n2,
+    group = n2,
+    colour = n2
+  )) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten for NUTS2-regionene i Irland",
+    x = "År",
+    y = "Gini-koeffisient",
+    colour = "NUTS2"
+  ) +
+  theme_minimal()
+```
+
+# Hvordan er verdiskapningen fordelt mellom regionene i ulike land?
+Spania hadde i år 2022 en Gini-koeffisient lik 0,134 som skulle tilsi en nokså jevn fordeling av økonomisk aktivitet mellom regionene.
+
+## Oppgave 25
+Lag et line-plot som viser utviklingen i Gini-koeffisientene for NUTS2 regionene i Spania.
+```{r}
+es_nuts2 <- eu_data_nested |>
+  unnest(NUTS2_data) |>
+  filter(nc_name == "Spania") |>
+  filter(!is.na(gini_n2))
+```
+Kontrollerer regionene:
+```{r}
+es_nuts2 |>
+  select(n2) |>
+  distinct() |>
+  arrange(n2)
+```
+Lager så linjeplottet:
+```{r}
+es_nuts2 |>
+  ggplot(aes(
+    x = as.numeric(time),
+    y = gini_n2,
+    group = n2,
+    colour = n2
+  )) +
+  geom_line(linewidth = 0.9) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten for NUTS2-regionene i Spania",
+    x = "År",
+    y = "Gini-koeffisient",
+    colour = "NUTS2"
+  ) +
+  theme_minimal()
+```
+
+#### Oppgave 26
+Lag et line-plot som viser utviklingen i Gini-koeffisientene for NUTS1 regionene i Spania.
+
+
+
+```{r}
+eu_data_nested |>
+  unnest(NUTS1_data) |>
+  filter(nc_name == "Spania") |>
+  ggplot(aes(
+    x = as.integer(time),
+    y = gini_n1,
+    group = n1,
+    colour = n1
+  )) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten for NUTS1-regionene i Spania",
+    x = "År",
+    y = "Gini-koeffisient",
+    colour = "NUTS1"
+  ) +
+  theme_minimal()
+
+```
+
+### Tyskland
+#### Oppgave 27
+Lag et line-plot som viser utviklingen i Gini-koeffisient for NUTS2 regionene i Tyskland.
+Dropp gjerne farger. Det er så mange regioner at de er vanskelig å skille.
+
+
+```{r}
+eu_data_nested |>
+  unnest(NUTS2_data) |>
+  filter(nc_name == "Tyskland") |>
+  ggplot(aes(
+    x = as.integer(time),
+    y = gini_n2,
+    group = n2
+  )) +
+  geom_line(alpha = 1) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten for NUTS2-regionene i Tyskland",
+    x = "År",
+    y = "Gini-koeffisient"
+  ) +
+  theme_minimal()
+
+```
+Vi ser at Gini-koeffisientene spenner fra ca. 0.03 til over 0.45. Det ser altså ut til å være store forskjeller mellom NUTS2 regionene i Tyskland. Noen NUTS2 soner ser ut til å være relativt ensartet mhp. verdiskapning, mens andre er preget av store forskjeller mellom NUTS3 regionene. Hvor i landet er de plassert de regionene som har de største regionale forskjellene?
+Figuren viser at Gini-koeffisientene for NUTS2-regionene i Tyskland varierer fra om lag 0,03 til over 0,45. Dette peker på betydelige forskjeller i graden av intern regional ulikhet. Regioner med lave Gini-verdier fremstår som relativt homogene når det gjelder verdiskaping mellom NUTS3-områder, mens regioner med høye Gini-verdier er kjennetegnet av store interne variasjoner. De mest markante regionale ulikhetene finnes i hovedsak i og rundt de største økonomiske sentrene og storbyregionene, særlig i de vestlige og sørlige delene av landet, hvor sterke kjerneområder sameksisterer med mindre utviklede omkringliggende regioner.
+
+
+#### Oppgave 28
+Er det samme er tilfelle når vi ser på de større regionene i Tyskland (NUTS1)?
+
+
+```{r}
+eu_data_nested |>
+  unnest(NUTS1_data) |>
+  filter(nc_name == "Tyskland") |>
+  ggplot(aes(
+    x = as.integer(time),
+    y = gini_n1,
+    group = n1,
+    color = n1
+  )) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten for NUTS1-regionene i Tyskland",
+    x = "År",
+    y = "Gini-koeffisient"
+  ) +
+  theme_minimal()
+
+```
+```{r}
+eu_data_nested |>
+ unnest(NUTS1_data) |>
+ filter(nc_name == "Tyskland") |>
+ filter(time == "2022") |>
+ select(n1, gini_n1, num_reg_n1) |>
+ arrange(desc(gini_n1)) |>
+ flextable() |>
+ line_spacing(space = 0.3) |>
+ colformat_double(j = 2, digits = 4)
+
+```
+
+# Frankrike
+
+## Oppgave 29
+
+```{r}
+eu_data_nested |>
+  unnest(NUTS1_data) |>
+  filter(nc_name == "Frankrike") |>
+  ggplot(aes(
+    x = as.integer(time),
+    y = gini_n1,
+    group = n1,
+    color = n1
+  )) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Utviklingen i Gini-koeffisienten for NUTS1-regionene i Frankrike",
+    x = "År",
+    y = "Gini-koeffisient"
+  ) +
+  theme_minimal()
+
+```
+
+## Oppgave 30
+Lag en tabell som viser de 6 NUTS1 sonene i Frankrike som hadde høyest Gini-koeffisient i 2022.
+```{r}
+fr_nuts1_2022 <- eu_data_nested |>
+  unnest(NUTS1_data) |>
+  filter(nc_name == "Frankrike") |>
+  filter(time == "2022") |>
+  filter(!is.na(gini_n1))
+```
+
+```{r}
+top6_fr_nuts1 <- fr_nuts1_2022 |>
+  select(n1, gini_n1, num_reg_n1) |>
+  arrange(desc(gini_n1)) |>
+  slice_head(n = 6)
+```
+
+```{r}
+top6_fr_nuts1 |>
+  mutate(gini_n1 = round(gini_n1, 4))
+```
+Ut ifra tabellen ser man at FR1 er den sonen i Frankrike som har høyest Gini-koeffisient i 2022. Dette er en sone som ligger rundt Paris, og dermed skiller seg ut ifra de andre regionene i landet. Ut ifra plottet kan vi se forskjellene mellom FR1 og resten av regionene og den reflekterer store forskjeller i verdiskapninger mellom NUTS3-regionene i og rundt hovedstaden.
+
+## Oppgave 31 
+Vi ser at for Frankrike er det en region som har klart større forskjeller mht. vekst (verdiskapning) enn de andre. Sjekk NUTS3 regionenen i denne regionen nærmere vha. linjeplot og lag en tabell som viser gdp_pc_n3 for de seks sonene.
+
+Sjekke inn på NUTS3 regionene innen FR1:
+```{r}
+fr1_nuts3 <- eu_data |>
+  filter(n1 == "FR1") |>
+  filter(!is.na(gdp_pc_n3))
+```
+
+```{r}
+fr1_nuts3 |>
+  ggplot(aes(
+    x = as.numeric(time),
+    y = gdp_pc_n3,
+    group = n3
+  )) +
+  geom_line(alpha = 0.7) +
+  labs(
+    title = "Utviklingen i BNP per capita for NUTS3-regionene i Île-de-France (FR1)",
+    x = "År",
+    y = "BNP per capita (PPS)"
+  ) +
+  theme_minimal()
+```
+```{r}
+fr1_top6_nuts3 <- fr1_nuts3 |>
+  filter(time == "2022") |>
+  arrange(desc(gdp_pc_n3)) |>
+  slice_head(n = 6) |>
+  select(n3, gdp_pc_n3)
+```
+
+FÅr tabellen:
+```{r}
+fr1_top6_nuts3 |>
+  mutate(gdp_pc_n3 = round(gdp_pc_n3))
+```
+Linjeplottet for NUTS3-regionene i FR1 viser svært store forskjeller i BNP per capita mellom regionene. Noen få sentrale regioner, særlig rundt Paris, har et betydelig høyere nivå enn resten. Tabellen bekrefter dette ved at de seks regionene med høyest BNP per capita ligger markant over øvrige regioner. Dette indikerer sterk geografisk konsentrasjon av økonomisk aktivitet og forklarer den høye Gini-koeffisienten for FR1.
+
+## Oppgave 32
+Kan vi utfra foregåenede plot og tabell si noe om årsaken til at FR1 har så høy Gini-koeffisient?
+Ja det kan vi. I plotten og tabellen kan vi se at det er store forskjeller i BNP per capita mellom NUTS3-regionene i FR1. Noen få regioner, særlig rundt Paris, har et svært høyt nivå av verdiskaping, mens øvrige regioner ligger betydelig lavere. Dette indikerer en sterk geografisk konsentrasjon av økonomisk aktivitet i hovedstadsområdet, noe som forklarer den høye Gini-koeffisienten for FR1.
+
+# Enkle modeller
+
+Vil vi undersøke om det er noen sammenheng mellom GDP og Gini-koeffisienten bør vi se på endringen i de to variablene.
+
+#«Data Science» modeller
+## Oppgave 33 
+Lag datasett for endringer i gdp_per_capita og gini_nuts2. 
+
+```{r}
+n3_data <- eu_data_nested |> 
+  unnest(NUTS3_data) |> 
+  select(nc_name, n2, n3, time, gdp_pc_n3)
+```
+
+```{r}
+n2_data <- eu_data_nested |> 
+  unnest(NUTS2_data) |> 
+  select(nc_name, n2, time, gini_n2)
+```
+
+```{r}
+NUTS2_diff <- n3_data |> 
+  left_join(n2_data, by = join_by(nc_name, n2, time)) |> 
+  mutate(
+    diff_gdp_per_capita = c(NA, 100 * diff(gdp_pc_n3)),
+    diff_gini_nuts2 = c(NA, 100 * diff(gini_n2))
+  ) %>%
+  filter(complete.cases(.)) |> 
+  group_by(nc_name, n2) |> 
+  nest(.key = "NUTS2_diff")
+```
+
+```{r}
+unnest(NUTS2_diff, NUTS2_diff) |> 
+  ungroup() |> 
+  filter(!is.nan(gini_n2)) |> 
+  select(n2) |> 
+  distinct() |> 
+  nrow()
+```
+av disse har vi kunnet beregne Gini-koeffisient for. Vi har altså 38 NUTS2 soner som bare inneholder én NUTS3 sone.
+
+## Oppgave 34
+Bruk modellen diff_gini_nuts2 ~ diff_gdp_per_capita på hver av de 256 (218) NUTS2 regionene vha. en anonym funksjon som «mappes» (vha. map()) på «list-column» NUTS2_diff. Legg resultatet i en variabel modell.
+```{r}
+NUTS2_diff <- NUTS2_diff  |> 
+  group_by(nc_name, n2) |> 
+  mutate(
+    modell = map(
+      .x = NUTS2_diff,
+      .f = function(a_df) lm('diff_gini_nuts2 ~ diff_gdp_per_capita', data = a_df)
+    )
+  )
+```
+
+## Oppgave 35
+Hent ut koeffisientene fra de 256 (218) modellene og legg resultatet i variabelen mod_coeff. Gjør dette ved å «mappe» funksjonen coeff() på list_column modell.
+
+```{r}
+mod_coeff <- bind_rows(
+  map(
+    .x = NUTS2_diff$modell,
+    .f = coef
+  )
+)
+```
+
+## Oppgave 36
+Bruker glance() funksjonen fra broom pakken og «map» denne på modell variabelen for å generere «model summary». Legg resultatet i en variabel mod_sum.
+
+```{r}
+NUTS2_diff <- NUTS2_diff  |> 
+  group_by(nc_name, n2) |> 
+  mutate(
+    mod_sum = bind_rows(
+      map(
+        .x = modell,
+        .f = glance
+        )
+    )
+    )
+```
+
+## Oppgave 37
+Hvilken NUTS1 sone har høyest for vår modell og hvilken sone har lavest?
+
+```{r}
+#Lag mod_sum og mod_coeff som list-columns (én per NUTS2-region)
+NUTS2_diff2 <- NUTS2_diff |>
+  ungroup() |>
+  mutate(
+    mod_sum   = map(modell, glance),
+    mod_coeff = map(modell, coef)
+  )
+
+#Gjør mod_sum "flat" så r.squared blir en vanlig kolonne
+mods_flat <- NUTS2_diff2 |>
+  unnest(mod_sum) |>
+  filter(is.finite(r.squared))
+
+#Høyest og lavest R^2
+hoyest_R2 <- mods_flat |>
+  arrange(desc(r.squared)) |>
+  slice(1) |>
+  select(nc_name, n2, r.squared)
+
+lavest_R2 <- mods_flat |>
+  arrange(r.squared) |>
+  slice(1) |>
+  select(nc_name, n2, r.squared)
+
+hoyest_R2
+lavest_R2
+```
+
+```{r}
+mods_flat |>
+  arrange(desc(r.squared)) |>
+  slice_head(n = 3) |>
+  select(nc_name, n2, NUTS2_diff, modell, mod_coeff, r.squared)|>
+  unnest(mod_coeff)
+
+```
+
+## Oppgave 38
+Hvilken NUTS1 sone har høyest koeffisient for diff_gdp_per_capita?
+```{r}
+mods_flat |>
+  unnest(mod_coeff)|>
+  arrange(desc(mod_coeff)) |>
+  select(nc_name, n2, NUTS2_diff, modell, mod_coeff, r.squared)
+  
+```
+
+NUTS2-regionen med høyest koeffisient: AL02 i Albania.
+
+#### Oppgave 39
+
+Hvor mange av de 256 (218) koeffisientene er signifikante på 5% nivå?
+
+```{r}
+# Hent ut koeffisient-estimat og p-verdi fra alle modellene
+coef_tidy <- NUTS2_diff2 |>
+  select(nc_name, n2, modell) |>
+  mutate(
+    tidy_coef = map(modell, tidy)
+  ) |>
+  unnest(tidy_coef) |>
+  filter(term == "diff_gdp_per_capita") |>
+  filter(is.finite(p.value))
+```
+
+```{r}
+coef_tidy |>
+  summarise(
+    totalt_antall = n(),
+    signifikante_5pct = sum(p.value < 0.05),
+    andel_signifikante = mean(p.value < 0.05)
+  )
+```
+
+Ut fra tibbelen får vi et antall på 162 av de totale 218 som er statistisk signifikante på 5 % nivå. Dette betyr at disse regionene har en sammenheng mellom endringer i BNP per innbygger og endringer i regional ulikheter som kan måles med data.
+
+
+#### Oppgave 40
+
+Bruk ggplot til å lage et «density plot» av variabelen diff_gdp_per_capita.
+Legg inn en vertikal linje for gjennomsnitt diff_gdp_per_capita.
+(Hint! Husk argumentet na.rm = TRUE.).
+Resultatet skal bli som i plottet under.
+
+```{r}
+coef_tidy |>
+  ggplot(aes(x = estimate)) +
+  geom_density(na.rm = TRUE) +
+  geom_vline(
+    xintercept = mean(coef_tidy$estimate, na.rm = TRUE),
+    linetype = "dashed"
+  ) +
+  theme_minimal() +
+  labs(
+    x = "diff_gdp_per_capita",
+    y = "Density",
+    title = "Tetthetsplot av diff_gdp_per_capita"
+  )
+```
+
+#### Oppgave 41
+
+Hvor mange av de 256 (218) regrersjonskoeffisientene for diff_gdp_per_capita er positive?
+
+```{r}
+coef_tidy |>
+  summarise(
+    totalt_antall = n(),
+    antall_positive = sum(estimate > 0),
+    andel_positive = mean(estimate > 0)
+  )
+```
+
+Svaret visar et flertall av NUTS2-regionene på om lag 61 %, som er sammenhengen mellom endringer i BNP per innbygger og endringer i regional ulikhet positiv.
+
+#### Oppgave 42
+
+```{r}
+coef_tidy |>
+  summarise(
+    mean_coef   = mean(estimate),
+    median_coef = median(estimate)
+  )
+```
+
+#### Oppgave 43
+
+Utfør en enkel t-test for å teste om diff_gdp_per_capita er signifikant større enn 0.
+Er diff_gdp_per_capita signifikant større enn 0?
+
+```{r}
+t.test(
+  coef_tidy$estimate,
+  mu = 0,
+  alternative = "greater"
+)
+```
+
+## Panel modell
+
+#### Oppgave 44
+
+Bruk funksjonen plm() fra pakken plm til å utføre en panel-regresjon på dataene.
+For argumentet index kan dere bruke index = c("n3", "time").
+Bruk samme enkle modell som ovenfor dvs.
+diff_gini_nuts2 \~ diff_gdp_per_capita.
+Putt resultatet av regresjonen i et objekt p_mod.
+
+```{r}
+# Her skjærer det seg.Lag-funksjonen fungerer ikke, av en eller annen grunn. Har prøvd å debugge både vha. Claude og ChatGPT i timesvis, til ingen nytte. Dette lager følgefeil for resten av panelestimeringen.
+panel_n3 <- n3_data %>%
+  left_join(n2_data, by = c("nc_name", "n2", "time")) %>%
+  mutate(time = as.integer(time)) %>%
+  arrange(nc_name, n3, time) %>%  # Sort BEFORE grouping
+  group_by(nc_name, n3) %>%
+  mutate(
+    gdp_pc_lag  = lag(gdp_pc_n3, 1),
+    gini_n2_lag = lag(gini_n2, 1)
+  ) %>%
+  mutate(
+    diff_gdp_per_capita = 100 * (gdp_pc_n3 - lag(gdp_pc_n3)),
+    diff_gini_nuts2     = 100 * (gini_n2 - lag(gini_n2))
+  ) %>%
+  ungroup() %>%
+  filter(!is.na(diff_gdp_per_capita), !is.na(diff_gini_nuts2)) %>%
+  mutate(time = as.numeric(time))
+
+p_mod <- plm(
+  diff_gini_nuts2 ~ diff_gdp_per_capita,
+  data  = panel_n3,
+  index = c("n3", "time"),
+  model = "pooling"
+)
+
+summary(p_mod)
+```
+
+#### Oppgave 45
+
+Vis summary() for p_mod og tolk resultatet.
+
+```{r}
+summary(p_mod)
+```
+
+#### Oppgave 46
+
+En alternativ måte å finne summary() for p_mod er gjengitt i chunk-en nedenfor.
+**Forklar hva som blir gjort her og sammenlign med resultatet av en ordinær summary().**
+
+```{r}
+summary(
+  p_mod,
+  vcov = function(x) plm::vcovHC(x, method = "white2")
+)
+```
+
+
+
+
+
 
 
