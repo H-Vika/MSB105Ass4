@@ -1055,12 +1055,16 @@ NUTS2_diff <- NUTS2_diff  |>
 Hent ut koeffisientene fra de 256 (218) modellene og legg resultatet i variabelen mod_coeff. Gjør dette ved å «mappe» funksjonen coeff() på list_column modell.
 
 ```{r}
-mod_coeff <- bind_rows(
-  map(
-    .x = NUTS2_diff$modell,
+NUTS2_diff <- NUTS2_diff |>
+  group_by(nc_name, n2) |>
+  mutate(
+    mod_coeff <- bind_rows(map(
+    .x = modell,
     .f = coef
   )
 )
+)
+
 ```
 
 ## Oppgave 36
@@ -1080,36 +1084,26 @@ NUTS2_diff <- NUTS2_diff  |>
 ```
 
 ## Oppgave 37
-Hvilken NUTS1 sone har høyest for vår modell og hvilken sone har lavest?
+Hvilken NUTS1 sone har høyest 𝑅2 for vår modell og hvilken sone har lavest?
 
 ```{r}
+#| paged.print: false
 NUTS2_diff |>
-  ungroup() |>
-  mutate(
-    intercept = mod_coeff$`(Intercept)`,
-    r_squared = mod_sum$r.squared
-  ) |>
-  filter(!is.nan(r_squared)) |>
-  arrange(desc(r_squared)) |>
-  select(
-    nc_name,
-    n2,
-    NUTS2_diff,
-    modell,
-    `mod_coeff$(Intercept)` = intercept,
-    `mod_sum$r.squared` = r_squared
-  ) |>
-  slice(1:3)
+arrange(desc(mod_sum$r.squared)) |>
+  head(n = 3)
+
+NUTS2_diff |>
+  arrange(mod_sum$r.squared) |>
+  head(n = 3)
 ```
 
 ## Oppgave 38
 Hvilken NUTS1 sone har høyest koeffisient for diff_gdp_per_capita?
 ```{r}
-mods_flat |>
-  unnest(mod_coeff)|>
-  arrange(desc(mod_coeff)) |>
-  select(nc_name, n2, NUTS2_diff, modell, mod_coeff, r.squared)
-  
+#| paged.print: false
+NUTS2_diff |>
+  arrange(desc(diff_gdp_per_capita)) |>
+  head(n = 3)
 ```
 
 NUTS2-regionen med høyest koeffisient: AL02 i Albania.
@@ -1119,24 +1113,10 @@ NUTS2-regionen med høyest koeffisient: AL02 i Albania.
 Hvor mange av de 256 (218) koeffisientene er signifikante på 5% nivå?
 
 ```{r}
-# Hent ut koeffisient-estimat og p-verdi fra alle modellene
-coef_tidy <- NUTS2_diff2 |>
-  select(nc_name, n2, modell) |>
-  mutate(
-    tidy_coef = map(modell, tidy)
-  ) |>
-  unnest(tidy_coef) |>
-  filter(term == "diff_gdp_per_capita") |>
-  filter(is.finite(p.value))
-```
-
-```{r}
-coef_tidy |>
-  summarise(
-    totalt_antall = n(),
-    signifikante_5pct = sum(p.value < 0.05),
-    andel_signifikante = mean(p.value < 0.05)
-  )
+NUTS2_diff |>
+  unnest(mod_sum) |>
+  filter(p.value < 0.05) |>
+  dim()
 ```
 
 Ut fra tibbelen får vi et antall på 162 av de totale 218 som er statistisk signifikante på 5 % nivå. Dette betyr at disse regionene har en sammenheng mellom endringer i BNP per innbygger og endringer i regional ulikheter som kan måles med data.
@@ -1150,19 +1130,11 @@ Legg inn en vertikal linje for gjennomsnitt diff_gdp_per_capita.
 Resultatet skal bli som i plottet under.
 
 ```{r}
-coef_tidy |>
-  ggplot(aes(x = estimate)) +
-  geom_density(na.rm = TRUE) +
-  geom_vline(
-    xintercept = mean(coef_tidy$estimate, na.rm = TRUE),
-    linetype = "dashed"
-  ) +
-  theme_minimal() +
-  labs(
-    x = "diff_gdp_per_capita",
-    y = "Density",
-    title = "Tetthetsplot av diff_gdp_per_capita"
-  )
+NUTS2_diff |>
+ggplot() +
+geom_density(mapping = aes(x = diff_gdp_per_capita), adjust = 0.6) +
+geom_vline(mapping = aes(xintercept = mean(diff_gdp_per_capita, na.rm = TRUE)),
+linetype = "dashed")
 ```
 
 #### Oppgave 41
@@ -1170,12 +1142,9 @@ coef_tidy |>
 Hvor mange av de 256 (218) regrersjonskoeffisientene for diff_gdp_per_capita er positive?
 
 ```{r}
-coef_tidy |>
-  summarise(
-    totalt_antall = n(),
-    antall_positive = sum(estimate > 0),
-    andel_positive = mean(estimate > 0)
-  )
+NUTS2_diff |>
+  filter(diff_gdp_per_capita > 0) |>
+  dim()
 ```
 
 Svaret visar et flertall av NUTS2-regionene på om lag 61 %, som er sammenhengen mellom endringer i BNP per innbygger og endringer i regional ulikhet positiv.
@@ -1196,9 +1165,7 @@ Utfør en enkel t-test for å teste om diff_gdp_per_capita er signifikant størr
 Er diff_gdp_per_capita signifikant større enn 0?
 
 ```{r}
-t.test(
-  coef_tidy$estimate,
-  mu = 0,
+t.test(NUTS2_diff$mod_coeff$diff_gdp_per_capita,
   alternative = "greater"
 )
 ```
@@ -1214,33 +1181,10 @@ diff_gini_nuts2 \~ diff_gdp_per_capita.
 Putt resultatet av regresjonen i et objekt p_mod.
 
 ```{r}
-# Her skjærer det seg.Lag-funksjonen fungerer ikke, av en eller annen grunn. Har prøvd å debugge både vha. Claude og ChatGPT i timesvis, til ingen nytte. Dette lager følgefeil for resten av panelestimeringen.
-panel_n3 <- n3_data %>%
-  left_join(n2_data, by = c("nc_name", "n2", "time")) %>%
-  mutate(time = as.integer(time)) %>%
-  arrange(nc_name, n3, time) %>%  # Sort BEFORE grouping
-  group_by(nc_name, n3) %>%
-  mutate(
-    gdp_pc_lag  = lag(gdp_pc_n3, 1),
-    gini_n2_lag = lag(gini_n2, 1)
-  ) %>%
-  mutate(
-    diff_gdp_per_capita = 100 * (gdp_pc_n3 - lag(gdp_pc_n3)),
-    diff_gini_nuts2     = 100 * (gini_n2 - lag(gini_n2))
-  ) %>%
-  ungroup() %>%
-  filter(!is.na(diff_gdp_per_capita), !is.na(diff_gini_nuts2)) %>%
-  mutate(time = as.numeric(time))
-
-p_mod <- plm(
-  diff_gini_nuts2 ~ diff_gdp_per_capita,
-  data  = panel_n3,
-  index = c("n3", "time"),
-  model = "pooling"
-)
-
-summary(p_mod)
+p_mod <- plm(formula = "diff_gini_nuts2 ~ diff_gdp_per_capita", data = unnest(select(NUTS2_diff, 
+    n2, NUTS2_diff), NUTS2_diff), index = c("n3", "time"))
 ```
+
 
 #### Oppgave 45
 
