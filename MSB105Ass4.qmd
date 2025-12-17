@@ -1055,6 +1055,22 @@ NUTS2_diff <- NUTS2_diff |>
 #### Oppgave 35
 Hent ut koeffisientene fra de 256 (218) modellene og legg resultatet i variabelen mod_coeff.
 
+```{r}
+NUTS2_diff <- NUTS2_diff |>
+group_by(nc_name, n2) |>
+mutate(
+mod_coeff = bind_rows(
+  map(
+    .x = modell,
+    .f = coef
+    )
+)
+)
+
+```
+
+
+
 #### Oppgave 36
 Bruk glance() funksjonen fra broom pakken og «map» denne på modell variabelen for å generere «model summary». Legg resultatet i en variabel mod_sum.
 
@@ -1069,38 +1085,17 @@ NUTS2_diff <- NUTS2_diff |>
  )
  )
  )
-
 ```
-
 
 #### Oppgave 37
 
 
 ```{r}
-# file: code/fix_mod_sum_arrange.R
 
-suppressPackageStartupMessages({
-  library(tidyverse)
-  library(broom)
-  library(purrr)
-})
-
-stopifnot(exists("NUTS2_diff"))
-
-# --- Robust coeff() (Oppg. 35) ---
-coeff <- function(m) {
-  # Hvorfor: sikre samme kolonnenavn som i oppgaven, og én rad per modell
-  tidy(m) |>
-    select(term, estimate) |>
-    pivot_wider(names_from = term, values_from = estimate)
-}
-
-# --- 35: HENT KOEFFS SOM VANLIG TABELL, IKKE I mutate() ---
 mod_coeff_tbl <- list_rbind(map(NUTS2_diff$modell, coeff))
 stopifnot(nrow(mod_coeff_tbl) == nrow(NUTS2_diff))
 
-# --- 36: GLANCE SOM VANLIG TABELL, IKKE I mutate() ---
-# Tips: bruk safely() hvis noen modeller feiler
+
 glance_safe <- safely(glance, otherwise = tibble(
   r.squared = NA_real_, adj.r.squared = NA_real_, sigma = NA_real_,
   statistic = NA_real_, p.value = NA_real_, df = NA_real_, logLik = NA_real_,
@@ -1111,24 +1106,19 @@ mod_sum_list <- map(NUTS2_diff$modell, ~ glance_safe(.x)$result)
 mod_sum_tbl  <- list_rbind(mod_sum_list)
 stopifnot(nrow(mod_sum_tbl) == nrow(NUTS2_diff))
 
-# --- Bind alt sammen: nå blir kolonnene "flate" (ikke list-kolonner) ---
+
 NUTS2_diff <- bind_cols(NUTS2_diff, mod_coeff_tbl, mod_sum_tbl) |>
   mutate(
-    r2   = r.squared,          # kortnavn for sortering/utskrift
+    r2   = r.squared,
     r2_a = `adj.r.squared`
   )
 
-# --- Nå fungerer arrange/select uten backticks/map_dbl ---
 NUTS2_diff |>
   arrange(desc(r2)) |>
   select(nc_name, n2, NUTS2_diff, modell, `(Intercept)`, r2) |>
   head(3)
 
 ```
-
-
-
-
 
 
 
