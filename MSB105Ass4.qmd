@@ -4,7 +4,6 @@ subtitle:  "Eu statistikk."
 author: "Magnus Eidesmo og Harald Vika"
 date: last-modified
 date-format: "dddd D MMM, YYYY"
-lang: en-GB
 format:
   html: default
   typst:
