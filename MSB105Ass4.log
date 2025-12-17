@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.12.9)  16 DEC 2025 18:19
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.12.16)  17 DEC 2025 16:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -409,15 +409,15 @@ Package graphics Info: Driver file: xetex.def on input line 106.
 )
 \pandoc@box=\box63
 (c:/Users/Magnu/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2025/11/23 v25.16 The multilingual framework for LuaLaTeX, pdfLaTeX and XeLaTeX
+Package: babel 2025/12/11 v25.17 The multilingual framework for LuaLaTeX, pdfLaTeX and XeLaTeX
 \babel@savecnt=\count321
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input line 2050.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input line 2052.
-LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input line 2054.
-LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input line 2055.
-LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) on input line 2056.
-LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) on input line 2058.
-LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) on input line 2083.
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding OT1) on input line 2068.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding OT1) on input line 2070.
+LaTeX Encoding Info:    Redeclaring text command \ij (encoding T1) on input line 2072.
+LaTeX Encoding Info:    Redeclaring text command \IJ (encoding T1) on input line 2073.
+LaTeX Encoding Info:    Ignoring declaration for text command \ij (encoding ?) on input line 2074.
+LaTeX Encoding Info:    Ignoring declaration for text command \IJ (encoding ?) on input line 2076.
+LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) on input line 2101.
 \U@D=\dimen182
 \l@unhyphenated=\language5
 (c:/Users/Magnu/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/xebabel.def)
@@ -425,7 +425,7 @@ LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) o
 \bbl@dirlevel=\count322
 (c:/Users/Magnu/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/locale/en/babel-british.tex)
 Package babel Info: Importing font and identification data for british
-(babel)             from babel-en-GB.ini. Reported on input line 4298.
+(babel)             from babel-en-GB.ini. Reported on input line 4320.
 (c:/Users/Magnu/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/babel/errbabel.def)
 
 ! Package babel Error: Unknown option 'british'.
@@ -442,7 +442,7 @@ See the babel package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.4298 \bbl@tempb
+l.4320 \bbl@tempb
                  
 Valid options are, among others: shorthands=, KeepShorthandsActive,
 activeacute, activegrave, noconfigs, safe=, main=, math=
@@ -450,10 +450,10 @@ headfoot=, strings=, config=, hyphenmap=, or a language name.
 
  
 Here is how much of TeX's memory you used:
- 10709 strings out of 469951
- 215393 string characters out of 5473653
+ 10715 strings out of 469951
+ 215500 string characters out of 5473652
  801212 words of memory out of 5000000
- 39244 multiletter control sequences out of 15000+600000
+ 39250 multiletter control sequences out of 15000+600000
  627737 words of font info for 42 fonts, out of 8000000 for 9000
  230 hyphenation exceptions out of 8191
  90i,0n,93p,409b,118s stack positions out of 10000i,1000n,20000p,200000b,200000s

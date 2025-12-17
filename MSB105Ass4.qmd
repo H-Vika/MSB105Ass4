@@ -36,6 +36,7 @@ library(modelr)
 library(plm)
 library(broom)
 library(sandwich)
+library(grateful)
 ```
 
 ## Toc. eurostat
@@ -731,7 +732,7 @@ gini_long2 |>
 ```
 
 ```{r}
-#| label: fig-Lavgini
+#| label: fig-Hoygini
 #| fig-cap: "Land med høyere regional ulikhet i 2022 enn første år vi har data for."
 gini_long2 |>
   filter(gruppe == "Høyere regional ulikhet (2022 eller siste år)") |>

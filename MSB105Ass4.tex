@@ -194,10 +194,14 @@
 \makeatother
 \subtitle{Eu statistikk.}
 \author{Magnus Eidesmo og Harald Vika}
-\date{Tuesday 16 Dec, 2025}
+\date{Wednesday 17 Dec, 2025}
 \begin{document}
 \maketitle
 
+
+\subsection{Toc. eurostat}\label{toc.-eurostat}
+
+\subsection{GDP Nuts 3}\label{gdp-nuts-3}
 
 \global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
 
@@ -265,10 +269,7 @@
 
 \providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
 
-\begin{longtable}[c]{|p{1.00in}|p{2.00in}|p{2.00in}}
-\caption{Frekvensen er årlig og vi velger å benytte MIO\_PPS\_EU27\_2020 som
-enhet.}\tabularnewline
-
+\begin{longtable*}[c]{|p{1.00in}|p{2.00in}|p{2.00in}}
 
 
 
@@ -334,7 +335,7 @@ enhet.}\tabularnewline
 
 
 
-\end{longtable}
+\end{longtable*}
 
 
 
@@ -358,11 +359,7 @@ enhet.}\tabularnewline
 
 \providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
 
-\begin{longtable}[c]{|p{1.00in}|p{2.00in}|p{2.00in}}
-\caption{Eksempel for geo-variabelen. Vi ser at vi har nivåene fra NUTS3 (BE213;
-Arr. Turnhout) via nivå NUTS2 (BE21; Prov. Antwerpen) via nivå NUTS1
-(BE2; Vlaams Gewest) til landsnivå (BE; Belgium).}\tabularnewline
-
+\begin{longtable*}[c]{|p{1.00in}|p{2.00in}|p{2.00in}}
 
 
 
@@ -440,7 +437,7 @@ Arr. Turnhout) via nivå NUTS2 (BE21; Prov. Antwerpen) via nivå NUTS1
 
 
 
-\end{longtable}
+\end{longtable*}
 
 
 
@@ -533,409 +530,140 @@ Arr. Turnhout) via nivå NUTS2 (BE21; Prov. Antwerpen) via nivå NUTS1
 \section{Population
 demo\_r\_pjanaggr3}\label{population-demo_r_pjanaggr3}
 
-\paragraph{Oppgave 1}\label{oppgave-1}
+\subsection{oppgave 1}\label{oppgave-1}
 
-Søk i toc\_txt for tabeller med population og NUTS 3. Pass på at dere
-dekker både population og Population og ulike skrivemåter for NUTS 3.
+Søker i toc\_txt for tabeller
 
-\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+\subsection{oppgave 2}\label{oppgave-2}
 
-\global\setlength{\Oldtabcolsep}{\tabcolsep}
-
-\setlength{\tabcolsep}{2pt}
-
-\renewcommand*{\arraystretch}{1.5}
-
-
-
-\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
-
-\begin{longtable*}[c]{|p{4.00in}|p{2.00in}}
-
-
-
-\ascline{1.5pt}{666666}{1-2}
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{title}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{code}}}} \\
-
-\ascline{1.5pt}{666666}{1-2}\endfirsthead 
-
-\ascline{1.5pt}{666666}{1-2}
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{title}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{code}}}} \\
-
-\ascline{1.5pt}{666666}{1-2}\endhead
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ density\ by\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{demo\_r\_d3dens}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ on\ 1\ January\ by\ age\ group,\ sex\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{demo\_r\_pjangrp3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ on\ 1\ January\ by\ broad\ age\ group,\ sex\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{demo\_r\_pjanaggr3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ structure\ indicators\ by\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{demo\_r\_pjanind3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ change\ -\ Demographic\ balance\ and\ crude\ rates\ at\ regional\ level\ (NUTS\ 3)Â }}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{demo\_r\_gind3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ single\ year\ of\ age\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_11ag\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ marital\ status\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_11ms\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ family\ status\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_11fs\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ sex,\ citizenship\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_01rsctz}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ sex,\ age\ group,\ current\ activity\ status\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_01rapop}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Total\ and\ active\ population\ by\ sex,\ age,\ employment\ status,\ residence\ one\ year\ prior\ to\ the\ census\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_01ramigr}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ sex,\ age\ group,\ educational\ attainment\ level,\ current\ activity\ status\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_01rews}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ sex,\ age\ group,\ household\ status\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_01rhtype}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ sex,\ age\ group,\ size\ of\ household\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_01rhsize}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Average\ annual\ population\ to\ calculate\ regional\ GDP\ data\ (thousand\ persons)\ by\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{nama\_10r\_3popgdp}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ country\ of\ citizenship,\ age\ groups\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21ctz\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ country\ of\ citizenship,\ age\ groups,\ family\ status\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21ctzf\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ country\ of\ citizenship,\ age\ groups,\ type\ of\ housing\ arrangements\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21ctzha\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ country\ of\ birth,\ age\ groups\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21cob\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ country\ of\ birth,\ age\ groups,\ household\ status\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21cobhs\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ country\ of\ birth,\ age\ groups,\ type\ of\ housing\ arrangements\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21cobha\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ marital\ status,\ broad\ age\ groups\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21m\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ family\ status,\ broad\ age\ groups\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21f\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ size\ of\ the\ locality,\ age\ groups\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21l\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ size\ of\ the\ locality,\ housing\ arrangements\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21lha\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ year\ of\ arrival\ in\ the\ country\ since\ 2010,\ age\ groups,\ groups\ of\ country\ of\ birth\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21argc\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ by\ year\ of\ arrival\ in\ the\ country,\ age\ groups,\ family\ status\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21arf\_r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ with\ Ukrainian\ citizenship\ by\ 5-year\ age\ group\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21ua\_a5r3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ with\ Ukrainian\ citizenship\ by\ age\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21ua\_ar3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ with\ Ukrainian\ citizenship\ by\ 5-year\ age\ group,\ marital\ status\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{cens\_21ua\_msr3}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 4in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Population\ on\ 1st\ January\ by\ age,\ sex,\ type\ of\ projection\ and\ NUTS\ 3\ region}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{proj\_19rp3}}}} \\
-
-\ascline{1.5pt}{666666}{1-2}
-
-
-
-\end{longtable*}
-
-
-
-\arrayrulecolor[HTML]{000000}
-
-\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
-
-\global\setlength{\tabcolsep}{\Oldtabcolsep}
-
-\renewcommand*{\arraystretch}{1}
-
-\paragraph{Oppgave 2}\label{oppgave-2}
-
-\begin{enumerate}
-\def\labelenumi{\roman{enumi}.}
-\tightlist
-\item
-  Finn koden for tabellen med forklarende tekst «Average annual
-  population to calculate regional GDP data (thousand persons) by NUTS 3
-  regions».
-\end{enumerate}
+\#\#\#(i)
 
 \begin{verbatim}
-                                                                                          title
-                                                                                         <char>
-1: Average annual population to calculate regional GDP data (thousand persons) by NUTS 3 region
+                                                                                                                   title
+                                                                                                                  <char>
+ 1:                                                                                  Population density by NUTS 3 region
+ 2:                                                          Population on 1 January by age group, sex and NUTS 3 region
+ 3:                                                    Population on 1 January by broad age group, sex and NUTS 3 region
+ 4:                                                                     Population structure indicators by NUTS 3 region
+ 5:                                 Population change - Demographic balance and crude rates at regional level (NUTS 3)Â 
+ 6:                                                                   Population by single year of age and NUTS 3 region
+ 7:                                                                       Population by marital status and NUTS 3 region
+ 8:                                                                        Population by family status and NUTS 3 region
+ 9:                                                                     Population by sex, citizenship and NUTS 3 region
+10:                                              Population by sex, age group, current activity status and NUTS 3 region
+11: Total and active population by sex, age, employment status, residence one year prior to the census and NUTS 3 region
+12:                Population by sex, age group, educational attainment level, current activity status and NUTS 3 region
+13:                                                     Population by sex, age group, household status and NUTS 3 region
+14:                                                    Population by sex, age group, size of household and NUTS 3 region
+15:                         Average annual population to calculate regional GDP data (thousand persons) by NUTS 3 region
+16:                                                   Population by country of citizenship, age groups and NUTS 3 region
+17:                                    Population by country of citizenship, age groups, family status and NUTS 3 region
+18:                     Population by country of citizenship, age groups, type of housing arrangements and NUTS 3 region
+19:                                                         Population by country of birth, age groups and NUTS 3 region
+20:                                       Population by country of birth, age groups, household status and NUTS 3 region
+21:                           Population by country of birth, age groups, type of housing arrangements and NUTS 3 region
+22:                                                     Population by marital status, broad age groups and NUTS 3 region
+23:                                                      Population by family status, broad age groups and NUTS 3 region
+24:                                                     Population by size of the locality, age groups and NUTS 3 region
+25:                                           Population by size of the locality, housing arrangements and NUTS 3 region
+26:    Population by year of arrival in the country since 2010, age groups, groups of country of birth and NUTS 3 region
+27:                            Population by year of arrival in the country, age groups, family status and NUTS 3 region
+28:                                          Population with Ukrainian citizenship by 5-year age group and NUTS 3 region
+29:                                                       Population with Ukrainian citizenship by age and NUTS 3 region
+30:                          Population with Ukrainian citizenship by 5-year age group, marital status and NUTS 3 region
+31:                                          Population on 1st January by age, sex, type of projection and NUTS 3 region
+                                                                                                                   title
+                code
+              <char>
+ 1:    demo_r_d3dens
+ 2:  demo_r_pjangrp3
+ 3: demo_r_pjanaggr3
+ 4:  demo_r_pjanind3
+ 5:     demo_r_gind3
+ 6:     cens_11ag_r3
+ 7:     cens_11ms_r3
+ 8:     cens_11fs_r3
+ 9:     cens_01rsctz
+10:     cens_01rapop
+11:    cens_01ramigr
+12:      cens_01rews
+13:    cens_01rhtype
+14:    cens_01rhsize
+15: nama_10r_3popgdp
+16:    cens_21ctz_r3
+17:   cens_21ctzf_r3
+18:  cens_21ctzha_r3
+19:    cens_21cob_r3
+20:  cens_21cobhs_r3
+21:  cens_21cobha_r3
+22:      cens_21m_r3
+23:      cens_21f_r3
+24:      cens_21l_r3
+25:    cens_21lha_r3
+26:   cens_21argc_r3
+27:    cens_21arf_r3
+28:   cens_21ua_a5r3
+29:    cens_21ua_ar3
+30:   cens_21ua_msr3
+31:       proj_19rp3
+                code
+\end{verbatim}
+
+\begin{verbatim}
                code
              <char>
 1: nama_10r_3popgdp
 \end{verbatim}
 
-\begin{enumerate}
-\def\labelenumi{\roman{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Last ned Data Structure Definition (DSD) for denne tabellen.
-\end{enumerate}
+Finner at koden er demo\_r\_pjanaggr3 for tabellen med forklarende tekst
+«Average annual population to calculate regional GDP data (thousand
+persons) by NUTS 3 regions»
 
-\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+\#\#\#(ii) Last ned Data Structure Definition (DSD) for denne tabellen.
 
-\global\setlength{\Oldtabcolsep}{\tabcolsep}
+\subsubsection{(iii) (iv) og (v)}\label{iii-iv-og-v}
 
-\setlength{\tabcolsep}{2pt}
-
-\renewcommand*{\arraystretch}{1.5}
-
-
-
-\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
-
-\begin{longtable*}[c]{|p{1.00in}|p{2.00in}|p{2.00in}}
-
-
-
-\ascline{1.5pt}{666666}{1-3}
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{concept}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{code}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{name}}}} \\
-
-\ascline{1.5pt}{666666}{1-3}\endfirsthead 
-
-\ascline{1.5pt}{666666}{1-3}
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{concept}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{code}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{name}}}} \\
-
-\ascline{1.5pt}{666666}{1-3}\endhead
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{freq}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{A}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Annual}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{unit}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{THS}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Thousand}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{geo}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{EU27\_2020}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{European\ Union\ -\ 27\ countries\ (from\ 2020)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{geo}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{BE}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Belgium}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{geo}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{BE1}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Région\ de\ Bruxelles-Capitale/Brussels\ Hoofdstedelijk\ Gewest}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{geo}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{BE10}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Région\ de\ Bruxelles-Capitale/Brussels\ Hoofdstedelijk\ Gewest}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{geo}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{BE100}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Arr.\ de\ Bruxelles-Capitale/Arr.\ Brussel-Hoofdstad}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{geo}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{BE2}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Vlaams\ Gewest}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{geo}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{BE21}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Prov.\ Antwerpen}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{geo}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{BE211}}}} & \multicolumn{1}{>{\raggedright}m{\dimexpr 2in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Arr.\ Antwerpen}}}} \\
-
-\ascline{1.5pt}{666666}{1-3}
-
-
-
-\end{longtable*}
-
-
-
-\arrayrulecolor[HTML]{000000}
-
-\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
-
-\global\setlength{\tabcolsep}{\Oldtabcolsep}
-
-\renewcommand*{\arraystretch}{1}
-
-\begin{enumerate}
-\def\labelenumi{\roman{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Bruk opplysningene i DSD for å formulere en spørring mot Eurostat og
-  last ned dataene. Gi dataene lastet ned navnet pop. Vi er bare
-  interessert i totalbefolkning og ignorerer derfor både kjønn og alder.
-  Vi ønsker data for årene 2000-2023.
-\end{enumerate}
+Tre av oppgavene i en, laster ned dataen og gi den navnet pop, plukker
+ut årene fra 2000 til 2023 og den totale befolkningen, begrenser
+datasettet til NUTS3 regioner og konverterer settet til en tibble.
 
 \begin{verbatim}
 [1] 30038     3
 \end{verbatim}
 
+\subsection{Oppgave 3}\label{oppgave-3}
+
+Slå sammen GDP-data (gdp) og befolkingsdata (pop)
+
+Kontrollerer:
+
 \begin{verbatim}
-# A tibble: 30,038 x 3
-   geo   time  pop_n3
-   <chr> <chr>  <dbl>
- 1 AL011 2001  186720
- 2 AL011 2002  182380
- 3 AL011 2003  178710
- 4 AL011 2004  174710
- 5 AL011 2005  170370
- 6 AL011 2006  165610
- 7 AL011 2007  160540
- 8 AL011 2008  155390
- 9 AL011 2009  150430
-10 AL011 2010  146140
-# i 30,028 more rows
+[1] 30061     4
 \end{verbatim}
 
-\paragraph{Oppgave 3}\label{oppgave-3}
+\begin{verbatim}
+# A tibble: 6 x 4
+  geo   time     gdp_n3 pop_n3
+  <chr> <chr>     <dbl>  <dbl>
+1 AL011 2008  551130000 155390
+2 AL011 2009  582160000 150430
+3 AL011 2010  664070000 146140
+4 AL011 2011  631170000 142580
+5 AL011 2012  717600000 139340
+6 AL011 2013  696860000 136020
+\end{verbatim}
 
-Gjør en left\_join() av de to tabellene. La gdp være venstre tabell
-(Viktig!). Gi resultatet navnet gdp\_pop.
+Gjør følgende tilpasning av gdp\_pop:
+
+Regner ut gdp per capita og gir den et nytt navn:
+
+Kontrollerer:
 
 \begin{verbatim}
 [1] 27584     5
 \end{verbatim}
+
+Sjekker om vi mangler data for enkelte år for noen soner:
 
 \begin{verbatim}
 [1] 0 5
@@ -944,18 +672,15 @@ Gjør en left\_join() av de to tabellene. La gdp være venstre tabell
 Var ikke noe mer NA-verdier igjen i gdp\_pc\_n3 Kvitter oss med andre
 objekter for å rydde litt ettersom vi bare skal bruke eu\_data videre:
 
-\paragraph{Oppgave 4}\label{oppgave-4}
+\subsection{Oppgave 4}\label{oppgave-4}
 
-Endre navnet på variabelen geo til n3 og lag variablene n2 (NUTS2), n1
-(NUTS1) og nc (for «Country») fra variabelen n3. Funksjonen str\_sub()
-fra stringr pakken kan her være hendig å bruke.
+Endrer ny navn på geo til n3 og legger til variablene n2, n1 og nc fra
+variabelen n3.
 
-\paragraph{Oppgave 5}\label{oppgave-5}
+\subsection{Oppgave 5}\label{oppgave-5}
 
 Undersøk om vi har noen NUTS 3 soner med pop\_n3 lik 0. Hvis det er noen
-så endre disse til NA.
-
-Undersøker:
+så endre disse til NA. Undersøker:
 
 \begin{verbatim}
 # A tibble: 0 x 8
@@ -966,9 +691,10 @@ Undersøker:
 Fant ingen rader med 0 og vi går videre, trenger ikke å endre noe til
 NA.
 
-\paragraph{Oppgave 6}\label{oppgave-6}
+\subsection{Oppgave 6}\label{oppgave-6}
 
-Sjekk hvor mange NUTS3 soner vi har i hvert land.
+Sjekker hvor mange NUTS3 soner vi har i hvert land, tar en
+strukturkontroll:
 
 \begin{verbatim}
 # A tibble: 29 x 2
@@ -987,20 +713,24 @@ Sjekk hvor mange NUTS3 soner vi har i hvert land.
 # i 19 more rows
 \end{verbatim}
 
-\paragraph{Oppgave 7}\label{oppgave-7}
+\subsection{Oppgave 7}\label{oppgave-7}
 
-Sjekk summary gdp\_pc\_n3. Hva er største og minste verdi? Har vi noen
-NA?
+Sjekker summary for gdp\_pc\_n3 for å se om hva som er har den største
+og minste verdien og om det er noen NA:
 
 \begin{verbatim}
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
    2214   14994   21144   22782   27952  180416 
 \end{verbatim}
 
-\paragraph{Oppgave 8}\label{oppgave-8}
+Minste verdien er 2 214, mens max er på 180 416. Får ingen NA.
+
+\subsection{Oppgave 8}\label{oppgave-8}
 
 Bruk case\_when() for å legge til variabelen nc\_name før vi går videre.
 Østerrike for AT, Belgia for BE etc..
+
+Kontrollerer:
 
 \begin{verbatim}
 # A tibble: 29 x 2
@@ -1037,15 +767,26 @@ Bruk case\_when() for å legge til variabelen nc\_name før vi går videre.
 29 Tyrkia         TR   
 \end{verbatim}
 
-\subsection{Beregning av Gini på NUTS2, NUTS1 og NUTSc
+\section{Beregning av Gini på NUTS2, NUTS1 og NUTSc
 nivå}\label{beregning-av-gini-puxe5-nuts2-nuts1-og-nutsc-nivuxe5}
 
-\paragraph{Oppgave 9}\label{oppgave-9}
+Vi skal nå beregne Gini for hvert år på NUTS2, NUTS1, NUTSc og EU nivå.
+Vi vil beregne Gini utfra gdp\_pc\_n3 og pop\_n3 i NUTS3 for alle
+aggregeringsnivåene. Gini-koeffisient er tradisjonelt et mål på
+inntektsforskjeller. Her benytter vi målet for å undersøke hvor jevnt
+verdiskapningen er fordelt mellom regioner. En Gini-koeffisient nær null
+vil altså her bety at verdiskapingen er jevnt fordelt mellom regionene i
+et land. En Gini-koeffisient nær 1 vil det derimot bety at det meste av
+verdiskapingen i et land er sentralisert til en spesifikk NUTS3 region.
 
-Bruk koden nedenfor til å beregne Gini-koeffisienter på NUTS2 nivå. Finn
-også antall NUTS3 regioner som finnes i hver NUTS2 region. Gi denne
-variabelen navnet num\_reg\_n2. Vi beregner også populasjon og gdp på
-NUTS2 nivå. Resultatet legger dere i en tibble kalt gini\_n2.
+\subsection{Gini- koeffisient for
+NUTS2}\label{gini--koeffisient-for-nuts2}
+
+\subsection{Oppgave 9}\label{oppgave-9}
+
+Beregner Gini-koeffisienter på NUTS2 nivå:
+
+Kontrollerer:
 
 \begin{verbatim}
     gini_n2          num_reg_n2         pop_n2             gdp_n2         
@@ -1066,32 +807,48 @@ NUTS2 nivå. Resultatet legger dere i en tibble kalt gini\_n2.
                 
 \end{verbatim}
 
-\paragraph{Oppgave 10}\label{oppgave-10}
+Får de samme tallene som kontrollen i oppgaven. Vi ser at vi har et
+spenn i Gini-koeffisienten på NUTS2 nivå fra 0.0004 til 0.4779. Vi har
+også 856 NAs. Vi ser også at antall NUTS3 i NUTS2 regioner spenner fra 1
+til 23.
 
-Sjekk obs. med Gini mindre enn 0.001. Er det noe som kjennetegner disse
-regionene?
+\subsection{Oppgave 10}\label{oppgave-10}
+
+Finner observasjoner med Gini \textless{} 0.001
 
 \begin{verbatim}
-# A tibble: 4 x 5
-  nc_name  n2    time   gini_n2 num_reg_n2
-  <chr>    <chr> <chr>    <dbl>      <int>
-1 Slovakia SK03  2004  0.000379          2
-2 Italia   ITF5  2006  0.000545          2
-3 Polen    PL43  2011  0.000854          2
-4 Danmark  DK02  2019  0.000977          2
+# A tibble: 4 x 10
+  n2    time  n1    nc    nc_name   gini_n2  pop_n2  gdp_n2 gdp_pc_n2 num_reg_n2
+  <chr> <chr> <chr> <chr> <chr>       <dbl>   <dbl>   <dbl>     <dbl>      <int>
+1 DK02  2019  DK0   DK    Danmark  0.000977  837050 2.32e10    27678.          2
+2 ITF5  2006  ITF   IT    Italia   0.000545  588300 1.11e10    18935.          2
+3 PL43  2011  PL4   PL    Polen    0.000854 1010350 1.43e10    14181.          2
+4 SK03  2004  SK0   SK    Slovakia 0.000379 1352530 1.35e10     9967.          2
 \end{verbatim}
 
-Alle disse regionene har kun to underliggende NUTS3 regioner. Og i disse
-årene er de underliggende NUTS3 regionene tilnærmet like, derfor får vi
-en såpass lav gini.
+Får opp 4 obervasjoner Se så på kjennetegnet ved disse regionene:
 
-\paragraph{Oppgave 11}\label{oppgave-11}
+\begin{verbatim}
+# A tibble: 4 x 7
+  nc_name  n2    time   gini_n2 num_reg_n2  pop_n2 gdp_pc_n2
+  <chr>    <chr> <chr>    <dbl>      <int>   <dbl>     <dbl>
+1 Danmark  DK02  2019  0.000977          2  837050    27678.
+2 Italia   ITF5  2006  0.000545          2  588300    18935.
+3 Polen    PL43  2011  0.000854          2 1010350    14181.
+4 Slovakia SK03  2004  0.000379          2 1352530     9967.
+\end{verbatim}
 
-Beregn Gini-koeffisienter på NUTS1 nivå (ut fra gdp\_pc\_n3og pop\_n3).
-Legg resultatet i gini\_n1. Et alternativ her ville vært å beregnet Gini
-fra gdp\_pc\_n2 og pop\_n2 i NUTS1 regionene. Vi får imidlertid større
-spredning og trolig også et bedre mål på likhet/ulikhet ved å beregne
-Gini utfra gdp\_pc\_n3og pop\_n3.
+Det som blir observert her er at de fleste har få NUTS3-regioner i sine
+NUTS2, noe som gjør at alle NUTS3 regionene er omtrent lik gdp\_pc\_n3
+eller om det bare er en region. Derfor får disse observasjonene en
+ekstremt lav Gini.
+
+\subsection{Oppgave 11}\label{oppgave-11}
+
+Beregn Gini-koeffsienter på NUTS1-nivå, der gdp\_pc\_n2 eller pop\_n2
+ikke skal brukes som grunnlag:
+
+Kontrollerer:
 
 \begin{verbatim}
     gini_n1          num_reg_n1        gdp_n1              pop_n1        
@@ -1112,10 +869,16 @@ Gini utfra gdp\_pc\_n3og pop\_n3.
                 
 \end{verbatim}
 
-\paragraph{Oppgave 12}\label{oppgave-12}
+Får de samme tallene som oppgaven. Vi ser at vi har et spenn i
+Gini-koeffisienten på NUTS1 nivå fra 0.016 til 0.429. Antall NAs er nå
+177. Vi ser at antall NUTS3 i NUTS1 regioner spenner helt fra 1 til 96.
 
-Beregn Gini-koeffisienter (ut fra variasjon i verdiskapning på NUTS3
-nivå) på nasjonsnivå. Legg resultatet i gini\_nc.
+\subsection{Oppgave 12}\label{oppgave-12}
+
+Beregn Gini-koeffisienter på nasjonsnivå Måler hvor jevnt
+verdiskapningen er fordelt mellom regioner innen samme land:
+
+Kontrollerer
 
 \begin{verbatim}
     gini_nc         num_reg_nc         gdp_nc              pop_nc        
@@ -1136,11 +899,18 @@ nivå) på nasjonsnivå. Legg resultatet i gini\_nc.
                 
 \end{verbatim}
 
-\subsection{«Nestete» datastrukturer}\label{nestete-datastrukturer}
+Får samme som oppgaven. På landsnivå varierer Gini fra 0,1111 til
+0,3991. Antall NUTS3 regioner per land varierer fra 1 til 400.
 
-\paragraph{Oppgave 13}\label{oppgave-13}
+\section{``Nestete'' datastrukturer}\label{nestete-datastrukturer}
 
-Bruk koden nedenfor til å «neste» dataene på NUTS3 nivå.
+Vi vil nå «neste» de ulike gini\_NUTS* datasettene og sette dem sammen
+til et nestet datasett eu\_data\_nestet som innholder alle dataene
+ovenfor i en fint ordnet struktur.
+
+\subsection{Oppgave 13}\label{oppgave-13}
+
+``neste'' dataene på NUTS3 nivå
 
 \begin{verbatim}
 # A tibble: 29 x 3
@@ -1159,115 +929,58 @@ Bruk koden nedenfor til å «neste» dataene på NUTS3 nivå.
 # i 19 more rows
 \end{verbatim}
 
-\paragraph{Oppgave 14}\label{oppgave-14}
+\subsection{Oppgave 14}\label{oppgave-14}
 
-Nest dataene på NUTS2 nivå. Legg resultatet gini\_NUTS2\_nest. Bruk .key
-= ``NUTS2\_data''.
+«Nest» dataene på NUTS2 nivå. Legg resultatet gini\_NUTS2\_nest. Bruk
+.key = ``NUTS2\_data''.
 
-\begin{verbatim}
-# A tibble: 29 x 3
-   nc    nc_name   NUTS2_data        
-   <chr> <chr>     <list>            
- 1 AL    Albania   <tibble [42 x 8]> 
- 2 AT    Østerrike <tibble [207 x 8]>
- 3 BE    Belgia    <tibble [220 x 8]>
- 4 BG    Bulgaria  <tibble [138 x 8]>
- 5 CY    Kypros    <tibble [23 x 8]> 
- 6 CZ    Tjekkia   <tibble [184 x 8]>
- 7 DE    Tyskland  <tibble [874 x 8]>
- 8 DK    Danmark   <tibble [115 x 8]>
- 9 EE    Estland   <tibble [23 x 8]> 
-10 EL    Hellas    <tibble [299 x 8]>
-# i 19 more rows
-\end{verbatim}
-
-\paragraph{Oppgave 15}\label{oppgave-15}
+\subsection{Oppgave 15}\label{oppgave-15}
 
 «Nest» dataene på NUTS1 nivå. Legg resultatet gini\_NUTS1\_nest.
 
-\begin{verbatim}
-# A tibble: 29 x 3
-   nc    nc_name   NUTS1_data        
-   <chr> <chr>     <list>            
- 1 AL    Albania   <tibble [14 x 7]> 
- 2 AT    Østerrike <tibble [69 x 7]> 
- 3 BE    Belgia    <tibble [60 x 7]> 
- 4 BG    Bulgaria  <tibble [46 x 7]> 
- 5 CY    Kypros    <tibble [23 x 7]> 
- 6 CZ    Tjekkia   <tibble [23 x 7]> 
- 7 DE    Tyskland  <tibble [368 x 7]>
- 8 DK    Danmark   <tibble [23 x 7]> 
- 9 EE    Estland   <tibble [23 x 7]> 
-10 EL    Hellas    <tibble [92 x 7]> 
-# i 19 more rows
-\end{verbatim}
-
-\paragraph{Oppgave 16}\label{oppgave-16}
+\subsection{Oppgave 16}\label{oppgave-16}
 
 «Nest» dataene på nasjonsnivå. Legg resultatet i gini\_NUTSc\_nest.
 
-\begin{verbatim}
-# A tibble: 29 x 3
-   nc    nc_name   NUTSc_data       
-   <chr> <chr>     <list>           
- 1 AL    Albania   <tibble [14 x 6]>
- 2 AT    Østerrike <tibble [23 x 6]>
- 3 BE    Belgia    <tibble [20 x 6]>
- 4 BG    Bulgaria  <tibble [23 x 6]>
- 5 CY    Kypros    <tibble [23 x 6]>
- 6 CZ    Tjekkia   <tibble [23 x 6]>
- 7 DE    Tyskland  <tibble [23 x 6]>
- 8 DK    Danmark   <tibble [23 x 6]>
- 9 EE    Estland   <tibble [23 x 6]>
-10 EL    Hellas    <tibble [23 x 6]>
-# i 19 more rows
-\end{verbatim}
-
-\paragraph{Oppgave 17}\label{oppgave-17}
+\subsection{Oppgave 17}\label{oppgave-17}
 
 «Nest» dataene på EU nivå, dvs. Gini for samtlige NUTS3 regioner hvert
-år. Legg resultatet i gini\_NUTSeu\_nest. \_nest er her litt misvisende
-siden vi ikke gjør noen nesting
+år. Legger resultatet i gini\_NUTSeu\_nest. \_nest er her litt
+misvisende siden vi ikke gjør noen nesting.
 
-\paragraph{Oppgave 18}\label{oppgave-18}
+\subsection{Oppgave 18}\label{oppgave-18}
 
 Vis utviklingen i Gini-koeffisienten for NUTS3 regioner i EU vha. et
 linjeplot.
 
-\pandocbounded{\includegraphics[keepaspectratio]{MSB105Ass4_files/figure-pdf/unnamed-chunk-43-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{MSB105Ass4_files/figure-pdf/unnamed-chunk-48-1.pdf}}
 
-\paragraph{Oppgave 19}\label{oppgave-19}
+\subsection{Oppgave 19}\label{oppgave-19}
+
+«The EU's Structural Funds and Cohesion Fund direct funding to NUTS
+level 2 regions based on their GDP (PPS) per capita in comparison to the
+EU average: less developed regions (less than 75\%), transition regions
+(between 75\% and 90\% and more developed regions (over 90\%). For the
+period 2014--20, EUR 351 billion will be invested in the EU's regions
+with most being directed to the less developed regions.»
 
 Basert på plottet fra foregående oppgave diskuter (veldig!) kort om
-tiltaket ser ut til å virke.
+tiltaket ser ut til å virke: Plottet gir støtte til at regional ulikhet
+har avtatt over tid i EU, noe som er forenlig med at kohesjonspolitikken
+kan ha hatt effekt, men analysen kan ikke fastslå årsakssammenheng.
 
-Plottet viser en tydelig fallende trend i Gini-koeffisienten for
-NUTS3-regioner i EU over perioden, særlig fra midten av 2000-tallet og
-fremover. Dette indikerer at ulikheten i verdiskaping mellom regioner
-har blitt redusert over tid. Utviklingen er konsistent med målsettingen
-bak EUs strukturfond og samholdsfond, som retter investeringer mot
-mindre utviklede regioner. Selv om andre faktorer også kan ha påvirket
-utviklingen, gir plottet støtte til at tiltakene samlet sett kan ha hatt
-en utjevnende effekt på regional ulikhet i EU.
-
-\paragraph{Oppgave 20}\label{oppgave-20}
+\subsection{Oppgave 20}\label{oppgave-20}
 
 Ta gini\_n3\_nestsom utgangspunkt og bruk left\_join() til å legge til
-datasettene gini\_NUTS2\_nest, gini\_NUTS1\_nest og gini\_NUTSc\_nest
+datasettene gini\_NUTS2\_nest, gini\_NUTS1\_nest og gini\_NUTSc\_nest.
 
-\subsection{Plots som viser
-utviklingen}\label{plots-som-viser-utviklingen}
+slette alle objekter utenom eu\_data og eu\_data\_nested.
 
-\paragraph{Oppgave 21}\label{oppgave-21}
+\#Plots som viser utvikling \#\# Oppgave 21 Lag et linjeplot i ggplot
+som viser utviklingen i Gini-koeffisient på nasjonsnivå for de 29
+landene vi har med.
 
-Lag et linjeplot i ggplot som viser utviklingen i Gini-koeffisient på
-nasjonsnivå for de 29 landene vi har med. Husk argumentet group =.
-Resulatet skal bli som vist i Figur 5.
-
-\begin{verbatim}
-Warning: Removed 46 rows containing missing values or values outside the scale range
-(`geom_line()`).
-\end{verbatim}
+Får plotten:
 
 \begin{figure}[H]
 
@@ -1278,10 +991,908 @@ Warning: Removed 46 rows containing missing values or values outside the scale r
 }
 
 \caption{\label{fig-ginialle}Utviklingen over tid for Gini-koeffisienten
-for de 29 landene. Husk at Gini-koeffisienten her måler endring i
-hvordan verdiskapningen i landet er fordelt mellom NUTS3 regioner.}
+for de 29 landene}
 
 \end{figure}%
+
+\subsection{Oppgave 22}\label{oppgave-22}
+
+Lager en sortert tabell for Gini i år 2022 som gjør det litt lettere å
+se hvilken linje som hører til hvilket land.
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable*}[c]{|p{1.41in}|p{1.30in}}
+
+
+
+\ascline{1.5pt}{666666}{1-2}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Land}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Gini-koeffisient}}}} \\
+
+\ascline{1.5pt}{666666}{1-2}\endfirsthead 
+
+\ascline{1.5pt}{666666}{1-2}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Land}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Gini-koeffisient}}}} \\
+
+\ascline{1.5pt}{666666}{1-2}\endhead
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Irland}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.3990713}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Bulgaria}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.3172612}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Romania}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2998082}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Latvia}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2981280}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Ungarn}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2692496}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Serbia}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2637424}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Tyrkia}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2540632}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Polen}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2302756}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Malta}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2294089}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Litauen}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2259366}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Slovakia}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2222795}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Danmark}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2222566}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Estland}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2180376}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Nord-Makedonia}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2095793}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Kroatia}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2085360}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Hellas}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2077325}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Frankrike}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2062529}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Tjekkia}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2050454}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Tyskland}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2024255}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Belgia}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.1945446}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Italia}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.1907755}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Slovenia}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.1690681}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Spania}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.1340889}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Sverige}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.1263810}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Østerrike}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.1244962}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Finland}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.1111034}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Kypros}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 1.41in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{Luxemburg}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.3in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{}}}} \\
+
+\ascline{1.5pt}{666666}{1-2}
+
+
+
+\end{longtable*}
+
+
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
+
+\subsection{Oppgave 23}\label{oppgave-23}
+
+\begin{figure}[H]
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{MSB105Ass4_files/figure-pdf/fig-Lavgini-1.pdf}}
+
+}
+
+\caption{\label{fig-Lavgini}Land med lavere regional ulikhet i 2022 enn
+første år vi har data for.}
+
+\end{figure}%
+
+\begin{figure}[H]
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{MSB105Ass4_files/figure-pdf/fig-Hoygini-1.pdf}}
+
+}
+
+\caption{\label{fig-Hoygini}Land med høyere regional ulikhet i 2022 enn
+første år vi har data for.}
+
+\end{figure}%
+
+\subsection{Oppgave 24}\label{oppgave-24}
+
+Vis vha. et linjeplot utviklingen i gini-koeffisient for NUTS2 regionene
+i Irland.
+
+\pandocbounded{\includegraphics[keepaspectratio]{MSB105Ass4_files/figure-pdf/unnamed-chunk-57-1.pdf}}
+
+\section{Hvordan er verdiskapningen fordelt mellom regionene i ulike
+land?}\label{hvordan-er-verdiskapningen-fordelt-mellom-regionene-i-ulike-land}
+
+Spania hadde i år 2022 en Gini-koeffisient lik 0,134 som skulle tilsi en
+nokså jevn fordeling av økonomisk aktivitet mellom regionene.
+
+\subsection{Oppgave 25}\label{oppgave-25}
+
+Lag et line-plot som viser utviklingen i Gini-koeffisientene for NUTS2
+regionene i Spania.
+
+Kontrollerer regionene:
+
+\begin{verbatim}
+# A tibble: 11 x 1
+   n2   
+   <chr>
+ 1 ES11 
+ 2 ES21 
+ 3 ES24 
+ 4 ES41 
+ 5 ES42 
+ 6 ES43 
+ 7 ES51 
+ 8 ES52 
+ 9 ES53 
+10 ES61 
+11 ES70 
+\end{verbatim}
+
+Lager så linjeplottet:
+
+\pandocbounded{\includegraphics[keepaspectratio]{MSB105Ass4_files/figure-pdf/unnamed-chunk-60-1.pdf}}
+
+\paragraph{Oppgave 26}\label{oppgave-26}
+
+Lag et line-plot som viser utviklingen i Gini-koeffisientene for NUTS1
+regionene i Spania.
+
+\pandocbounded{\includegraphics[keepaspectratio]{MSB105Ass4_files/figure-pdf/unnamed-chunk-61-1.pdf}}
+
+\subsubsection{Tyskland}\label{tyskland}
+
+\paragraph{Oppgave 27}\label{oppgave-27}
+
+Lag et line-plot som viser utviklingen i Gini-koeffisient for NUTS2
+regionene i Tyskland. Dropp gjerne farger. Det er så mange regioner at
+de er vanskelig å skille.
+
+\pandocbounded{\includegraphics[keepaspectratio]{MSB105Ass4_files/figure-pdf/unnamed-chunk-62-1.pdf}}
+
+Vi ser at Gini-koeffisientene spenner fra ca. 0.03 til over 0.45. Det
+ser altså ut til å være store forskjeller mellom NUTS2 regionene i
+Tyskland. Noen NUTS2 soner ser ut til å være relativt ensartet mhp.
+verdiskapning, mens andre er preget av store forskjeller mellom NUTS3
+regionene. Hvor i landet er de plassert de regionene som har de største
+regionale forskjellene? Figuren viser at Gini-koeffisientene for
+NUTS2-regionene i Tyskland varierer fra om lag 0,03 til over 0,45. Dette
+peker på betydelige forskjeller i graden av intern regional ulikhet.
+Regioner med lave Gini-verdier fremstår som relativt homogene når det
+gjelder verdiskaping mellom NUTS3-områder, mens regioner med høye
+Gini-verdier er kjennetegnet av store interne variasjoner. De mest
+markante regionale ulikhetene finnes i hovedsak i og rundt de største
+økonomiske sentrene og storbyregionene, særlig i de vestlige og sørlige
+delene av landet, hvor sterke kjerneområder sameksisterer med mindre
+utviklede omkringliggende regioner.
+
+\paragraph{Oppgave 28}\label{oppgave-28}
+
+Er det samme er tilfelle når vi ser på de større regionene i Tyskland
+(NUTS1)?
+
+\pandocbounded{\includegraphics[keepaspectratio]{MSB105Ass4_files/figure-pdf/unnamed-chunk-63-1.pdf}}
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable*}[c]{|p{0.75in}|p{0.75in}|p{0.75in}}
+
+
+
+\ascline{1.5pt}{666666}{1-3}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{n1}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{gini\_n1}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{num\_reg\_n1}}}} \\
+
+\ascline{1.5pt}{666666}{1-3}\endfirsthead 
+
+\ascline{1.5pt}{666666}{1-3}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{n1}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{gini\_n1}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{num\_reg\_n1}}}} \\
+
+\ascline{1.5pt}{666666}{1-3}\endhead
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DEB}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.2529}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{36}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DE2}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.2477}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{96}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DE7}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.2394}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{26}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DE9}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.1978}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{45}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DE5}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.1790}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{2}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DE1}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.1726}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{44}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DEA}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.1616}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{53}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DEC}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.1445}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{6}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DEF}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.1421}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{15}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DE4}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.1291}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{18}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DEG}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.1196}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{22}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DED}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.1111}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{13}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DEE}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.0953}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{14}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DE8}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{0.0947}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{8}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DE3}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{1}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{DE6}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.75in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{3}\selectfont{\global\setmainfont{Arial}{1}}}} \\
+
+\ascline{1.5pt}{666666}{1-3}
+
+
+
+\end{longtable*}
+
+
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
+
+\section{Frankrike}\label{frankrike}
+
+\subsection{Oppgave 29}\label{oppgave-29}
+
+\pandocbounded{\includegraphics[keepaspectratio]{MSB105Ass4_files/figure-pdf/unnamed-chunk-65-1.pdf}}
+
+\paragraph{Oppgave 30}\label{oppgave-30}
+
+Lag en tabell som viser de 6 NUTS1 sonene i Frankrike som hadde høyest
+Gini-koeffisient i 2022. Hvilken sone har suverent høyest
+Gini-koeffisient og hvor ligger denne i landet?
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable*}[c]{|p{0.62in}|p{0.78in}}
+
+
+
+\ascline{1.5pt}{666666}{1-2}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.62in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{n1}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.78in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{gini\_n1}}}} \\
+
+\ascline{1.5pt}{666666}{1-2}\endfirsthead 
+
+\ascline{1.5pt}{666666}{1-2}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.62in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{n1}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.78in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{gini\_n1}}}} \\
+
+\ascline{1.5pt}{666666}{1-2}\endhead
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.62in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FR1}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.78in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.3354}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.62in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FRL}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.78in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.2018}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.62in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FRK}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.78in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.1549}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.62in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FRJ}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.78in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.1341}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.62in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FRM}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.78in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.1091}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.62in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FRF}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 0.78in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{0.1025}}}} \\
+
+\ascline{1.5pt}{666666}{1-2}
+
+
+
+\end{longtable*}
+
+
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
+
+Tabellen viser at Île-de-France (FR1) har suverent høyest
+Gini-koeffisient blant franske NUTS1-regioner i 2022. Denne regionen
+ligger i nordlige deler av Frankrike og omfatter Paris og
+hovedstadsområdet.
+
+\paragraph{Oppgave 31}\label{oppgave-31}
+
+Vi ser at for Frankrike er det en region som har klart større
+forskjeller mht. vekst (verdiskapning) enn de andre. Sjekk NUTS3
+regionenen i denne regionen nærmere vha. linjeplot og lag en tabell som
+viser gdp\_pc\_n3 for de seks sonene.
+
+\begin{verbatim}
+# A tibble: 1 x 13
+  nc    nc_name   NUTS3_data n2    time  n1    gini_n2  pop_n2  gdp_n2 gdp_pc_n2
+  <chr> <chr>     <list>     <chr> <chr> <chr>   <dbl>   <dbl>   <dbl>     <dbl>
+1 FR    Frankrike <tibble>   FR10  2022  FR1     0.335  1.24e7 7.08e11    57222.
+# i 3 more variables: num_reg_n2 <int>, NUTS1_data <list>, NUTSc_data <list>
+\end{verbatim}
+
+Ser at det er 8 soner i denne regionen isteden for 6 som det står i
+løsningsforslaget
+
+\pandocbounded{\includegraphics[keepaspectratio]{MSB105Ass4_files/figure-pdf/unnamed-chunk-68-1.pdf}}
+
+\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
+
+\global\setlength{\Oldtabcolsep}{\tabcolsep}
+
+\setlength{\tabcolsep}{2pt}
+
+\renewcommand*{\arraystretch}{1.5}
+
+
+
+\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
+
+\begin{longtable*}[c]{|p{0.74in}|p{1.04in}}
+
+
+
+\ascline{1.5pt}{666666}{1-2}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.74in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{n3}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.04in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{gdp\_pc\_n3}}}} \\
+
+\ascline{1.5pt}{666666}{1-2}\endfirsthead 
+
+\ascline{1.5pt}{666666}{1-2}
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.74in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{n3}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.04in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{gdp\_pc\_n3}}}} \\
+
+\ascline{1.5pt}{666666}{1-2}\endhead
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.74in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FR101}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.04in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{113,523}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.74in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FR105}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.04in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{101,546}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.74in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FR107}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.04in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{38,625}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.74in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FR106}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.04in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{37,017}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.74in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FR103}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.04in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{36,897}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.74in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FR104}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.04in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{36,840}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.74in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FR102}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.04in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{29,967}}}} \\
+
+
+
+
+
+\multicolumn{1}{>{\raggedright}m{\dimexpr 0.74in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{FR108}}}} & \multicolumn{1}{>{\raggedleft}m{\dimexpr 1.04in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Arial}{28,995}}}} \\
+
+\ascline{1.5pt}{666666}{1-2}
+
+
+
+\end{longtable*}
+
+
+
+\arrayrulecolor[HTML]{000000}
+
+\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
+
+\global\setlength{\tabcolsep}{\Oldtabcolsep}
+
+\renewcommand*{\arraystretch}{1}
+
+\paragraph{Oppgave 32}\label{oppgave-32}
+
+Kan vi utfra foregående plot og tabell si noe om årsaken til at FR1 har
+så høy Ginikoeffisient?
+
+Ja. Plottet og tabellen viser at FR1 (Île-de-France) har svært store
+forskjeller i BNP per innbygger mellom NUTS3-regionene. Verdiskapingen
+er sterkt konsentrert i Paris og de sentrale delene av regionen, mens
+omkringliggende områder ligger betydelig lavere. Dette gir høy intern
+ulikhet og dermed en høy Gini-koeffisient.
+
+\subsection{Enkle modeller}\label{enkle-modeller}
+
+\paragraph{Oppgave 33}\label{oppgave-33}
+
+Lag datasett for endringer i gdp\_per\_capita og gini\_nuts2.
+
+\begin{verbatim}
+[1] 218
+\end{verbatim}
+
+av disse har vi kunnet beregne Gini-koeffisient for. Vi har altså 38
+NUTS2 soner som bare inneholder én NUTS3 sone.
+
+\subsection{Oppgave 34}\label{oppgave-34}
+
+Bruk modellen diff\_gini\_nuts2 \textasciitilde{} diff\_gdp\_per\_capita
+på hver av de 256 (218) NUTS2 regionene vha. en anonym funksjon som
+«mappes» (vha. map()) på «list-column» NUTS2\_diff. Legg resultatet i en
+variabel modell.
+
+\subsection{Oppgave 35}\label{oppgave-35}
+
+Hent ut koeffisientene fra de 256 (218) modellene og legg resultatet i
+variabelen mod\_coeff. Gjør dette ved å «mappe» funksjonen coeff() på
+list\_column modell.
+
+\subsection{Oppgave 36}\label{oppgave-36}
+
+Bruker glance() funksjonen fra broom pakken og «map» denne på modell
+variabelen for å generere «model summary». Legg resultatet i en variabel
+mod\_sum.
+
+\subsection{Oppgave 37}\label{oppgave-37}
+
+Hvilken NUTS1 sone har høyest 𝑅2 for vår modell og hvilken sone har
+lavest?
+
+\begin{verbatim}
+# A tibble: 3 x 7
+# Groups:   nc_name, n2 [3]
+  nc_name  n2    NUTS2_diff        modell `(Intercept)` diff_gdp_per_capita
+  <chr>    <chr> <list>            <list>         <dbl>               <dbl>
+1 Polen    PL82  <tibble [92 x 6]> <lm>        -0.0364           0.00000669
+2 Tyskland DED5  <tibble [69 x 6]> <lm>         0.00344         -0.00000454
+3 Belgia   BE22  <tibble [60 x 6]> <lm>         0.129           -0.00000312
+# i 1 more variable: mod_sum <tibble[,12]>
+\end{verbatim}
+
+\begin{verbatim}
+# A tibble: 3 x 7
+# Groups:   nc_name, n2 [3]
+  nc_name  n2    NUTS2_diff         modell `(Intercept)` diff_gdp_per_capita
+  <chr>    <chr> <list>             <list>         <dbl>               <dbl>
+1 Italia   ITH3  <tibble [160 x 6]> <lm>         0.00374       -0.0000000159
+2 Tyskland DE26  <tibble [276 x 6]> <lm>        -0.00903        0.0000000121
+3 Tyskland DE22  <tibble [276 x 6]> <lm>        -0.0500         0.0000000523
+# i 1 more variable: mod_sum <tibble[,12]>
+\end{verbatim}
+
+\subsection{Oppgave 38}\label{oppgave-38}
+
+Hvilken NUTS1 sone har høyest koeffisient for diff\_gdp\_per\_capita?
+
+\begin{verbatim}
+# A tibble: 3 x 7
+# Groups:   nc_name, n2 [3]
+  nc_name  n2    NUTS2_diff         modell `(Intercept)` diff_gdp_per_capita
+  <chr>    <chr> <list>             <list>         <dbl>               <dbl>
+1 Bulgaria BG34  <tibble [92 x 6]>  <lm>         -0.0759           0.0000122
+2 Bulgaria BG42  <tibble [115 x 6]> <lm>         -0.210            0.0000111
+3 Tyrkia   TRA2  <tibble [76 x 6]>  <lm>         -0.0439           0.0000101
+# i 1 more variable: mod_sum <tibble[,12]>
+\end{verbatim}
+
+NUTS2-regionen med høyest koeffisient: BG34 i Bulgaria.
+
+\paragraph{Oppgave 39}\label{oppgave-39}
+
+Hvor mange av de 256 (218) koeffisientene er signifikante på 5\% nivå?
+
+\begin{verbatim}
+[1] 162  18
+\end{verbatim}
+
+Ut fra tibbelen får vi et antall på 162 av de totale 218 som er
+statistisk signifikante på 5 \% nivå. Dette betyr at disse regionene har
+en sammenheng mellom endringer i BNP per innbygger og endringer i
+regional ulikheter som kan måles med data.
+
+\paragraph{Oppgave 40}\label{oppgave-40}
+
+Bruk ggplot til å lage et «density plot» av variabelen
+diff\_gdp\_per\_capita. Legg inn en vertikal linje for gjennomsnitt
+diff\_gdp\_per\_capita. (Hint! Husk argumentet na.rm = TRUE.).
+Resultatet skal bli som i plottet under.
+
+\pandocbounded{\includegraphics[keepaspectratio]{MSB105Ass4_files/figure-pdf/unnamed-chunk-80-1.pdf}}
+
+\paragraph{Oppgave 41}\label{oppgave-41}
+
+Hvor mange av de 256 (218) regrersjonskoeffisientene for
+diff\_gdp\_per\_capita er positive?
+
+\begin{verbatim}
+[1] 132   7
+\end{verbatim}
+
+Svaret viser et flertall av NUTS2-regionene på 132 som er om lag 61 \%,
+som er sammenhengen mellom endringer i BNP per innbygger og endringer i
+regional ulikhet positiv.
+
+\paragraph{Oppgave 42}\label{oppgave-42}
+
+\begin{verbatim}
+# A tibble: 1 x 2
+    mean_coef median_coef
+        <dbl>       <dbl>
+1 0.000000816 0.000000528
+\end{verbatim}
+
+\paragraph{Oppgave 43}\label{oppgave-43}
+
+Utfør en enkel t-test for å teste om diff\_gdp\_per\_capita er
+signifikant større enn 0. Er diff\_gdp\_per\_capita signifikant større
+enn 0?
+
+\begin{verbatim}
+
+    One Sample t-test
+
+data:  coef_tidy$estimate
+t = 3.7658, df = 217, p-value = 0.0001069
+alternative hypothesis: true mean is greater than 0
+95 percent confidence interval:
+ 4.583272e-07          Inf
+sample estimates:
+  mean of x 
+8.16482e-07 
+\end{verbatim}
+
+\subsection{Panel modell}\label{panel-modell}
+
+\paragraph{Oppgave 44}\label{oppgave-44}
+
+Bruk funksjonen plm() fra pakken plm til å utføre en panel-regresjon på
+dataene. For argumentet index kan dere bruke index = c(``n3'',
+``time''). Bruk samme enkle modell som ovenfor dvs. diff\_gini\_nuts2
+\textasciitilde{} diff\_gdp\_per\_capita. Putt resultatet av regresjonen
+i et objekt p\_mod.
+
+\paragraph{Oppgave 45}\label{oppgave-45}
+
+Vis summary() for p\_mod og tolk resultatet.
+
+\begin{verbatim}
+Oneway (individual) effect Within Model
+
+Call:
+plm(formula = "diff_gini_nuts2 ~ diff_gdp_per_capita", data = unnest(select(NUTS2_diff, 
+    n2, NUTS2_diff), NUTS2_diff), index = c("n3", "time"))
+
+Unbalanced Panel: n = 1186, T = 13-23, N = 26700
+
+Residuals:
+      Min.    1st Qu.     Median    3rd Qu.       Max. 
+-37.335219  -0.559292  -0.035798   0.505712  27.300139 
+
+Coefficients:
+                      Estimate Std. Error t-value  Pr(>|t|)    
+diff_gdp_per_capita 3.9320e-07 2.4694e-08  15.923 < 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Total Sum of Squares:    78060
+Residual Sum of Squares: 77291
+R-Squared:      0.0098397
+Adj. R-Squared: -0.036189
+F-statistic: 253.536 on 1 and 25513 DF, p-value: < 2.22e-16
+\end{verbatim}
+
+Fixed effects-modellen viser en positiv og statistisk signifikant
+sammenheng mellom vekst i BNP per innbygger og endring i
+Gini-koeffisienten. Dette indikerer at økonomisk vekst innen regioner i
+snitt er assosiert med økt regional ulikhet. Samtidig er modellens
+forklaringskraft lav, noe som tilsier at andre faktorer også spiller en
+viktig rolle.
+
+\paragraph{Oppgave 46}\label{oppgave-46}
+
+En alternativ måte å finne summary() for p\_mod er gjengitt i chunk-en
+nedenfor. \textbf{Forklar hva som blir gjort her og sammenlign med
+resultatet av en ordinær summary().}
+
+\begin{verbatim}
+Oneway (individual) effect Within Model
+
+Note: Coefficient variance-covariance matrix supplied: function(x) plm::vcovHC(x, method = "white2")
+
+Call:
+plm(formula = "diff_gini_nuts2 ~ diff_gdp_per_capita", data = unnest(select(NUTS2_diff, 
+    n2, NUTS2_diff), NUTS2_diff), index = c("n3", "time"))
+
+Unbalanced Panel: n = 1186, T = 13-23, N = 26700
+
+Residuals:
+      Min.    1st Qu.     Median    3rd Qu.       Max. 
+-37.335219  -0.559292  -0.035798   0.505712  27.300139 
+
+Coefficients:
+                      Estimate Std. Error t-value  Pr(>|t|)    
+diff_gdp_per_capita 3.9320e-07 2.7778e-08  14.155 < 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Total Sum of Squares:    78060
+Residual Sum of Squares: 77291
+R-Squared:      0.0098397
+Adj. R-Squared: -0.036189
+F-statistic: 200.369 on 1 and 1185 DF, p-value: < 2.22e-16
+\end{verbatim}
 
 
 
