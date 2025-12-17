@@ -1106,7 +1106,7 @@ NUTS2_diff |>
   head(n = 3)
 ```
 
-NUTS2-regionen med høyest koeffisient: AL02 i Albania.
+NUTS2-regionen med høyest koeffisient: BG34 i Bulgaria.
 
 #### Oppgave 39
 
@@ -1146,16 +1146,16 @@ NUTS2_diff |>
   filter(diff_gdp_per_capita > 0) |>
   dim()
 ```
-
-Svaret visar et flertall av NUTS2-regionene på om lag 61 %, som er sammenhengen mellom endringer i BNP per innbygger og endringer i regional ulikhet positiv.
+Svaret viser et flertall av NUTS2-regionene på 132 som er om lag 61 %, som er sammenhengen mellom endringer i BNP per innbygger og endringer i regional ulikhet positiv.
 
 #### Oppgave 42
 
 ```{r}
-coef_tidy |>
+NUTS2_diff |>
+  ungroup() |>
   summarise(
-    mean_coef   = mean(estimate),
-    median_coef = median(estimate)
+    mean_coef   = mean(diff_gdp_per_capita, na.rm = TRUE),
+    median_coef = median(diff_gdp_per_capita, na.rm = TRUE)
   )
 ```
 
@@ -1165,7 +1165,18 @@ Utfør en enkel t-test for å teste om diff_gdp_per_capita er signifikant størr
 Er diff_gdp_per_capita signifikant større enn 0?
 
 ```{r}
-t.test(NUTS2_diff$mod_coeff$diff_gdp_per_capita,
+coef_tidy <- NUTS2_diff |>
+  select(nc_name, n2, modell) |>
+  mutate(
+    tidy_coef = map(modell, tidy)
+  ) |>
+  unnest(tidy_coef) |>
+  filter(term == "diff_gdp_per_capita") |>
+  filter(is.finite(p.value))
+
+t.test(
+  coef_tidy$estimate,
+  mu = 0,
   alternative = "greater"
 )
 ```
@@ -1184,8 +1195,6 @@ Putt resultatet av regresjonen i et objekt p_mod.
 p_mod <- plm(formula = "diff_gini_nuts2 ~ diff_gdp_per_capita", data = unnest(select(NUTS2_diff, 
     n2, NUTS2_diff), NUTS2_diff), index = c("n3", "time"))
 ```
-
-
 #### Oppgave 45
 
 Vis summary() for p_mod og tolk resultatet.
@@ -1193,6 +1202,7 @@ Vis summary() for p_mod og tolk resultatet.
 ```{r}
 summary(p_mod)
 ```
+Fixed effects-modellen viser en positiv og statistisk signifikant sammenheng mellom vekst i BNP per innbygger og endring i Gini-koeffisienten. Dette indikerer at økonomisk vekst innen regioner i snitt er assosiert med økt regional ulikhet. Samtidig er modellens forklaringskraft lav, noe som tilsier at andre faktorer også spiller en viktig rolle.
 
 #### Oppgave 46
 
